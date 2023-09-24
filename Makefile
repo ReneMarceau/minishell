@@ -6,7 +6,7 @@
 #    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/09/23 16:36:54 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/09/24 15:58:54 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,6 @@ fclean: clean
 		echo "$(YELLOW)Removing binary $(RED)$(NAME)$(RESET)"; \
 		rm -rf $(NAME); \
 	fi
-	@rm -rf $(LIBRLINE_DIR)
 	@make -C $(LIBFT_DIR) fclean
 
 re: fclean all
