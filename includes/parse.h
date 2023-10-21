@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/20 18:38:55 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/20 20:06:21 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@
 # define ATOL_ERR "Argument does not fit in an integer."
 //structs --------------------
 
-
-
 enum e_cmd
 {
 	CMD,
 	PIPE,
 	REDIR,
 	TXT,
+	QUOTE,
+	D_QUOTE,
+	
 };
 
 #endif
