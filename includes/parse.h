@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/20 20:06:21 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/22 18:36:05 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
-# define ERROR2 -2
 # define SUCCESS 1
 # define FAILURE 0
 # define INVALID -1
@@ -38,9 +37,10 @@
 //error ----------------------
 # define ATOL_ER -2147483650
 # define NOINT_ER -2147483651
-# define MIN_ER 3
-# define MAX_ER 4
-# define INT_ER 5
+# define MEM_ER -2
+# define MIN_ER -3
+# define MAX_ER -4
+# define INT_ER -5
 # define TEST 100
 # define THREAD_ERR "Failed to create a thread."
 # define MUTEX_ERR "Failed to initialize mutex."
@@ -61,4 +61,10 @@ enum e_cmd
 	
 };
 
+
+//parse -----------------------
+//utils_mem -------------------
+void	mem(void);
+int 	gmallock(t_list **mem_list, void *to_alloc);
+void 	clean_mem(t_list **mem_list);
 #endif
