@@ -6,13 +6,15 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/22 18:36:05 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:16:38 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
+//libft -
+# include "../libs/libft/inc/libft.h"
 //debug  --------------------
 // extern int DEBUG;
 //librairies ----------------
@@ -34,6 +36,12 @@
 # define DONE 0
 # define NOT_FINISH 0
 //definitions for parse ------
+
+//definitions for print ------
+# define CMD_MESSAGE "Command not found"
+# define LEAVE_MESSAGE "exit"
+# define NO_CMD -6
+# define GO_EXIT -7
 //error ----------------------
 # define ATOL_ER -2147483650
 # define NOINT_ER -2147483651
@@ -58,13 +66,17 @@ enum e_cmd
 	TXT,
 	QUOTE,
 	D_QUOTE,
-	
 };
 
 
+
+
+
+
 //parse -----------------------
+int 	parse(char *input);
 //utils_mem -------------------
-void	mem(void);
+t_list	*mem(void);
 int 	gmallock(t_list **mem_list, void *to_alloc);
 void 	clean_mem(t_list **mem_list);
 #endif

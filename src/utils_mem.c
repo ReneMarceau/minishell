@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 18:02:02 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/22 20:37:29 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:15:46 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void remove_mem(void *to_free)
 	}
 }
 
-void mem(void)
+t_list *mem(void)
 {
-	static t_list *a = {NULL, NULL};
+	static t_list a = {NULL, NULL};
 
 	return(&a);
 }

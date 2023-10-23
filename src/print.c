@@ -1,42 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 16:44:19 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/10/22 21:50:00 by wmillett         ###   ########.fr       */
+/*   Created: 2023/10/22 21:52:48 by wmillett          #+#    #+#             */
+/*   Updated: 2023/10/22 22:09:28 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/global.h"
 
-int	main(int argc, char **argv, char **envp)
+int printm(char *message)
 {
-	char	*input;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	while (TRUE)
-	{
-		input = readline("minishell> ");
-		if (input == NULL)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (input && *input)
-		{
-			add_history(input);
-			if (parse(input))
-				printf("Added to history: %s\n", input);
-			else
-				printf("Command not found\n");
-		}
-		free(input);
-	}
-	free(input);
-	return (0);
+	printf("%s\n", message);
+	return(TRUE);
 }
