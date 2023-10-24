@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/22 22:16:38 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/23 19:38:10 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define FAILURE 0
 # define INVALID -1
 # define FINISH 1
-# define DONE 0
-# define NOT_FINISH 0
 //definitions for parse ------
 
 //definitions for print ------
@@ -58,7 +56,7 @@
 # define ATOL_ERR "Argument does not fit in an integer."
 //structs --------------------
 
-enum e_cmd
+enum e_node
 {
 	CMD,
 	PIPE,
@@ -68,15 +66,27 @@ enum e_cmd
 	D_QUOTE,
 };
 
+typedef struct s_mem
+{
+	enum e_node	type;
+	t_list **list;
+	size_t	size;
+}	t_mem;
 
-
-
+typedef struct s_test
+{
+	int i;
+	char c;
+	size_t v;
+	
+} t_test;
 
 
 //parse -----------------------
 int 	parse(char *input);
 //utils_mem -------------------
-t_list	*mem(void);
-int 	gmallock(t_list **mem_list, void *to_alloc);
-void 	clean_mem(t_list **mem_list);
+t_list **list_mem(void);
+t_mem 	*mem(void);
+int 	gmallock(void *to_alloc);
+void 	clean_mem(void);
 #endif
