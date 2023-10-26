@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:33:14 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/23 20:26:06 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:59:21 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,18 @@
 	
 // }
 
-// int is_env_var()
+// int is_env_var(char *line, int pos, int quote)
 // {
-	
+// 	int i;
+
+// 	i = 0;
+// 	while(line[pos])
+// 	{
+// 		if(ft_isspace(line[pos]))
+			
+
+
+// 	}
 
 	
 // }
-
-

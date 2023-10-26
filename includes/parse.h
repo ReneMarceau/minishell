@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/23 19:38:10 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/25 20:33:33 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ typedef struct s_test
 	
 } t_test;
 
+typedef struct s_memlist
+{
+    void *address;
+    struct s_memlist *mem_next;
+}   t_memlist;
 
 //parse -----------------------
 int 	parse(char *input);

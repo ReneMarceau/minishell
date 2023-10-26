@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 18:02:02 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/23 19:58:08 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:59:36 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,46 @@ void clean_mem(void)
 	if (mem()->size)
 		ft_lstclear(mem()->list, remove_mem);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int addPointerToList(t_list** head, void* data) 
+// {
+//     // Create a new t_list
+// 	t_list* current;
+//     t_list* newt_list;
+	
+// 	newt_list = (t_list*)malloc(sizeof(t_list));
+//     if (newt_list == NULL) 
+// 		return (ERROR);
+
+//     // Set the data for the new t_list
+//     newt_list->content = data;
+//     newt_list->next = NULL;
+
+//     // If the list is empty, make the new t_list the head
+//     if (*head == NULL) {
+//         *head = newt_list;
+//     } else {
+//         // Otherwise, traverse the list and add the new t_list at the end
+// 	current = *head;
+//         while (current->next != NULL) 
+//             current = current->next;
+//         current->next = newt_list;
+//     }
+// }
