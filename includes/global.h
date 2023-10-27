@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/10/26 21:11:51 by rene             ###   ########.fr       */
+/*   Updated: 2023/10/27 14:17:44 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@
 // ----> ioctl
 # include <sys/ioctl.h>
 
-/* Functions and data types for terminal I/O, allowing control over terminal settings */
+/* Functions and data types for terminal I/O,
+	allowing control over terminal settings */
 // ----> tcsetattr, tcgetattr
 # include <termios.h>
 
@@ -78,31 +79,47 @@
 /* *************** ***************           *************** *************** */
 # define HEREDOC_FILE "/tmp/.heredoc"
 
-# define READ_END 0
-# define WRITE_END 1
+# define READ_END	0
+# define WRITE_END	1
 
 /* *************** ***************           *************** *************** */
 /*                                  Structures                               */
 /* *************** ***************           *************** *************** */
 extern int	g_exit_status;
 
+typedef enum e_rdir_type {
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC
+}	t_rdir_type;
+
+typedef struct s_rdir {
+	char			*value;
+	int				type;
+	struct s_rdir	*next;
+}	t_rdir;
+
 typedef struct s_cmd {
-    int index;
-    char **args;
-    struct s_cmd *next;
-}   t_cmd;
+	int				index;
+	char			**args;
+	t_rdir			*rdir;
+	struct s_cmd	*next;
+}	t_cmd;
 
 typedef struct s_shell {
-    t_cmd *cmd_table;
-    size_t nb_cmd;
-    int *pipe_fd[2];
-    int input_fd;
-    int output_fd;
-    char **envp;
-}   t_shell;
+	t_cmd	*cmd_table;
+	size_t	nb_cmd;
+	int		*pipe_fd[2];
+	int		input_fd;
+	int		output_fd;
+	char	**envp;
+}	t_shell;
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
-t_shell     *init_data(char **envp);
+t_shell	*init_data(char **envp);
+size_t	count_cmds(t_cmd *cmd_table);
+
 #endif
