@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
+#    By: rene <rene@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/09/24 15:58:54 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/10/26 19:10:43 by rene             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,11 @@ SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
 
+# SRC Folder Subdirectories
+ERROR_DIR = $(SRC_DIR)/error
+EXEC_DIR = $(SRC_DIR)/executor
+UTILS_DIR = $(SRC_DIR)/utils
+
 # External Libraries Directories
 LIBFT_DIR = libs/libft
 LIBRLINE_DIR = libs/readline
@@ -34,13 +39,16 @@ LIBFT_INC = $(LIBFT_DIR)/inc
 LIBRD_INC = $(LIBRLINE_DIR)/inc
 
 # Source and Object Files
-SRCS := $(wildcard $(SRC_DIR)/*.c)
+SRCS := $(wildcard $(SRC_DIR)/*.c)		\
+		$(wildcard $(ERROR_DIR)/*.c)	\
+		$(wildcard $(EXEC_DIR)/*.c)		\
+		$(wildcard $(UTILS_DIR)/*.c)
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 # Libraries
 LIBFT = $(LIBFT_DIR)/bin/libft.a
 LIBRD = $(LIBRLINE_DIR)/bin/libreadline.a $(LIBRLINE_DIR)/bin/libhistory.a
-LIBS = $(LIBFT) -lcurses $(LIBRD)
+LIBS = $(LIBFT) -lreadline -lcurses $(LIBRD)
 
 # Colors for terminal prints
 BLACK    = \033[30;1m
@@ -93,7 +101,7 @@ $(LIBRD):
 	@rm -rf $(LIBRLINE)
 
 # -------------------------------------#
-#           UTILITY RULES			   #	
+#           UTILITY RULES			   #
 # -------------------------------------#
 clean:
 	@if [ -d "$(OBJ_DIR)" ]; then \
