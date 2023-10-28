@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/23 21:31:36 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/27 20:44:13 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void test_malloc(void)
 {
-	t_test *a = NULL;
-	gmallock(a);
-	if(!a)
-		printf("yes\n");
-	clean_mem();
+	// t_test *a = NULL;
+	// gmallock(a);
+	// if(!a)
+	// 	printf("yes\n");
+	// clean_mem();
 }
 
 int check_d_quote(char *input, int pos)
@@ -80,6 +80,9 @@ int check_quotes(char *input)
 
 int parse(char *input)
 {
+
+
+	
 	// test_malloc();
 	if (!check_quotes(input))
 		return(FALSE);
