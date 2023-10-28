@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/27 20:33:34 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/27 23:04:28 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ typedef struct s_memlist
 //parse -----------------------
 int 	parse(char *input);
 //utils_mem -------------------
-t_list **list_mem(void);
-t_mem 	*mem(void);
-int 	gmallock(void *to_alloc);
-void 	clean_mem(void);
+t_memlist 	*mem_data(void);
+void 		*list_malloc(size_t nmemb, size_t size);
+void 		free_one(void *address);
+void 		all_free(void);
 #endif
