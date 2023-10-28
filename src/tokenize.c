@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:44:28 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/27 23:05:09 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/27 23:14:57 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,26 @@
 char *tokenize(char *input)
 {
 	int i;
+	char **tokens;
+	bool inquote;
 	
 	i = 0;
+	inquote = FALSE;
 	while(input[i])
 	{
 		while(ft_isspace(input[i]))
-			input[i++] = 19;
-		while(!ft_isspace(input[i]))
+		{
+			if(!inquote)
+				input[i] = 19;
 			i++;
+		}
+		while(!ft_isspace(input[i]))
+		{
+			if (input[i] == "'" && !inquote)
+				inquote = !inquote;
+			i++;
+		}
 	}
-	ft_split(input, 19);
+	tokens = ft_split(input, 19);
 	
 }
