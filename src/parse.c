@@ -6,20 +6,20 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/27 20:44:13 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/30 19:57:48 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parse.h"
 
-static void test_malloc(void)
-{
-	// t_test *a = NULL;
-	// gmallock(a);
-	// if(!a)
-	// 	printf("yes\n");
-	// clean_mem();
-}
+// static void test_malloc(void)
+// {
+// 	// t_test *a = NULL;
+// 	// gmallock(a);
+// 	// if(!a)
+// 	// 	printf("yes\n");
+// 	// clean_mem();
+// }
 
 int check_d_quote(char *input, int pos)
 {
@@ -80,12 +80,18 @@ int check_quotes(char *input)
 
 int parse(char *input)
 {
-
-
-	
 	// test_malloc();
-	if (!check_quotes(input))
+	t_cmd parse;
+	parse.args = tokenize(input);
+	if (parse.args == NULL)
 		return(FALSE);
+	int i = 0;
+	// while(parse.args[i])
+	// 	printf("%s\n", parse.args[i++]);
+	expand_tokens(parse.args);
+	// printf("%s\n", parse.args[1]);
+	// if (!check_quotes(input))
+	// 	return(FALSE);
 	return(TRUE);
 }
 

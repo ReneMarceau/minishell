@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/27 23:04:28 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:12:36 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <signal.h>
 //general definitions -------
 # define TRUE 1
 # define FALSE 0
@@ -34,7 +35,7 @@
 # define INVALID -1
 # define FINISH 1
 //definitions for parse ------
-
+# define SEP 19
 //definitions for print ------
 # define CMD_MESSAGE "Command not found"
 # define LEAVE_MESSAGE "exit"
@@ -87,6 +88,15 @@ typedef struct s_memlist
     struct s_memlist *mem_next;
 }   t_memlist;
 
+typedef struct s_cmd 
+{
+    int index;
+    size_t nb_args;
+    char **args;
+    pid_t pid;
+    struct s_cmd *next;
+}   t_cmd;
+
 //parse -----------------------
 int 	parse(char *input);
 //utils_mem -------------------
@@ -94,4 +104,6 @@ t_memlist 	*mem_data(void);
 void 		*list_malloc(size_t nmemb, size_t size);
 void 		free_one(void *address);
 void 		all_free(void);
+//tokenize --------------------
+char 		**tokenize(char *input);
 #endif
