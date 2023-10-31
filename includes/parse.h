@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/30 13:12:36 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:49:02 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 # include <signal.h>
+
+//readline
+#include <readline/readline.h>
+#include <readline/history.h>
+
 //general definitions -------
 # define TRUE 1
 # define FALSE 0
@@ -106,4 +111,8 @@ void 		free_one(void *address);
 void 		all_free(void);
 //tokenize --------------------
 char 		**tokenize(char *input);
+//expand ----------------------
+int 		expand_tokens(char **tokens);
+//signal ----------------------
+void 		signalhandler(void);
 #endif

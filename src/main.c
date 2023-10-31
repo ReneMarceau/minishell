@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:44:19 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/10/22 21:50:00 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:36:22 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	signalhandler();
 	while (TRUE)
 	{
 		input = readline("minishell> ");

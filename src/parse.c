@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/30 19:57:48 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:37:26 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ int parse(char *input)
 	parse.args = tokenize(input);
 	if (parse.args == NULL)
 		return(FALSE);
-	int i = 0;
+	// int i = 0;
 	// while(parse.args[i])
 	// 	printf("%s\n", parse.args[i++]);
-	expand_tokens(parse.args);
+	// expand_tokens(parse.args);
 	// printf("%s\n", parse.args[1]);
 	// if (!check_quotes(input))
 	// 	return(FALSE);
