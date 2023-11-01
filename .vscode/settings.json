@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "wait.h": "c",
+        "stdio.h": "c",
+        "types.h": "c",
+        "readline.h": "c",
+        "curses.h": "c",
+        "global.h": "c",
+        "libft.h": "c",
+        "history.h": "c"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "keyhr.42-c-format"
+    },
+}

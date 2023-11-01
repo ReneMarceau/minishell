@@ -56,4 +56,4 @@ minishell
 obj
 libs/libft/bin
 libs/libft/obj
-libs/readline/
+includes/readline/

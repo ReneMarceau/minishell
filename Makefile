@@ -6,7 +6,7 @@
 #    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/09/24 15:58:54 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/11/01 12:10:56 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,28 +19,38 @@ NAME = minishell
 
 # Compiler and Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 # Directories
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
 
+# SRC Folder Subdirectories
+EXEC_DIR = $(SRC_DIR)/executor
+ERROR_DIR = $(SRC_DIR)/error
+ENV_DIR = $(SRC_DIR)/env
+UTILS_DIR = $(SRC_DIR)/utils
+
 # External Libraries Directories
 LIBFT_DIR = libs/libft
-LIBRLINE_DIR = libs/readline
+LIBRLINE_DIR = $(INC_DIR)/readline
 LIBRLINE = readline-8.2
 LIBFT_INC = $(LIBFT_DIR)/inc
 LIBRD_INC = $(LIBRLINE_DIR)/inc
 
 # Source and Object Files
-SRCS := $(wildcard $(SRC_DIR)/*.c)
+SRCS := $(wildcard $(SRC_DIR)/*.c)		\
+		$(wildcard $(ERROR_DIR)/*.c)	\
+		$(wildcard $(EXEC_DIR)/*.c)		\
+		$(wildcard $(UTILS_DIR)/*.c)	\
+		$(wildcard $(ENV_DIR)/*.c)
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 # Libraries
 LIBFT = $(LIBFT_DIR)/bin/libft.a
 LIBRD = $(LIBRLINE_DIR)/bin/libreadline.a $(LIBRLINE_DIR)/bin/libhistory.a
-LIBS = $(LIBFT) -lcurses $(LIBRD)
+LIBS = $(LIBFT) -lreadline -lcurses $(LIBRD)
 
 # Colors for terminal prints
 BLACK    = \033[30;1m
@@ -87,13 +97,13 @@ $(LIBRD):
 	tar -zxvf $(LIBRLINE).tar.gz
 	@rm -rf $(LIBRLINE).tar.gz
 	@cd $(LIBRLINE) && bash configure && make
-	@mkdir -p $(LIBRD_INC) $(LIBRLINE_DIR)/bin
-	@mv ./$(LIBRLINE)/*.h $(LIBRD_INC)
+	@mkdir -p $(LIBRLINE_DIR)/bin
+	@mv ./$(LIBRLINE)/*.h $(LIBRLINE_DIR)
 	@mv ./$(LIBRLINE)/*.a $(LIBRLINE_DIR)/bin
 	@rm -rf $(LIBRLINE)
 
 # -------------------------------------#
-#           UTILITY RULES			   #	
+#           UTILITY RULES			   #
 # -------------------------------------#
 clean:
 	@if [ -d "$(OBJ_DIR)" ]; then \
