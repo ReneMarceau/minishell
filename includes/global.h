@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/10/27 14:17:44 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:20:59 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@
 
 /* Readline library for command line input handling */
 // ----> readline, rl_on_new_line, rl_replace_line, rl_redisplay
-# include <readline/readline.h>
+# include "readline/readline.h"
 
-/* Functionality to manage command history when using the Readline library */
+/* Functionality to manage command histoy when using the Readline library */
 // ----> add_history, rl_clear_history
-# include <readline/history.h>
+# include "readline/history.h"
 
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"

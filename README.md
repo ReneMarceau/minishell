@@ -11,8 +11,8 @@
     - [ ] exit sans aucune option
 
 ### Rene
-- [ ] Afficher un prompt en l’attente d’une nouvelle commande.
-- [ ] Posséder un historique fonctionnel.
+- [x] Afficher un prompt en l’attente d’une nouvelle commande.
+- [x] Posséder un historique fonctionnel.
 - [ ] Chercher et lancer le bon exécutable (en se basant sur la variable d’environnement PATH, ou sur un chemin relatif ou absolu).
 - [ ] Implémenter les redirections :
     - [ ] < doit rediriger l’entrée.

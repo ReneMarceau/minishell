@@ -6,13 +6,13 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/10/27 14:40:42 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:15:15 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "colors.h"
-#include "error.h"
 #include "global.h"
+#include "error.h"
+#include "colors.h"
 
 int		g_exit_code = 0;
 
@@ -20,7 +20,7 @@ bool	readlines(char **input, char **last_input)
 {
 	*input = readline(READLINE_MSG);
 	if (*input == NULL)
-		return (print_error(ERR_MALLOC, NULL), false);
+		return (printf("exit\n"), false);
 	if (*last_input == NULL)
 	{
 		*last_input = ft_strdup("");
@@ -46,7 +46,7 @@ void	shell_loop(t_shell *shell)
 	while (true)
 	{
 		if (!readlines(&input, &last_input))
-			break ;
+			return ;
 		if (input && *input)
 		{
 			exit_code = ft_itoa(WEXITSTATUS(g_exit_code));
@@ -68,6 +68,8 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	shell = init_data(env);
+	if (shell == NULL)
+		return (EXIT_FAILURE);
 	shell_loop(shell);
 	return (EXIT_SUCCESS);
 }
