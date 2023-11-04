@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:33:16 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/30 22:34:17 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/04 17:39:20 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,31 @@
 
 // 	return(TRUE);
 // }
+
+
+int expand_dup(char *arg, int start, int end)
+{
+	
+	
+}
+
+
+
+
+
+int to_expand(char *arg, int pos)
+{
+	int i;
+
+	i = pos;
+	if (arg[i + 1] == '$')
+		return (FALSE);
+	while(arg[++i])
+	{
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			break ;
+	}
+	if (expand_dup(arg, pos, i) == ERROR)
+		return (ERROR);
+	return (TRUE);
+}

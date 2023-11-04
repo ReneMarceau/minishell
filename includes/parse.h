@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/30 22:49:02 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:16:35 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 # define FINISH 1
 //definitions for parse ------
 # define SEP 19
+# define OUT 0
+# define IN_SINGLE 1
+# define IN_DOUBLE 2
 //definitions for print ------
 # define CMD_MESSAGE "Command not found"
 # define LEAVE_MESSAGE "exit"

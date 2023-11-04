@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/30 22:54:06 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:01:36 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ void signaltreat(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
+	(void)signal;
 	// sigignore(signal);
 	// rl_replace_line();
 	printf("\n");
 }
-
-
 
 void signalhandler(void)
 {
