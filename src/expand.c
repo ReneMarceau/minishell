@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:33:16 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/04 17:39:20 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:32:41 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,22 @@
 // }
 
 
-int expand_dup(char *arg, int start, int end)
+char *expand_dup(char *arg, int start, int end)
 {
-	
+	char *s1;
+	char *s2;
+	const char *s3 = ft_substr(arg, end, ft_strlen(arg + end));
+
+	if (start == 0)
+	{
+		s1 = ft_substr(arg, start, end - start);
+	}
+	else
+	{
+		
+
+	}
+	// s1 = ft_strdup()
 	
 }
 
@@ -91,11 +104,15 @@ int to_expand(char *arg, int pos)
 	if (arg[i + 1] == '$')
 		return (FALSE);
 	while(arg[++i])
-	{
 		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			break ;
-	}
-	if (expand_dup(arg, pos, i) == ERROR)
-		return (ERROR);
-	return (TRUE);
+	return(expand_dup(arg, pos, i));
+}
+
+
+int expand_one(char *arg, int pos)
+{
+
+
+	
 }

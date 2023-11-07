@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/04 16:16:35 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/06 21:24:39 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_cmd
 }   t_cmd;
 
 //parse -----------------------
-int 	parse(char *input);
+int 		parse(char *input);
 //utils_mem -------------------
 t_memlist 	*mem_data(void);
 void 		*list_malloc(size_t nmemb, size_t size);
@@ -115,7 +115,13 @@ void 		all_free(void);
 //tokenize --------------------
 char 		**tokenize(char *input);
 //expand ----------------------
-int 		expand_tokens(char **tokens);
+// int 		expand_tokens(char **tokens);
+int 		expand_one(char *arg, int pos);
 //signal ----------------------
 void 		signalhandler(void);
+//utils -----------------------
+bool 		ft_isspecial(char a);
+bool		is_sep(char c);
+//meta_char -------------------
+int 		check_meta(char *input, int i);
 #endif
