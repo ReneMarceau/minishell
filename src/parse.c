@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/30 22:37:26 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:56:27 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ int parse(char *input)
 {
 	// test_malloc();
 	t_cmd parse;
-	parse.args = tokenize(input);
+	// parse.args = tokenize(input);
+	printf("argcount: %zu\n", count_arg(input));
 	if (parse.args == NULL)
 		return(FALSE);
 	// int i = 0;

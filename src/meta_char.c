@@ -6,18 +6,18 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 19:08:58 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/06 19:20:30 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:55:27 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parse.h"
 
-int check_meta(char *input, int i)
-{
-	int j;
+// int check_meta(char *input, int i)
+// {
+// 	int j;
 
-	j = i;
+// 	j = i;
 	
 
 	
-}
+// }

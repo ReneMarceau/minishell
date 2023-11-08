@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/06 21:24:39 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:09:13 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_cmd
     size_t nb_args;
     char **args;
     pid_t pid;
+	char *token;
     struct s_cmd *next;
 }   t_cmd;
 
@@ -116,12 +117,15 @@ void 		all_free(void);
 char 		**tokenize(char *input);
 //expand ----------------------
 // int 		expand_tokens(char **tokens);
-int 		expand_one(char *arg, int pos);
+// int 		expand_one(char *arg, int pos);
 //signal ----------------------
 void 		signalhandler(void);
-//utils -----------------------
+//utils_is -----------------------
+bool 		ft_isquote(char a);
 bool 		ft_isspecial(char a);
 bool		is_sep(char c);
 //meta_char -------------------
-int 		check_meta(char *input, int i);
+// int 		check_meta(char *input, int i);
+//find_arg --------------------
+size_t 		count_arg(char *input, size_t i, size_t res);
 #endif
