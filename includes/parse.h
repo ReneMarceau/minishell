@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/07 23:09:13 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/08 19:58:48 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,8 @@ bool		is_sep(char c);
 // int 		check_meta(char *input, int i);
 //find_arg --------------------
 size_t 		count_arg(char *input, size_t i, size_t res);
+//quote -----------------------
+int 		in_single(char *input, int i);
+int 		in_double(char *input, int i);
+int 		in_quote(char *input, int i);
 #endif

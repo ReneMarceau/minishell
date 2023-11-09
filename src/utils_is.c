@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_is.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:39:59 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/07 23:08:09 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:03:08 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	is_sep(char c)
 {
 	return (ft_isspace(c) || ft_isspecial(c));
 }
+
 
 // void ft_strlselcpy(char *dst, const char *src, int start, int end)
 // {

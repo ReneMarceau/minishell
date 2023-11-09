@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 21:03:30 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/07 23:10:52 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:58:58 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 // {
 // 	if(input != NULL)
 // 	{
-
-		
 // 	}
-
 // }
+
 static size_t do_quote(char *input, int i)
 {
 	int j;

@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:44:28 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/07 22:58:04 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:29:27 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,6 @@ static int handle_special(char *input, int i)
 	else if (input[i] == '<')
 		j = 0; //to modify
 	return (j); //same 
-}
-
-static int in_single(char *input, int i)
-{
-	int j;
-
-	j = 0;
-	while(input[++i])
-	{
-		if(input[i] == '\'')
-		{
-			j += 2;
-			break ;
-		}
-		j++;
-	}
-	if (input[i] != '\'')
-		j = ERROR;
-	return (j);
-}
-
-static int in_double(char *input, int i)
-{
-	int j;
-
-	j = 0;
-	while(input[++i])
-	{
-		if(input[i] == '\"')
-		{
-			j += 2;
-			break ;
-		}
-		j++;
-	}
-	if (input[i] != '\"')
-		j = ERROR;
-	return (j);
 }
 
 char **tokenize(char *input)
@@ -157,4 +119,52 @@ char **tokenize(char *input)
 // 			return (NULL);
 // 	}	
 // }
+
+
+
+
+static int create_space(char *input, int i, int space)
+{
+		
+
+	
+}
+
+static int sep_special(char *input, int i)
+{
+	int j;
+	int check;
+	
+	j = 0;
+	if (i == 0 || !input[i + 1])
+		check = create_space(input, i, 1);
+	
+	
+}
+
+char **make_tokens(char **tokens, char *input)
+{
+	int i;
+	int j;
+	int last;
+	
+	last = 0;
+	i = 0;
+	while(input[i])
+	{
+		j = 0;
+		if (ft_isquote(input[i]))
+			j = in_quote(input, i);
+		else if (ft_isspecial(input[i]))
+			j = sep_special(input[i]);
+		else if (ft_isspace(input[i]))
+			input[i] = SEP;
+		else
+			i++
+		if (j != ERROR)
+			i += j;
+		else
+			return (NULL);
+	}
+}
 
