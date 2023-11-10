@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/07 22:56:27 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:00:05 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,48 @@
 // 	// 	printf("yes\n");
 // 	// clean_mem();
 // }
+
+static bool reached_limit(char *input, size_t i)
+{
+	const char special = input[i];
+	bool limit;
+
+	limit = FALSE;
+	i++;
+	if (input[i])
+	{
+		if (special == '|' && input[i] == special)
+			return (TRUE);
+		if (special != '|' && input[i])
+			if (input[i + 1] == special)
+				return (TRUE);
+	}
+	return (FALSE);
+}
+
+bool check_token(char *input)
+{
+	size_t i;
+	char tmp;
+
+	tmp = 0;
+	i = 0;
+	while(input[i])
+	{
+		if (ft_isquote(input[i]))
+			i += through_quote(input, i, NULL, FALSE);
+		else if (ft_isspecial(input[i]))
+		{
+			if (reached_limit(input, i))
+				return (FALSE);
+			else
+				i += through_special(input, i);
+		}
+		else
+			i++;
+	}
+	return (TRUE);
+}
 
 int check_d_quote(char *input, int pos)
 {
@@ -49,7 +91,7 @@ int check_s_quote(char *input, int pos)
 	return(FALSE);
 }
 
-int check_quotes(char *input)
+bool check_quotes(char *input)
 {
 	int i;
 	int check;
@@ -78,22 +120,30 @@ int check_quotes(char *input)
 	return(TRUE);
 }
 
-int parse(char *input)
+t_args *parse(char *input)
 {
-	// test_malloc();
-	t_cmd parse;
-	// parse.args = tokenize(input);
-	printf("argcount: %zu\n", count_arg(input));
-	if (parse.args == NULL)
-		return(FALSE);
+	t_args *table;
+	// t_args *tmp; //test
+
+	table = malloc(sizeof(t_args*));
+	if (table == NULL)
+		return (NULL);
+	if (!check_quotes(input) || !check_token(input))
+		return (NULL);
+	tokenize(input, table);
+
 	// int i = 0;
-	// while(parse.args[i])
-	// 	printf("%s\n", parse.args[i++]);
-	// expand_tokens(parse.args);
-	// printf("%s\n", parse.args[1]);
-	// if (!check_quotes(input))
-	// 	return(FALSE);
-	return(TRUE);
+	// while(table->args[i])
+	// 	printf("%s\n", table->args[i++]);
+	// expand_tokens(table.args);
+	
+	printf("%s\n", table->token);
+	// while (table->token)
+	// {
+	// 	printf("%s\n", table->token);
+	// 	table = table->next;
+	// }
+	return(table);
 }
 
 

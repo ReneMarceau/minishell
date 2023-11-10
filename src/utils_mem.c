@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 18:02:02 by wmillett          #+#    #+#             */
-/*   Updated: 2023/10/27 20:34:07 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:50:01 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 // 		return(ERROR);
 // 	ft_lstadd_back(mem()->list, to_alloc);
 // 	mem()->size++;
-// 	return(FINISH);
+// 	return(FINISH); 
 // }
 
 // void clean_mem(void)
@@ -116,6 +116,7 @@ void all_free(void)
 	}
 	mem_data()->mem_next = NULL;
 }
+
 
 // int addPointerToList(t_list** head, void* data) 
 // {

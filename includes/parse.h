@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/08 19:58:48 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:15:26 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@
 enum e_node
 {
 	CMD,
+	STR,
 	PIPE,
-	REDIR,
-	TXT,
-	QUOTE,
-	D_QUOTE,
+	REDIR_IN,
+	REDIR_OUT,
+	HEREDOC_IN,
+	HEREDOC_OUT
 };
 
 typedef struct s_mem
@@ -102,19 +103,28 @@ typedef struct s_cmd
     size_t nb_args;
     char **args;
     pid_t pid;
-	char *token;
+	enum e_node type;
     struct s_cmd *next;
 }   t_cmd;
 
+typedef struct s_args
+{
+	char *token;
+	enum e_node type;
+	struct s_args *next;
+}	t_args;
+
 //parse -----------------------
-int 		parse(char *input);
+bool 		check_token(char *input);
+bool 		check_quotes(char *input);
+t_args 		*parse(char *input);
 //utils_mem -------------------
 t_memlist 	*mem_data(void);
 void 		*list_malloc(size_t nmemb, size_t size);
 void 		free_one(void *address);
 void 		all_free(void);
 //tokenize --------------------
-char 		**tokenize(char *input);
+t_args 		*tokenize(char *input, t_args *table);
 //expand ----------------------
 // int 		expand_tokens(char **tokens);
 // int 		expand_one(char *arg, int pos);
@@ -126,10 +136,18 @@ bool 		ft_isspecial(char a);
 bool		is_sep(char c);
 //meta_char -------------------
 // int 		check_meta(char *input, int i);
-//find_arg --------------------
-size_t 		count_arg(char *input, size_t i, size_t res);
+//convert_input --------------------
+// size_t 		count_arg(char *input, size_t i, size_t res);
+size_t 		through_quote(char *input, size_t i, char *dst, size_t pos_dst);
+size_t 		through_special(char *input, size_t i);
+char		*str_sel_dup(char *s1);
 //quote -----------------------
 int 		in_single(char *input, int i);
 int 		in_double(char *input, int i);
 int 		in_quote(char *input, int i);
+//list ------------------------
+t_args 		*convert_to_lst(char **tokens, t_args *table);
+t_args		*new_args(char *token);
+size_t 		args_size(t_args *lst);
+void		add_arg(t_args **lst, t_args *newnode);
 #endif

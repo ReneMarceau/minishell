@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:44:19 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/07 22:56:12 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/09 19:11:17 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)envp;
 	signalhandler();
+	
 	while (TRUE)
 	{
 		input = readline("minishell> ");
@@ -31,8 +32,9 @@ int	main(int argc, char **argv, char **envp)
 		if (input && *input)
 		{
 			add_history(input);
+				// printf("Added to history: %s\n", input);
 			if (parse(input))
-				printf("Added to history: %s\n", input);
+				printf("-----------\n");
 			else
 				printf("Command not found\n");
 		}
