@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/09 22:15:26 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/10 21:29:30 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,9 @@ void 		all_free(void);
 //tokenize --------------------
 t_args 		*tokenize(char *input, t_args *table);
 //expand ----------------------
-// int 		expand_tokens(char **tokens);
-// int 		expand_one(char *arg, int pos);
+// bool 		expand_one(t_args *current);
+// bool 		check_to_expand(t_args *current);
+bool 		expand_tokens(t_args *head);
 //signal ----------------------
 void 		signalhandler(void);
 //utils_is -----------------------
@@ -146,8 +147,15 @@ int 		in_single(char *input, int i);
 int 		in_double(char *input, int i);
 int 		in_quote(char *input, int i);
 //list ------------------------
-t_args 		*convert_to_lst(char **tokens, t_args *table);
-t_args		*new_args(char *token);
-size_t 		args_size(t_args *lst);
-void		add_arg(t_args **lst, t_args *newnode);
+// t_args 		*convert_to_lst(char **tokens, t_args *table);
+// t_args		*new_args(char *token);
+// size_t 		args_size(t_args *lst);
+// void		add_arg(t_args **lst, t_args *newnode);
+void 		free_lst(t_args *head);
+t_args *convert_to_lst(char **array, t_args *head, t_args *current, t_args *newnode);
+//print ------------------------
+void 		print_lst(t_args *head);
+//assign_token -----------------
+enum 		e_node analyze_token(t_args *current);
+void 		assign_token(t_args *head);
 #endif

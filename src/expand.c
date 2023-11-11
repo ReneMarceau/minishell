@@ -6,11 +6,103 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:33:16 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/09 19:41:40 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:25:42 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parse.h"
+
+
+
+static bool expand_one(t_args* current, size_t pos, bool in_quote)
+{
+	
+
+	
+}
+
+// static size_t expand_in_quote(void *token, size_t pos)
+// {
+
+
+	
+// }
+
+
+static size_t check_in_quote(t_args *current, size_t pos)
+{
+	size_t i;
+
+	i = 1;
+	while(current->token[pos + i] != '\"')
+	{
+		if (current->token[pos + i] == '$')
+			i += expand_one(current, pos + i, TRUE);
+		i++;	
+	}
+	return (i);
+}
+
+static bool check_to_expand(t_args *current)
+{
+	size_t i;
+	
+	i = 0;
+	while(current->token[i])
+	{
+		if (current->token[i] == '\'')
+			i += through_quote(current->token, i, NULL, FALSE);
+		else if (current->token[i] == '\"')
+			i += check_in_quote(current, i)
+	
+
+	
+	}
+	
+}
+
+
+
+bool expand_tokens(t_args *head)
+{
+	t_args *current;
+	bool check;
+
+	check = FALSE;
+	current = head;
+	while(current)
+	{
+		if (current->type == STR)
+		{
+			check = check_to_expand(current);
+			if (check == FALSE)
+				return (FALSE);
+		}
+		current = current->next;
+	}
+	return (TRUE);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

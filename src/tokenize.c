@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:44:28 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/09 22:14:56 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/10 20:57:28 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ t_args *tokenize(char *input, t_args *table)
 	
 	converted_input = str_sel_dup(input);
 	tokens = ft_split(converted_input, SEP);
-	convert_to_lst(tokens, table);
+	table = convert_to_lst(tokens, table, NULL, NULL);
 	return(table);
 }

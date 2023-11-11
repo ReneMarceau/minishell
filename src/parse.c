@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/09 22:00:05 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/10 21:20:56 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,19 +125,26 @@ t_args *parse(char *input)
 	t_args *table;
 	// t_args *tmp; //test
 
-	table = malloc(sizeof(t_args*));
-	if (table == NULL)
-		return (NULL);
+	table = NULL;
+	// table = malloc(sizeof(t_args*));
+	// if (table == NULL)
+	// 	return (NULL);
 	if (!check_quotes(input) || !check_token(input))
 		return (NULL);
-	tokenize(input, table);
-
+	table = tokenize(input, table);
+	if (table == NULL)
+		return (NULL);
+	print_lst(table);
+	expand_tokens(table);
+	printf("after expansion ---------\n");
+	print_lst(table);
 	// int i = 0;
+	
 	// while(table->args[i])
 	// 	printf("%s\n", table->args[i++]);
 	// expand_tokens(table.args);
 	
-	printf("%s\n", table->token);
+	// printf("%s\n", table->token);
 	// while (table->token)
 	// {
 	// 	printf("%s\n", table->token);
