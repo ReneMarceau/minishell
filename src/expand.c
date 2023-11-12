@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:33:16 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/10 22:25:42 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/11 21:07:16 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 
 
-static bool expand_one(t_args* current, size_t pos, bool in_quote)
+static size_t expand_one(t_args* current, size_t pos, bool in_quote)
 {
+	
+
 	
 
 	
@@ -54,12 +56,14 @@ static bool check_to_expand(t_args *current)
 			i += through_quote(current->token, i, NULL, FALSE);
 		else if (current->token[i] == '\"')
 			i += check_in_quote(current, i)
-	
+		else
+			i++;
 
 	
 	}
 	
 }
+
 
 
 
