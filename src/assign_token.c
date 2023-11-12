@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:30:51 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/10 21:02:05 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:26:08 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ enum e_node	analyze_token(t_args *current)
 		if (current->token[i] == '<')
 		{
 			if (current->token[i + 1] == '<')
-				return (HEREDOC_IN);
+				return (HEREDOC);
 			return (REDIR_IN);
 		}
 		if (current->token[i] == '>')
 		{
 			if (current->token[i + 1] == '>')
-				return (HEREDOC_OUT);
+				return (APPEND);
 			return (REDIR_OUT);
 		}
 		if (current->token[i] == '|')

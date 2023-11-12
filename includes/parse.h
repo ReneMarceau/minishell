@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/10 21:29:30 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:23:43 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ enum e_node
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
-	HEREDOC_IN,
-	HEREDOC_OUT
+	HEREDOC,
+	APPEND,
+	TK_NULL
 };
 
 typedef struct s_mem
