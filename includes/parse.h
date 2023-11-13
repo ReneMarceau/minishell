@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/11 22:23:43 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:01:42 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,20 @@ void 		free_one(void *address);
 void 		all_free(void);
 //tokenize --------------------
 t_args 		*tokenize(char *input, t_args *table);
-//expand ----------------------
+//expand_parse ----------------------
 // bool 		expand_one(t_args *current);
 // bool 		check_to_expand(t_args *current);
 bool 		expand_tokens(t_args *head);
+//expand_dollar ----------------------
+void 		rm_dollar(t_args* current, size_t pos);
+size_t 		expand_one(t_args* current, size_t pos, bool in_quote);
 //signal ----------------------
 void 		signalhandler(void);
 //utils_is -----------------------
 bool 		ft_isquote(char a);
 bool 		ft_isspecial(char a);
 bool		is_sep(char c);
+bool		ft_isexpand(char c);
 //meta_char -------------------
 // int 		check_meta(char *input, int i);
 //convert_input --------------------
@@ -153,7 +157,7 @@ int 		in_quote(char *input, int i);
 // size_t 		args_size(t_args *lst);
 // void		add_arg(t_args **lst, t_args *newnode);
 void 		free_lst(t_args *head);
-t_args *convert_to_lst(char **array, t_args *head, t_args *current, t_args *newnode);
+t_args 		*convert_to_lst(char **array, t_args *head, t_args *current, t_args *newnode);
 //print ------------------------
 void 		print_lst(t_args *head);
 //assign_token -----------------
