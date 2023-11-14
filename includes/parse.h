@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/13 18:01:42 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:02:28 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@
 
 enum e_node
 {
-	CMD,
 	STR,
 	PIPE,
 	REDIR_IN,
@@ -132,7 +131,7 @@ t_args 		*tokenize(char *input, t_args *table);
 bool 		expand_tokens(t_args *head);
 //expand_dollar ----------------------
 void 		rm_dollar(t_args* current, size_t pos);
-size_t 		expand_one(t_args* current, size_t pos, bool in_quote);
+size_t 		expand_one(t_args* current, size_t pos);
 //signal ----------------------
 void 		signalhandler(void);
 //utils_is -----------------------
@@ -163,4 +162,6 @@ void 		print_lst(t_args *head);
 //assign_token -----------------
 enum 		e_node analyze_token(t_args *current);
 void 		assign_token(t_args *head);
+//data_fetch -------------------
+char 		**fetch_envp(char **init);
 #endif

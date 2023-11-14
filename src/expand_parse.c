@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:33:16 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/13 18:02:31 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:03:38 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t parse_expand(t_args* current, size_t pos, bool in_quote)
 	if (ft_isquote(current->token[pos + 1]) && in_quote == FALSE)
 		rm_dollar(current, pos);
 	else if (ft_isexpand(current->token[pos + 1]))
-		i += expand_one(current, pos, in_quote);
+		i += expand_one(current, pos);
 	else if (current->token[pos + 1] == '?') 
 		i++; //add fct to retrieve last return
 	else
@@ -52,7 +52,7 @@ static bool check_to_expand(t_args *current)
 		if (current->token[i] == '\'')
 			i += through_quote(current->token, i, NULL, FALSE);
 		else if (current->token[i] == '\"')
-			i += check_in_quote(current, i)
+			i += check_in_quote(current, i);
 		else if (current->token[i] == '$')
 			i += parse_expand(current, i, FALSE);
 		else

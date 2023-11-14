@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 18:02:02 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/10 16:44:49 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:55:28 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_memlist	*mem_data(void)
 	return (&head);
 }
 
-void	*list_malloc(size_t nmemb, size_t size)
+ze_t nmemb, size_t size)
 {
 	t_memlist	*to_alloc;
 
