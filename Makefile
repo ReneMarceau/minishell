@@ -6,7 +6,7 @@
 #    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/01 12:10:56 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/11/10 13:14:30 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,12 @@ LIBFT_INC = $(LIBFT_DIR)/inc
 LIBRD_INC = $(LIBRLINE_DIR)/inc
 
 # Source and Object Files
-SRCS := $(wildcard $(SRC_DIR)/*.c)		\
-		$(wildcard $(ERROR_DIR)/*.c)	\
-		$(wildcard $(EXEC_DIR)/*.c)		\
+
+SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
+		$(wildcard $(ENV_DIR)/*.c)		\
 		$(wildcard $(UTILS_DIR)/*.c)	\
-		$(wildcard $(ENV_DIR)/*.c)
+		$(wildcard $(EXEC_DIR)/*.c)		\
+		$(wildcard $(SRC_DIR)/*.c)
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 # Libraries

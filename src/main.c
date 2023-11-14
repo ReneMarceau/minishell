@@ -6,15 +6,16 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/01 12:15:15 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/13 10:48:37 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "executor.h"
 #include "error.h"
 #include "colors.h"
 
-int		g_exit_code = 0;
+int	g_exit_status = 0;
 
 bool	readlines(char **input, char **last_input)
 {
@@ -49,11 +50,11 @@ void	shell_loop(t_shell *shell)
 			return ;
 		if (input && *input)
 		{
-			exit_code = ft_itoa(WEXITSTATUS(g_exit_code));
-			// shell->cmd_table = parsing(input, exit_code);
+			exit_code = ft_itoa(WEXITSTATUS(g_exit_status));
+			shell->cmd_table = parsing_test();
 			shell->nb_cmd = count_cmds(shell->cmd_table);
-			/*if (shell->nb_cmd)
-				executor(shell);*/
+			if (shell->cmd_table != NULL)
+				executor(shell);
 		}
 		free(input);
 	}

@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/01 12:20:59 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:37:53 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@
 // ----> add_history, rl_clear_history
 # include "readline/history.h"
 
+#include "env.h"
+
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"
 
@@ -78,6 +80,8 @@
 /*                                  Macros                                   */
 /* *************** ***************           *************** *************** */
 # define HEREDOC_FILE "/tmp/.heredoc"
+
+# define MAX_ARGS	100
 
 # define READ_END	0
 # define WRITE_END	1
@@ -104,22 +108,25 @@ typedef struct s_cmd {
 	int				index;
 	char			**args;
 	t_rdir			*rdir;
+	pid_t			pid;
 	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_shell {
 	t_cmd	*cmd_table;
-	size_t	nb_cmd;
-	int		*pipe_fd[2];
+	int		nb_cmd;
+	pid_t	*pids;
+	int		**pipe_fd;
 	int		input_fd;
 	int		output_fd;
-	char	**envp;
+	t_env	*envp;
 }	t_shell;
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
-t_shell	*init_data(char **envp);
-size_t	count_cmds(t_cmd *cmd_table);
+t_shell		*init_data(char **envp);
+t_cmd    	*parsing_test(void);
+
 
 #endif
