@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:32:23 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/13 11:12:21 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:28:51 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ bool    close_pipes(t_shell *shell);
 bool	init_pipes(t_shell *shell);
 bool    init_processes(t_shell *shell);
 char	**get_envp(char **env);
+bool    handle_redirections(t_shell *shell, t_rdir *rdir);
 bool    handle_pipe_redirections(t_shell *shell,  t_cmd *cmd);
+bool    exec_heredoc(char *delimiter);
 bool    executor(t_shell *shell);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/13 11:16:16 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:47:10 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
     char    **envp;
     int     i;
 
+    //printf("executing cmd: %s\n", cmd->args[0]);
     env_array = env_to_array(env);
     if (env_array == NULL)
         return (false);
@@ -63,6 +64,8 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
 
 bool    executor(t_shell *shell)
 {
+    t_rdir    *rdir_tmp;
+    
     if (init_pipes(shell) == false)
         return (false);
     if (init_processes(shell) == false)
@@ -71,12 +74,13 @@ bool    executor(t_shell *shell)
     {
         if (shell->cmd_table->pid == 0)
         {
-            // while (shell->cmd_table->rdir != NULL)
-            // {
-            //     if (handle_redirections(shell, shell->cmd_table->rdir) == false)
-            //         exit(g_exit_status);
-            //     shell->cmd_table->rdir = shell->cmd_table->rdir->next;
-            // }
+            rdir_tmp = shell->cmd_table->rdir;
+            while (rdir_tmp != NULL)
+            {
+                if (handle_redirections(shell, rdir_tmp) == false)
+                    exit(g_exit_status);
+                rdir_tmp = rdir_tmp->next;
+            }
             if (handle_pipe_redirections(shell, shell->cmd_table) == false)
                 return (false);
             if (exec_cmd(shell->cmd_table, shell->envp) == false)
@@ -86,6 +90,5 @@ bool    executor(t_shell *shell)
     }
     close_pipes(shell);
     wait_all(shell->pids, shell->nb_cmd);
-    printf("All commands executed\n");
     return (true);
 }
