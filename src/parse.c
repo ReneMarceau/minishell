@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 12:01:17 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/14 22:39:21 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,13 @@ bool check_quotes(char *input)
 	return(TRUE);
 }
 
-t_args *parse(char *input)
+t_args *parse(char *input, t_shell *shell)
 {
 	t_args *table;
 	// t_args *tmp; //test
 
 	table = NULL;
+	(void)shell;//rm
 	// table = malloc(sizeof(t_args*));
 	// if (table == NULL)
 	// 	return (NULL);
@@ -135,7 +136,7 @@ t_args *parse(char *input)
 	if (table == NULL)
 		return (NULL);
 	print_lst(table);
-	// expand_tokens(table);
+	// expand_tokens(table, shell);
 	printf("after expansion ---------\n");
 	print_lst(table);
 	// int i = 0;

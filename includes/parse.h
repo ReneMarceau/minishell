@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 12:02:28 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/14 22:37:57 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,20 @@ typedef struct s_args
 	struct s_args *next;
 }	t_args;
 
+typedef struct s_shell {
+    t_cmd *cmds;
+    size_t nb_cmds;
+    pid_t *pids;
+    int **pipes_fd;
+    int input_fd;
+    int output_fd;
+    char **env;
+}   t_shell;
+
 //parse -----------------------
 bool 		check_token(char *input);
 bool 		check_quotes(char *input);
-t_args 		*parse(char *input);
+t_args 		*parse(char *input, t_shell *shell);
 //utils_mem -------------------
 t_memlist 	*mem_data(void);
 void 		*list_malloc(size_t nmemb, size_t size);
