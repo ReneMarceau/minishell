@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
+#    By: rene <rene@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/10 13:14:30 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/11/15 01:00:54 by rene             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,11 @@ INC_DIR = includes
 
 # SRC Folder Subdirectories
 EXEC_DIR = $(SRC_DIR)/executor
-ERROR_DIR = $(SRC_DIR)/error
+SIG_DIR = $(SRC_DIR)/signal
+PARS_DIR = $(SRC_DIR)/parser
+TOKEN_DIR = $(SRC_DIR)/tokenizer
 ENV_DIR = $(SRC_DIR)/env
+ERROR_DIR = $(SRC_DIR)/error
 UTILS_DIR = $(SRC_DIR)/utils
 
 # External Libraries Directories
@@ -44,7 +47,10 @@ LIBRD_INC = $(LIBRLINE_DIR)/inc
 SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(ENV_DIR)/*.c)		\
 		$(wildcard $(UTILS_DIR)/*.c)	\
+		$(wildcard $(TOKEN_DIR)/*.c)	\
+		$(wildcard $(PARS_DIR)/*.c)		\
 		$(wildcard $(EXEC_DIR)/*.c)		\
+		$(wildcard $(SIG_DIR)/*.c)		\
 		$(wildcard $(SRC_DIR)/*.c)
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

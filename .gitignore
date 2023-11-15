@@ -57,3 +57,4 @@ obj
 libs/libft/bin
 libs/libft/obj
 includes/readline/
+.vscode/

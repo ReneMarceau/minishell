@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/13 11:37:53 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:00:04 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 // ----> add_history, rl_clear_history
 # include "readline/history.h"
 
-#include "env.h"
+# include "env.h"
 
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"
@@ -81,7 +81,7 @@
 /* *************** ***************           *************** *************** */
 # define HEREDOC_FILE "/tmp/.heredoc"
 
-# define MAX_ARGS	100
+# define MAX_ARG 100
 
 # define READ_END	0
 # define WRITE_END	1
@@ -90,13 +90,6 @@
 /*                                  Structures                               */
 /* *************** ***************           *************** *************** */
 extern int	g_exit_status;
-
-typedef enum e_rdir_type {
-	INPUT,
-	OUTPUT,
-	APPEND,
-	HEREDOC
-}	t_rdir_type;
 
 typedef struct s_rdir {
 	char			*value;
@@ -126,7 +119,8 @@ typedef struct s_shell {
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
 t_shell		*init_data(char **envp);
-t_cmd    	*parsing_test(void);
+void 		signalhandler(void);
+t_cmd 		*parsing(char *input);
 
 
 #endif

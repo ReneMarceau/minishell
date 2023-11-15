@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/13 10:48:37 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/15 01:04:45 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "parse.h"
 #include "executor.h"
 #include "error.h"
 #include "colors.h"
@@ -51,7 +52,7 @@ void	shell_loop(t_shell *shell)
 		if (input && *input)
 		{
 			exit_code = ft_itoa(WEXITSTATUS(g_exit_status));
-			shell->cmd_table = parsing_test();
+			shell->cmd_table = parsing(input);
 			shell->nb_cmd = count_cmds(shell->cmd_table);
 			if (shell->cmd_table != NULL)
 				executor(shell);
@@ -71,6 +72,7 @@ int	main(int argc, char **argv, char **env)
 	shell = init_data(env);
 	if (shell == NULL)
 		return (EXIT_FAILURE);
+	//signalhandler();
 	shell_loop(shell);
 	return (EXIT_SUCCESS);
 }
