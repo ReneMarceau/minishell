@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:30:51 by rene              #+#    #+#             */
-/*   Updated: 2023/11/15 21:22:14 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/16 11:43:22 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_cmd    *create_cmd(int index)
     if (new_cmd->args == NULL)
         return (print_error(ERR_MALLOC, NULL), NULL);
     new_cmd->rdir = NULL;
+    new_cmd->heredoc_file = NULL;
     new_cmd->pid = 69;
     new_cmd->next = NULL;
     return (new_cmd);

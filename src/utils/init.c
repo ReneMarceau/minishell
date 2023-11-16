@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:34:52 by rene              #+#    #+#             */
-/*   Updated: 2023/11/15 21:28:11 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/16 15:47:53 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "builtin.h"
 #include "env.h"
 #include "error.h"
 
@@ -108,6 +109,14 @@ bool init_processes(t_shell *shell)
 	shell->pids = (pid_t *)ft_calloc(shell->nb_cmd, sizeof(pid_t));
 	if (shell->pids == NULL)
 		return (print_error(ERR_MALLOC, NULL), false);
+	if (is_builtin(cmd->args[0]) == true && cmd->next == NULL)
+	{
+		printf("BUILTIN no child process\n");
+		shell->pids[i] = 0;
+		cmd->pid = shell->pids[i];
+		return (true);
+	}
+	printf("creating child process\n");
 	while (i < shell->nb_cmd)
 	{
 		shell->pids[i] = fork();

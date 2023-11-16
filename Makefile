@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rene <rene@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/15 01:00:54 by rene             ###   ########.fr        #
+#    Updated: 2023/11/16 15:21:12 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ INC_DIR = includes
 
 # SRC Folder Subdirectories
 EXEC_DIR = $(SRC_DIR)/executor
+BUILTIN_DIR = $(SRC_DIR)/builtins
 SIG_DIR = $(SRC_DIR)/signal
 PARS_DIR = $(SRC_DIR)/parser
 TOKEN_DIR = $(SRC_DIR)/tokenizer
@@ -49,6 +50,7 @@ SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(UTILS_DIR)/*.c)	\
 		$(wildcard $(TOKEN_DIR)/*.c)	\
 		$(wildcard $(PARS_DIR)/*.c)		\
+		$(wildcard $(BUILTIN_DIR)/*.c)	\
 		$(wildcard $(EXEC_DIR)/*.c)		\
 		$(wildcard $(SIG_DIR)/*.c)		\
 		$(wildcard $(SRC_DIR)/*.c)

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/15 22:08:51 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/16 16:27:53 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "builtin.h"
 #include "executor.h"
 #include "env.h"
 #include "error.h"
@@ -65,11 +66,11 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
     return (print_error(ERR_CMD_NF, cmd->args[0]), false);
 }
 
-bool    redirections_operation(t_shell *shell, t_rdir *rdir)
+static bool    redirections_operation(t_shell *shell, t_rdir *rdir, char *heredoc_file)
 {
     while (rdir != NULL)
     {
-        if (handle_redirections(shell, rdir) == false)
+        if (handle_redirections(shell, rdir, heredoc_file) == false)
             return (false);
         rdir = rdir->next;
     }
@@ -81,6 +82,11 @@ bool    redirections_operation(t_shell *shell, t_rdir *rdir)
 
 bool    executor(t_shell *shell)
 {
+    int original_stdout = dup(STDOUT_FILENO);
+    int original_stdin = dup(STDIN_FILENO);
+    
+    if (create_heredoc_files(shell) == false)
+        return (false);
     if (init_pipes(shell) == false)
         return (false);
     if (init_processes(shell) == false)
@@ -89,10 +95,23 @@ bool    executor(t_shell *shell)
     {
         if (shell->cmd_table->pid == 0)
         {
-            if (redirections_operation(shell, shell->cmd_table->rdir) == false)
+            if (redirections_operation(shell, shell->cmd_table->rdir, shell->cmd_table->heredoc_file) == false)
                 exit(g_exit_status);
-            if (exec_cmd(shell->cmd_table, shell->envp) == false)
-                exit(g_exit_status);
+            if (is_builtin(shell->cmd_table->args[0]) == true)
+            {
+                exec_builtin(shell->cmd_table->args[0]);
+                if (dup2(original_stdout, STDOUT_FILENO) == -1)
+                    return (print_error(ERR_DUP2, NULL), false);
+                if (dup2(original_stdin, STDIN_FILENO) == -1)
+                    return (print_error(ERR_DUP2, NULL), false);
+
+                return (true);
+            }
+            else
+            {
+                if (exec_cmd(shell->cmd_table, shell->envp) == false)
+                    exit(g_exit_status);
+            }
         }
         shell->cmd_table = shell->cmd_table->next;
     }
