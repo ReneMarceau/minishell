@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:41:50 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/10 14:19:06 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:06:44 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,3 @@ char    **env_to_array(t_env *head)
     env_array[i] = NULL;
     return (env_array);
 }
-

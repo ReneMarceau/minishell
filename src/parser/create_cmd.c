@@ -6,24 +6,25 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:30:51 by rene              #+#    #+#             */
-/*   Updated: 2023/11/15 00:52:43 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/15 21:22:14 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "error.h"
 #include "parse.h"
 
 static t_cmd    *create_cmd(int index)
 {
     t_cmd   *new_cmd;
 
-    new_cmd = (t_cmd *)malloc(sizeof(t_cmd));
+    new_cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
     if (new_cmd == NULL)
-        return (NULL);
+        return (print_error(ERR_MALLOC, NULL), NULL);
     new_cmd->index = index;
     new_cmd->args = (char **)ft_calloc(MAX_ARG, sizeof(char *));
     if (new_cmd->args == NULL)
-        return (NULL);
+        return (print_error(ERR_MALLOC, NULL), NULL);
     new_cmd->rdir = NULL;
     new_cmd->pid = 69;
     new_cmd->next = NULL;
@@ -78,12 +79,12 @@ void    fill_empty_cmd_table(t_cmd **cmd_table, int cmd_count)
 
 t_cmd   *fill_cmd_table(t_token *token_list)
 {
-    t_cmd   **cmd_table = NULL;
+    t_cmd   **cmd_table;
     t_cmd   *current_cmd;
     
-    cmd_table = (t_cmd **)malloc(sizeof(t_cmd *));
+    cmd_table = (t_cmd **)ft_calloc(1, sizeof(t_cmd *));
     if (cmd_table == NULL)
-        return (NULL);
+        return (print_error(ERR_MALLOC, NULL), NULL);
     fill_empty_cmd_table(cmd_table, count_cmd(token_list));
     current_cmd = *cmd_table;
     while (token_list != NULL)

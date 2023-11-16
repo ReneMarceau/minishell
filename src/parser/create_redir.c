@@ -6,20 +6,21 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:32:56 by rene              #+#    #+#             */
-/*   Updated: 2023/11/15 00:51:51 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/15 21:25:16 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "error.h"
 #include "parse.h"
 
 t_rdir  *create_redir(char *file, int type)
 {
     t_rdir  *new_rdir;
 
-    new_rdir = (t_rdir *)malloc(sizeof(t_rdir));
+    new_rdir = (t_rdir *)ft_calloc(1, sizeof(t_rdir));
     if (new_rdir == NULL)
-        return (NULL);
+        return (print_error(ERR_MALLOC, NULL), NULL);
     new_rdir->value = ft_strdup(file);
     new_rdir->type = type;
     new_rdir->next = NULL;

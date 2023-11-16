@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/15 01:00:04 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/15 22:31:28 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ typedef struct s_shell {
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
-t_shell		*init_data(char **envp);
 void 		signalhandler(void);
+t_shell		*init_data(char **envp);
 t_cmd 		*parsing(char *input);
 
 
