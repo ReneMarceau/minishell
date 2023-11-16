@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 22:37:57 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:25:51 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,10 @@ t_args 		*tokenize(char *input, t_args *table);
 //expand_parse ----------------------
 // bool 		expand_one(t_args *current);
 // bool 		check_to_expand(t_args *current);
-bool 		expand_tokens(t_args *head);
+bool 		expand_tokens(t_args *head, t_shell *shell);
 //expand_dollar ----------------------
 void 		rm_dollar(t_args* current, size_t pos);
-size_t 		expand_one(t_args* current, size_t pos);
+size_t 		expand_one(t_args* current, size_t pos, t_shell *shell);
 //signal ----------------------
 void 		signalhandler(void);
 //utils_is -----------------------
@@ -174,4 +174,5 @@ enum 		e_node analyze_token(t_args *current);
 void 		assign_token(t_args *head);
 //data_fetch -------------------
 char 		**fetch_envp(char **init);
+size_t 		len_ext(char *env);
 #endif

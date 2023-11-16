@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 22:39:21 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:26:23 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ t_args *parse(char *input, t_shell *shell)
 	if (table == NULL)
 		return (NULL);
 	print_lst(table);
-	// expand_tokens(table, shell);
+	expand_tokens(table, shell);
 	printf("after expansion ---------\n");
 	print_lst(table);
 	// int i = 0;

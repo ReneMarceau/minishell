@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:44:19 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/14 22:38:46 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/15 22:26:43 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	shell->env = envp;
-	int i = 0; //rm
-	while(envp[i])
-		printf("%s\n", envp[i++]);
+	// int i = 0; //rm
+	// while(envp[i])
+	// 	printf("%s\n", envp[i++]);
 	signalhandler();
 	
 	while (TRUE)
