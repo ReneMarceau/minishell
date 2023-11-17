@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:32:23 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 12:43:01 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/16 22:41:32 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define EXECUTOR_H
 
 # include "global.h"
+
+/* File control options and functions for file I/O. */
+// ----> open
+# include <fcntl.h>
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:34:52 by rene              #+#    #+#             */
-/*   Updated: 2023/11/16 15:47:53 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:32:55 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,62 +74,4 @@ char	**get_envp(char **env)
 	free(path);
 	free(path_trimmed);
 	return (enviroment);
-}
-
-bool	init_pipes(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	if (shell->nb_cmd > 1)
-	{
-		shell->pipe_fd = (int **)ft_calloc(shell->nb_cmd - 1, sizeof(int *));
-		if (shell->pipe_fd == NULL)
-			return (print_error(ERR_MALLOC, NULL), false);
-		while (i < (shell->nb_cmd - 1))
-		{
-			shell->pipe_fd[i] = (int *)ft_calloc(2, sizeof(int));
-			if (shell->pipe_fd[i] == NULL)
-				return (print_error(ERR_MALLOC, NULL), false);
-			if (pipe(shell->pipe_fd[i]) == -1)
-				return (print_error(ERR_PIPE, NULL), false);
-			i++;
-		}
-	}
-	return (true);
-}
-
-bool init_processes(t_shell *shell)
-{
-	t_cmd	*cmd;
-	int		i;
-
-	cmd	= shell->cmd_table;
-	i = 0;
-	shell->pids = (pid_t *)ft_calloc(shell->nb_cmd, sizeof(pid_t));
-	if (shell->pids == NULL)
-		return (print_error(ERR_MALLOC, NULL), false);
-	if (is_builtin(cmd->args[0]) == true && cmd->next == NULL)
-	{
-		printf("BUILTIN no child process\n");
-		shell->pids[i] = 0;
-		cmd->pid = shell->pids[i];
-		return (true);
-	}
-	printf("creating child process\n");
-	while (i < shell->nb_cmd)
-	{
-		shell->pids[i] = fork();
-		if (shell->pids[i] == -1)
-			return (print_error(ERR_FORK, NULL), false);
-		else if (shell->pids[i] == 0)
-		{
-			cmd->pid = shell->pids[i];
-			return (true);
-		}
-		cmd->pid = shell->pids[i];
-		cmd = cmd->next;
-		i++;
-	}
-	return (true);
 }

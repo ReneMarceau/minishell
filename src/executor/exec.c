@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 16:27:53 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/16 22:15:40 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,15 @@ bool    executor(t_shell *shell)
                 exit(g_exit_status);
             if (is_builtin(shell->cmd_table->args[0]) == true)
             {
-                exec_builtin(shell->cmd_table->args[0]);
+                exec_builtin(shell->cmd_table, shell->envp);
                 if (dup2(original_stdout, STDOUT_FILENO) == -1)
                     return (print_error(ERR_DUP2, NULL), false);
                 if (dup2(original_stdin, STDIN_FILENO) == -1)
                     return (print_error(ERR_DUP2, NULL), false);
 
-                return (true);
+                if (shell->nb_cmd == 1)
+                    return (true);
+                exit(g_exit_status);
             }
             else
             {

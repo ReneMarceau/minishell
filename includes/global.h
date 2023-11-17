@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 11:43:02 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/16 22:41:44 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@
 /* Signal handling, used for managing process signals */
 // ----> signal, sigaction, sigemptyset, sigaddset, kill
 # include <signal.h>
-
-/* File control options and functions for file I/O. */
-// ----> open
-# include <fcntl.h>
 
 /* Data types, structures and functions related to the file system */
 // ----> stat, lstat, fstat

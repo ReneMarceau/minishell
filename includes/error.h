@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 19:24:00 by rene              #+#    #+#             */
-/*   Updated: 2023/10/27 13:29:34 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/16 22:31:53 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define ERR_CMD_NF			"command not found"
 # define ERR_CMD_NOT_EXEC	"command not executable"
 # define ERR_TOO_MANY_ARGS	"Argument list too long"
-# define ERR_INVALID_OPT	"Invalid option"
+# define ERR_INVALID_OPT	"invalid option"
 
 // Variable and String Errors
 # define ERR_VAR_NOT_SET	"Variable not set"
@@ -65,5 +65,6 @@
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
 void	print_error(char *error_message, char *arg);
+void	print_error_builtin(char *error_message, char *cmd_name, char *option);
 
 #endif
