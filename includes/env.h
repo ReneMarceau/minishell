@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:26:27 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/10 14:18:50 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:43:37 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_env {
 /* *************** ***************           *************** *************** */
 t_env   *create_node_env(char *key, char *value);
 void    insert_env(t_env **head, t_env *new_node);
+bool    split_key_value(char *env, char **key, char **value);
+t_env   *find_env(t_env *env, char *key);
 int     count_node_env(t_env *head);
 t_env   *build_env_list(char **env);
 char    **env_to_array(t_env *head);

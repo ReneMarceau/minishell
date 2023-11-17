@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:41:50 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/15 21:06:44 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/17 11:31:00 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "error.h"
 #include "env.h"
 
-static bool    split_key_value(char *env, char **key, char **value)
+bool    split_key_value(char *env, char **key, char **value)
 {
     char    *equal_sign_pos;
 
