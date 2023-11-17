@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:44:19 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/15 22:26:43 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/16 22:00:31 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	t_args *arg;
 	(void)argc;
 	(void)argv;
+	int i;
 	shell->env = envp;
 	// int i = 0; //rm
 	// while(envp[i])
