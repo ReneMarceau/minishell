@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 19:24:00 by rene              #+#    #+#             */
-/*   Updated: 2023/11/16 22:31:53 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/18 02:13:31 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 /* Standard Library functions, provides memory allocation and other functions */
 // ----> malloc, free, exit, getenv
 # include <stdlib.h>
+# include <errno.h>
 
 /* *************** ***************           *************** *************** */
 /*                                  Macros                                   */
@@ -32,7 +33,8 @@
 // Command Execution Errors
 # define ERR_CMD_NF			"command not found"
 # define ERR_CMD_NOT_EXEC	"command not executable"
-# define ERR_TOO_MANY_ARGS	"Argument list too long"
+# define ERR_TOO_MANY_ARGS	"too many arguments"
+# define ERR_NUMERIC_ARG	"numeric argument required"
 # define ERR_INVALID_OPT	"invalid option"
 
 // Variable and String Errors

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:25:30 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/17 15:32:57 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/17 22:01:13 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void    unset_env(t_env **head, char *key)
     prev = NULL;
     while (tmp)
     {
-        if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
+        if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
         {
-            if (prev)
+            if (prev != NULL)
                 prev->next = tmp->next;
             else
                 *head = tmp->next;
