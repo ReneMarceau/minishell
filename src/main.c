@@ -5,48 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 16:44:19 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 22:00:31 by wmillett         ###   ########.fr       */
+/*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
+/*   Updated: 2023/11/21 13:30:42 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/global.h"
+#include "global.h"
+#include "parse.h"
+#include "executor.h"
+#include "error.h"
+#include "colors.h"
 
-int	main(int argc, char **argv, char **envp)
+int	g_exit_status = 0;
+
+int get_exit(bool change, int value)
+{
+	static int g_exit_status = 0;
+	
+	if (change == TRUE)
+		g_exit_status = value;
+	return (g_exit_status);
+}
+
+bool	readlines(char **input, char **last_input)
+{
+	*input = readline(READLINE_MSG);
+	if (*input == NULL)
+		return (printf("exit\n"), false);
+	if (*last_input == NULL)
+	{
+		*last_input = ft_strdup("");
+		if (*last_input == NULL)
+			return (print_error(ERR_MALLOC, NULL), false);
+	}
+	if (*input && **input && ft_strncmp(*input, *last_input, ft_strlen(*input)))
+		add_history(*input);
+	*last_input = ft_strdup(*input);
+	if (*last_input == NULL)
+		return (print_error(ERR_MALLOC, NULL), false);
+	return (true);
+}
+
+void	shell_loop(t_shell *shell)
 {
 	char	*input;
-	t_shell *shell = malloc(sizeof(t_shell*));
-	t_args *arg;
-	(void)argc;
-	(void)argv;
-	int i;
-	shell->env = envp;
-	// int i = 0; //rm
-	// while(envp[i])
-	// 	printf("%s\n", envp[i++]);
-	signalhandler();
-	
-	while (TRUE)
+	char	*last_input;
+	char	*exit_code;
+
+	input = NULL;
+	last_input = NULL;
+	while (true)
 	{
-		input = readline("minishell> ");
-		if (input == NULL)
-		{
-			printf("exit\n");
-			break ;
-		}
+		if (!readlines(&input, &last_input))
+			return ;
 		if (input && *input)
 		{
-			add_history(input);
-				// printf("Added to history: %s\n", input);
-			arg = parse(input, shell);
-			if (arg)
-				printf("-----------\n");
-			else
-				printf("Command not found\n");
+			exit_code = ft_itoa(WEXITSTATUS(g_exit_status));
+			shell->cmd_table = parsing(input, shell);
+			shell->nb_cmd = count_cmds(shell->cmd_table);
+			if (shell->cmd_table != NULL)
+				executor(shell);
 		}
 		free(input);
 	}
-	free(input);
-	free(shell);
-	return (0);
+	free(last_input);
+	free(exit_code);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_shell	*shell;
+
+	(void)argc;
+	(void)argv;
+	shell = init_data(env);
+	if (shell == NULL)
+		return (EXIT_FAILURE);
+	//signalhandler();
+	shell_loop(shell);
+	return (EXIT_SUCCESS);
 }

@@ -6,173 +6,87 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/15 22:25:51 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:38:21 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-//libft -
-# include "../libs/libft/inc/libft.h"
-//debug  --------------------
-// extern int DEBUG;
-//librairies ----------------
-# include <limits.h>
-# include <pthread.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/time.h>
-# include <unistd.h>
-# include <signal.h>
-
-//readline
-#include <readline/readline.h>
-#include <readline/history.h>
-
-//general definitions -------
-# define TRUE 1
-# define FALSE 0
-# define ERROR -1
-# define SUCCESS 1
-# define FAILURE 0
-# define INVALID -1
-# define FINISH 1
+/* *************** ***************           *************** *************** */
+/*                                  INCLUDES                                 */
+/* *************** ***************           *************** *************** */
+# include "global.h"
+/* *************** ***************           *************** *************** */
+/*                                  Macros                                   */
+/* *************** ***************           *************** *************** */
 //definitions for parse ------
 # define SEP 19
 # define OUT 0
 # define IN_SINGLE 1
 # define IN_DOUBLE 2
-//definitions for print ------
-# define CMD_MESSAGE "Command not found"
-# define LEAVE_MESSAGE "exit"
-# define NO_CMD -6
-# define GO_EXIT -7
-//error ----------------------
-# define ATOL_ER -2147483650
-# define NOINT_ER -2147483651
-# define MEM_ER -2
-# define MIN_ER -3
-# define MAX_ER -4
-# define INT_ER -5
-# define TEST 100
-# define THREAD_ERR "Failed to create a thread."
-# define MUTEX_ERR "Failed to initialize mutex."
-# define ARG_NB_ERR "Wrong number of arguments."
-# define FORMAT_ERR "Invalid argument format."
-# define MEM_ERR "Memory allocaton failed."
-# define ATOL_ERR "Argument does not fit in an integer."
-//structs --------------------
 
+//defintions general --------
+# define TRUE 1
+# define FALSE 0
+# define ERROR -1
+# define INVALID -1
+
+/* *************** ***************           *************** *************** */
+/*                                  Structures                               */
+/* *************** ***************           *************** *************** */
 enum e_node
 {
-	STR,
-	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
-	HEREDOC,
-	APPEND,
-	TK_NULL
+    STR,
+    PIPE,
+    REDIR_IN,
+    REDIR_OUT,
+    REDIR_APPEND,
+    HEREDOC,
+    TK_NULL
 };
 
-typedef struct s_mem
+typedef struct s_token
 {
-	enum e_node	type;
-	t_list **list;
-	size_t	size;
-}	t_mem;
+    char *token;
+    enum e_node type;
+    struct s_token *next;
+}   t_token;
 
-typedef struct s_test
-{
-	int i;
-	char c;
-	size_t v;
-	
-} t_test;
-
-typedef struct s_memlist
-{
-    void *address;
-    struct s_memlist *mem_next;
-}   t_memlist;
-
-typedef struct s_cmd 
-{
-    int index;
-    size_t nb_args;
-    char **args;
-    pid_t pid;
-	enum e_node type;
-    struct s_cmd *next;
-}   t_cmd;
-
-typedef struct s_args
-{
-	char *token;
-	enum e_node type;
-	struct s_args *next;
-}	t_args;
-
-typedef struct s_shell {
-    t_cmd *cmds;
-    size_t nb_cmds;
-    pid_t *pids;
-    int **pipes_fd;
-    int input_fd;
-    int output_fd;
-    char **env;
-}   t_shell;
-
+/* *************** ***************           *************** *************** */
+/*                                  Prototypes                               */
+/* *************** ***************           *************** *************** */
 //parse -----------------------
-bool 		check_token(char *input);
-bool 		check_quotes(char *input);
-t_args 		*parse(char *input, t_shell *shell);
-//utils_mem -------------------
-t_memlist 	*mem_data(void);
-void 		*list_malloc(size_t nmemb, size_t size);
-void 		free_one(void *address);
-void 		all_free(void);
+bool 	check_token(char *input);
+bool 	check_quotes(char *input);
 //tokenize --------------------
-t_args 		*tokenize(char *input, t_args *table);
+t_token *tokenize(char *input, t_token *table);
 //expand_parse ----------------------
-// bool 		expand_one(t_args *current);
-// bool 		check_to_expand(t_args *current);
-bool 		expand_tokens(t_args *head, t_shell *shell);
+void rm_dollar(t_token* current, size_t pos);
+bool expand_tokens(t_token *head, t_env *env);
 //expand_dollar ----------------------
-void 		rm_dollar(t_args* current, size_t pos);
-size_t 		expand_one(t_args* current, size_t pos, t_shell *shell);
-//signal ----------------------
-void 		signalhandler(void);
+size_t expand_one(t_token* current, size_t pos, t_env *env);
+
 //utils_is -----------------------
-bool 		ft_isquote(char a);
-bool 		ft_isspecial(char a);
-bool		is_sep(char c);
-bool		ft_isexpand(char c);
-//meta_char -------------------
-// int 		check_meta(char *input, int i);
+bool	ft_isquote(char c);
+bool	ft_isspecial(char c);
+bool	is_sep(char c);
+bool	ft_isexpand(char c);
 //convert_input --------------------
-// size_t 		count_arg(char *input, size_t i, size_t res);
-size_t 		through_quote(char *input, size_t i, char *dst, size_t pos_dst);
-size_t 		through_special(char *input, size_t i);
-char		*str_sel_dup(char *s1);
+size_t  through_quote(char *input, size_t i, char *dst, size_t pos_dst);
+size_t through_single_quote(char *input, size_t i);
+size_t  through_special(char *input, size_t i);
+char	*str_sel_dup(char *s1);
 //quote -----------------------
-int 		in_single(char *input, int i);
-int 		in_double(char *input, int i);
-int 		in_quote(char *input, int i);
+
 //list ------------------------
-// t_args 		*convert_to_lst(char **tokens, t_args *table);
-// t_args		*new_args(char *token);
-// size_t 		args_size(t_args *lst);
-// void		add_arg(t_args **lst, t_args *newnode);
-void 		free_lst(t_args *head);
-t_args 		*convert_to_lst(char **array, t_args *head, t_args *current, t_args *newnode);
-//print ------------------------
-void 		print_lst(t_args *head);
+t_token *convert_to_lst(char **array, t_token *head, t_token *current, t_token *newnode);
 //assign_token -----------------
-enum 		e_node analyze_token(t_args *current);
-void 		assign_token(t_args *head);
-//data_fetch -------------------
-char 		**fetch_envp(char **init);
-size_t 		len_ext(char *env);
+enum    e_node analyze_token(t_token *current);
+//fill_cmd_table ----------------
+t_cmd   *fill_cmd_table(t_token *token_list);
+t_rdir  *create_redir(char *file, int type);
+void    add_rdir(t_cmd **head, char *file, int type);
+void    add_arg(t_cmd **head, char *arg);
+
 #endif
