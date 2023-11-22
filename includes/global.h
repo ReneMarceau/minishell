@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/22 16:42:05 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:15:54 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_shell {
 	int		input_fd;
 	int		output_fd;
 	t_env	*envp;
+	bool	mem_err_flg;//new
 }	t_shell;
 
 /* *************** ***************           *************** *************** */

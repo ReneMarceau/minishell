@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/22 16:41:44 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:00:55 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_cmd *parsing(char *input, t_shell *shell)
     if (token_list == NULL)
         return (NULL);
     //print_lst(token_list);
-    expand_tokens(token_list, shell->envp);
+    expand_tokens(token_list, shell);
     cmd_table = fill_cmd_table(token_list);
     if (cmd_table == NULL)
         return (NULL);

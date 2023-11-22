@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/22 16:45:46 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:26:21 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,12 @@ size_t through_single_quote(char *input, size_t i);
 t_token *tokenize(char *input, t_token *table);
 //expand_parse ----------------------
 void rm_dollar(t_token* current, size_t pos);
-bool expand_tokens(t_token *head, t_env *env);
+bool expand_tokens(t_token *head, t_shell *shell);
 //expand_dollar ----------------------
-size_t expand_one(t_token* current, size_t pos, t_env *env);
+int make_new_ext_tk(t_token *current, size_t start, size_t len, char *ext);
+size_t expand_one(t_token* current, size_t pos, t_shell *shell);
+//expand_return --------------------
+size_t expand_return(t_token *current, size_t start, t_shell *shell);
 //utils_is -----------------------
 bool	ft_isquote(char c);
 bool	ft_isspecial(char c);
