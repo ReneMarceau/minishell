@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:44:28 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 21:23:54 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/22 16:45:26 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ size_t through_quote(char *input, size_t i, char *dst, size_t pos_dst)
 	if (dst)
 		dst[pos_dst] = input[i];
 	return (j + 1);
+}
+
+size_t through_single_quote(char *input, size_t i)
+{
+	size_t j;
+
+	j = 1;
+	while(input[i + j] && input[i + j] != '\'')
+		j++;
+	if (input[i + j] == '\'')
+		j++;
+	printf("j: %zu\n", j);
+	printf("input: %c\n", input[j + i]);
+	return (j);
 }
 
 size_t through_special(char *input, size_t i)

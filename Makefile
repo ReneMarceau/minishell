@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rene <rene@student.42.fr>                  +#+  +:+       +#+         #
+#    By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/15 01:00:54 by rene             ###   ########.fr        #
+#    Updated: 2023/11/22 16:42:52 by wmillett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ INC_DIR = includes
 EXEC_DIR = $(SRC_DIR)/executor
 SIG_DIR = $(SRC_DIR)/signal
 PARS_DIR = $(SRC_DIR)/parser
+EXP_DIR = $(SRC_DIR)/expand
 TOKEN_DIR = $(SRC_DIR)/tokenizer
 ENV_DIR = $(SRC_DIR)/env
 ERROR_DIR = $(SRC_DIR)/error
@@ -49,6 +50,7 @@ SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(UTILS_DIR)/*.c)	\
 		$(wildcard $(TOKEN_DIR)/*.c)	\
 		$(wildcard $(PARS_DIR)/*.c)		\
+		$(wildcard $(EXP_DIR)/*.c)		\
 		$(wildcard $(EXEC_DIR)/*.c)		\
 		$(wildcard $(SIG_DIR)/*.c)		\
 		$(wildcard $(SRC_DIR)/*.c)

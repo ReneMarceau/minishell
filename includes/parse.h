@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/15 00:53:37 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/22 16:45:46 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 /* *************** ***************           *************** *************** */
 /*                                  INCLUDES                                 */
 /* *************** ***************           *************** *************** */
-
+# include "global.h"
 
 /* *************** ***************           *************** *************** */
 /*                                  Macros                                   */
 /* *************** ***************           *************** *************** */
 //definitions for parse ------
-# define SEP ' '
+# define SEP 19
 # define OUT 0
 # define IN_SINGLE 1
 # define IN_DOUBLE 2
-
+# define ERROR -1
 /* *************** ***************           *************** *************** */
 /*                                  Structures                               */
 /* *************** ***************           *************** *************** */
@@ -55,11 +55,13 @@ typedef struct s_token
 bool 	check_token(char *input);
 bool 	check_quotes(char *input);
 //tokenize --------------------
+size_t through_single_quote(char *input, size_t i);
 t_token *tokenize(char *input, t_token *table);
 //expand_parse ----------------------
-
+void rm_dollar(t_token* current, size_t pos);
+bool expand_tokens(t_token *head, t_env *env);
 //expand_dollar ----------------------
-
+size_t expand_one(t_token* current, size_t pos, t_env *env);
 //utils_is -----------------------
 bool	ft_isquote(char c);
 bool	ft_isspecial(char c);

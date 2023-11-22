@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/15 01:04:45 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/22 16:41:35 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	shell_loop(t_shell *shell)
 		if (input && *input)
 		{
 			exit_code = ft_itoa(WEXITSTATUS(g_exit_status));
-			shell->cmd_table = parsing(input);
+			shell->cmd_table = parsing(input, shell);
 			shell->nb_cmd = count_cmds(shell->cmd_table);
 			if (shell->cmd_table != NULL)
 				executor(shell);

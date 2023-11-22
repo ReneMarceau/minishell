@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/15 17:47:32 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:41:44 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 //     printf("\n");
 // }
 
-t_cmd *parsing(char *input)
+t_cmd *parsing(char *input, t_shell *shell)
 {
     t_cmd   *cmd_table;
     t_token *token_list;
@@ -89,6 +89,7 @@ t_cmd *parsing(char *input)
     if (token_list == NULL)
         return (NULL);
     //print_lst(token_list);
+    expand_tokens(token_list, shell->envp);
     cmd_table = fill_cmd_table(token_list);
     if (cmd_table == NULL)
         return (NULL);

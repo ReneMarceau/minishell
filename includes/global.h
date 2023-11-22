@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/15 22:31:28 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/22 16:42:05 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_shell {
 /* *************** ***************           *************** *************** */
 void 		signalhandler(void);
 t_shell		*init_data(char **envp);
-t_cmd 		*parsing(char *input);
+t_cmd 		*parsing(char *input, t_shell *shell);
 
 
 #endif
