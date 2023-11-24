@@ -3,47 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   collector.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 16:53:21 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/24 17:21:19 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "garbage_collector.h"
 
-t_memlist *mem_data(void)
+t_memlist	*mem_data(void)
 {
-	static t_memlist head = {NULL, NULL};
+	static t_memlist	head = {NULL, NULL};
 
-	return &head;
+	return (&head);
 }
 
-void *list_malloc(size_t nmemb, size_t size)
+void	*list_malloc(size_t nmemb, size_t size)
 {
-	t_memlist *to_alloc;
+	t_memlist	*to_alloc;
 
 	to_alloc = ft_calloc(1, sizeof(t_memlist));
 	if (!to_alloc)
-		return NULL;
-
+		return (NULL);
 	to_alloc->mem_next = mem_data()->mem_next;
 	mem_data()->mem_next = to_alloc;
-
 	to_alloc->address = ft_calloc(nmemb, size);
 	if (!to_alloc->address)
-		return NULL;
-	return to_alloc->address;
+		return (NULL);
+	return (to_alloc->address);
 }
 
-void free_one(void *address)
+void	free_one(void *address)
 {
-	t_memlist *gc_ptr;
-	t_memlist *ptr_tmp;
+	t_memlist	*gc_ptr;
+	t_memlist	*ptr_tmp;
 
 	gc_ptr = mem_data()->mem_next;
 	ptr_tmp = mem_data();
-
 	while (gc_ptr)
 	{
 		if (gc_ptr->address == address)
@@ -52,17 +49,17 @@ void free_one(void *address)
 			if (gc_ptr->address)
 				free(gc_ptr->address);
 			free(gc_ptr);
-			return;
+			return ;
 		}
 		ptr_tmp = gc_ptr;
 		gc_ptr = gc_ptr->mem_next;
 	}
 }
 
-void all_free(void)
+void	all_free(void)
 {
-	t_memlist *gc_ptr;
-	t_memlist *ptr_tmp;
+	t_memlist	*gc_ptr;
+	t_memlist	*ptr_tmp;
 
 	gc_ptr = mem_data()->mem_next;
 	while (gc_ptr)
@@ -74,4 +71,14 @@ void all_free(void)
 		free(ptr_tmp);
 	}
 	mem_data()->mem_next = NULL;
+}
+
+void add_garbage(void *to_add)
+{
+	t_memlist	*ptr_tmp;
+
+	ptr_tmp = mem_data()->mem_next;
+	while(ptr_tmp)
+		ptr_tmp = ptr_tmp->mem_next;
+	//
 }

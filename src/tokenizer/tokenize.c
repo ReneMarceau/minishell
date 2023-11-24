@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:44:28 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/22 16:45:26 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:56:50 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ size_t through_single_quote(char *input, size_t i)
 		j++;
 	if (input[i + j] == '\'')
 		j++;
-	printf("j: %zu\n", j);
-	printf("input: %c\n", input[j + i]);
 	return (j);
 }
 

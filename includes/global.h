@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/22 17:15:54 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:50:47 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@
 
 # include "env.h"
 
+# include "garbage_collector.h"
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"
 

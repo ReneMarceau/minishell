@@ -6,7 +6,7 @@
 #    By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/22 16:42:52 by wmillett         ###   ########.fr        #
+#    Updated: 2023/11/24 16:54:42 by wmillett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ EXEC_DIR = $(SRC_DIR)/executor
 SIG_DIR = $(SRC_DIR)/signal
 PARS_DIR = $(SRC_DIR)/parser
 EXP_DIR = $(SRC_DIR)/expand
+GAR_DIR = $(SRC_DIR)/garbage
 TOKEN_DIR = $(SRC_DIR)/tokenizer
 ENV_DIR = $(SRC_DIR)/env
 ERROR_DIR = $(SRC_DIR)/error
@@ -51,6 +52,7 @@ SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(TOKEN_DIR)/*.c)	\
 		$(wildcard $(PARS_DIR)/*.c)		\
 		$(wildcard $(EXP_DIR)/*.c)		\
+		$(wildcard $(GAR_DIR)/*.c)	\
 		$(wildcard $(EXEC_DIR)/*.c)		\
 		$(wildcard $(SIG_DIR)/*.c)		\
 		$(wildcard $(SRC_DIR)/*.c)
