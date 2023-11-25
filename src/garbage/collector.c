@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/24 17:21:19 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/24 20:49:12 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ void	all_free(void)
 	mem_data()->mem_next = NULL;
 }
 
-void add_garbage(void *to_add)
+void	add_garbage(void *to_add)
 {
 	t_memlist	*ptr_tmp;
 
 	ptr_tmp = mem_data()->mem_next;
-	while(ptr_tmp)
+	while (ptr_tmp)
 		ptr_tmp = ptr_tmp->mem_next;
-	//
+	ptr_tmp->address = to_add;
+	ptr_tmp->mem_next = NULL;
 }

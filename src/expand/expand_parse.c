@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:33:16 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/23 20:24:50 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:23:41 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@ static size_t parse_expand(t_token* current, size_t pos, bool in_quote, t_shell 
 	size_t i;
 
 	i = 0;
-	// if (ft_isquote(current->token[pos + 1]) && !in_quote)
-	// 	rm_dollar(current, pos);
-	if (ft_isexpand(current->token[pos + 1]) && in_quote) //else if
+	if (ft_isquote(current->token[pos + 1]) && !in_quote)
+		rm_ext(current, pos, 1);
+	else if (ft_isexpand(current->token[pos + 1]) && in_quote)
 		i += expand_one(current, pos, shell) - 1;
 	else if (ft_isexpand(current->token[pos + 1]))
-	{
 		i += expand_one(current, pos, shell);
-	}
 	else if (current->token[pos + 1] == '?' && in_quote)
 		i += expand_return(current, pos, shell) - 1;
 	else if (current->token[pos + 1] == '?')
-			i += expand_return(current, pos, shell);
+		i += expand_return(current, pos, shell);
 	else
 		i++;
 	return (i);
@@ -56,8 +54,7 @@ static bool check_to_expand(t_token *current, t_shell *shell)
 	size_t i;
 	
 	i = 0;
-	// printf("%s\n", current->token);
-	while(current->token[i]) //SEGFAULT IN THIS FUNCTION WHEN ONLY $LA, not caused by RM_$
+	while(current->token[i])
 	{
 		if (current->token[i] == '\'')
 			i += through_single_quote(current->token, i);
