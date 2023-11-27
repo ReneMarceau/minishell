@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:25:30 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/17 22:01:13 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/20 15:16:53 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ int count_node_env(t_env *head)
 }
 t_env   *find_env(t_env *env, char *key)
 {
+    bool    is_same_length;
+    
+    is_same_length = ft_strlen(key) == ft_strlen(env->key);
     while (env)
     {
-        if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+        if (ft_strncmp(env->key, key, ft_strlen(key)) == 0 && ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
             return (env);
         env = env->next;
     }

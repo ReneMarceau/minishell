@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 19:24:00 by rene              #+#    #+#             */
-/*   Updated: 2023/11/18 02:13:31 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/20 15:29:12 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define ERR_TOO_MANY_ARGS	"too many arguments"
 # define ERR_NUMERIC_ARG	"numeric argument required"
 # define ERR_INVALID_OPT	"invalid option"
+# define ERR_INVALID_ID		"not a valid identifier"
 
 // Variable and String Errors
 # define ERR_VAR_NOT_SET	"Variable not set"

@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:53 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/17 15:00:00 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/27 11:34:53 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ bool    exec_export(t_cmd *cmd, t_env *env)
     int     i;
 
     i = 1;
-    if (cmd->args[i] != NULL && cmd->args[1][0] == '-')
-        return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1]), false);
     if (cmd->args[i] == NULL)
         return (print_env(env), true);
+    if (cmd->args[1][0] == '-')
+        return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1]), false);
+    if (cmd->args[1][0] != '_' && ft_isalpha(cmd->args[1][0]) == 0)
+        return (print_error_builtin(ERR_INVALID_ID, cmd->args[0], cmd->args[1]), false);
     while (cmd->args[i] != NULL)
     {
         key = NULL;
