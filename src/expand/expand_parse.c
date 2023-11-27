@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:33:16 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/24 21:23:41 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:33:00 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static size_t parse_expand(t_token* current, size_t pos, bool in_quote, t_shell 
 
 	i = 0;
 	if (ft_isquote(current->token[pos + 1]) && !in_quote)
-		rm_ext(current, pos, 1);
+		rm_ext(current, pos, 1, shell);
 	else if (ft_isexpand(current->token[pos + 1]) && in_quote)
 		i += expand_one(current, pos, shell) - 1;
 	else if (ft_isexpand(current->token[pos + 1]))
@@ -75,11 +75,9 @@ static bool check_to_expand(t_token *current, t_shell *shell)
 bool expand_tokens(t_token *head, t_shell *shell)
 {
 	t_token *current;
-	bool check;
 	bool here_check;
 
 	here_check = FALSE;
-	check = FALSE;
 	current = head;
 	while(current)
 	{
@@ -87,8 +85,8 @@ bool expand_tokens(t_token *head, t_shell *shell)
 			here_check = FALSE;
 		else if (current->type == STR)
 		{
-			check = check_to_expand(current, shell);
-			if (check == FALSE)
+			check_to_expand(current, shell);
+			if (shell->mem_err_flg)
 				return (FALSE);
 		}
 		if (current->type == HEREDOC)

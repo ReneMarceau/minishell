@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/24 16:50:47 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:18:36 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_shell {
 	int		input_fd;
 	int		output_fd;
 	t_env	*envp;
+	int		err_type;//new
 	bool	mem_err_flg;//new
 }	t_shell;
 
@@ -123,6 +124,5 @@ typedef struct s_shell {
 void 		signalhandler(void);
 t_shell		*init_data(char **envp);
 t_cmd 		*parsing(char *input, t_shell *shell);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:44:28 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/24 16:56:50 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:20:14 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,14 @@ t_token *tokenize(char *input, t_token *table)
     char *converted_input;
     
     converted_input = str_sel_dup(input);
-    tokens = ft_split(converted_input, SEP);
+	// if (converted_input == NULL)
+	// 	return ((t_token *)clean_all());
+    tokens = ft_split(converted_input, SEP); //fix split in libft to save against mem failure
+	// if (tokens == NULL)
+	// 	return ((t_token *)clean_all());
     table = convert_to_lst(tokens, table, NULL, NULL);
+	// if (table == NULL)
+	// 	return ((t_token *)clean_all());
     return (table);
 }
+

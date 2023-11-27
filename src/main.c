@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/22 16:41:35 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:38:01 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void	shell_loop(t_shell *shell)
 			shell->nb_cmd = count_cmds(shell->cmd_table);
 			if (shell->cmd_table != NULL)
 				executor(shell);
+			else
+			{
+				print_error(ERR_MALLOC, "shell");
+				all_free();
+				exit(0);
+			}
 		}
 		free(input);
 	}
