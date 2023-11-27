@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 22:41:44 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/27 11:39:26 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@
 
 # include "env.h"
 
+# include "garbage_collector.h"
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"
 
@@ -110,6 +111,8 @@ typedef struct s_shell {
 	int		input_fd;
 	int		output_fd;
 	t_env	*envp;
+	int		err_type;//new
+	bool	mem_err_flg;//new
 }	t_shell;
 
 /* *************** ***************           *************** *************** */
@@ -117,7 +120,6 @@ typedef struct s_shell {
 /* *************** ***************           *************** *************** */
 void 		signalhandler(void);
 t_shell		*init_data(char **envp);
-t_cmd 		*parsing(char *input);
-
+t_cmd 		*parsing(char *input, t_shell *shell);
 
 #endif

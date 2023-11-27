@@ -5,10 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/27 11:31:31 by rmarceau         ###   ########.fr        #
+#    Created: Invalid date        by                   #+#    #+#              #
+#    Updated: 2023/11/27 11:42:02 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
 
 # -------------------------------------#
 #           VARIABLES                  #
@@ -31,6 +33,8 @@ EXEC_DIR = $(SRC_DIR)/executor
 BUILTIN_DIR = $(SRC_DIR)/builtins
 SIG_DIR = $(SRC_DIR)/signal
 PARS_DIR = $(SRC_DIR)/parser
+EXP_DIR = $(SRC_DIR)/expand
+GAR_DIR = $(SRC_DIR)/garbage
 TOKEN_DIR = $(SRC_DIR)/tokenizer
 ENV_DIR = $(SRC_DIR)/env
 ERROR_DIR = $(SRC_DIR)/error
@@ -50,6 +54,8 @@ SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(UTILS_DIR)/*.c)	\
 		$(wildcard $(TOKEN_DIR)/*.c)	\
 		$(wildcard $(PARS_DIR)/*.c)		\
+		$(wildcard $(EXP_DIR)/*.c)		\
+		$(wildcard $(GAR_DIR)/*.c)	\
 		$(wildcard $(BUILTIN_DIR)/*.c)	\
 		$(wildcard $(EXEC_DIR)/*.c)		\
 		$(wildcard $(SIG_DIR)/*.c)		\

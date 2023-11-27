@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/15 17:47:32 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:26:30 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@
 //     printf("\n");
 // }
 
-t_cmd *parsing(char *input)
+t_cmd *parsing(char *input, t_shell *shell)
 {
     t_cmd   *cmd_table;
     t_token *token_list;
@@ -87,11 +87,20 @@ t_cmd *parsing(char *input)
         return (NULL);
     token_list = tokenize(input, token_list);
     if (token_list == NULL)
-        return (NULL);
+    {
+        shell->mem_err_flg = TRUE;
+        return ((t_cmd *)clean_all());
+    }
     //print_lst(token_list);
+    expand_tokens(token_list, shell);
+    if (shell->mem_err_flg)
+        return ((t_cmd *)clean_all());
     cmd_table = fill_cmd_table(token_list);
     if (cmd_table == NULL)
-        return (NULL);
+    {
+        shell->mem_err_flg = TRUE;
+        return ((t_cmd *)clean_all());
+    }
     //print_cmd_table(cmd_table);
     return (cmd_table);
 }

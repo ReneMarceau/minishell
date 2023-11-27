@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:54:25 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 18:18:39 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/24 17:01:44 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_token *convert_to_lst(char **array, t_token *head, t_token *current, t_token *
 	i = 0;
 	while (array[i] != NULL)
 	{
-		newnode = (t_token *)malloc(sizeof(t_token));
-        if (newnode == NULL) 
+		newnode = (t_token *)list_malloc(sizeof(t_token), 1);
+        if (newnode == NULL)
             return NULL;
         newnode->token = array[i];
 		newnode->type = analyze_token(newnode);
