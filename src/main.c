@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/26 21:38:01 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:40:51 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	readlines(char **input, char **last_input)
 {
 	*input = readline(READLINE_MSG);
 	if (*input == NULL)
-		return (printf("exit\n"), false);
+		return (exit_shell("exit"), false);
 	if (*last_input == NULL)
 	{
 		*last_input = ft_strdup("");
@@ -31,6 +31,7 @@ bool	readlines(char **input, char **last_input)
 	}
 	if (*input && **input && ft_strncmp(*input, *last_input, ft_strlen(*input)))
 		add_history(*input);
+	free(*last_input);
 	*last_input = ft_strdup(*input);
 	if (*last_input == NULL)
 		return (print_error(ERR_MALLOC, NULL), false);
@@ -41,7 +42,6 @@ void	shell_loop(t_shell *shell)
 {
 	char	*input;
 	char	*last_input;
-	char	*exit_code;
 
 	input = NULL;
 	last_input = NULL;
@@ -51,22 +51,15 @@ void	shell_loop(t_shell *shell)
 			return ;
 		if (input && *input)
 		{
-			exit_code = ft_itoa(WEXITSTATUS(g_exit_status));
 			shell->cmd_table = parsing(input, shell);
 			shell->nb_cmd = count_cmds(shell->cmd_table);
-			if (shell->cmd_table != NULL)
+			if (shell->cmd_table != NULL) 
 				executor(shell);
-			else
-			{
-				print_error(ERR_MALLOC, "shell");
-				all_free();
-				exit(0);
-			}
+			all_free();
 		}
 		free(input);
 	}
 	free(last_input);
-	free(exit_code);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -80,5 +73,6 @@ int	main(int argc, char **argv, char **env)
 		return (EXIT_FAILURE);
 	//signalhandler();
 	shell_loop(shell);
+	free(shell);
 	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 22:15:40 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/28 14:56:33 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,21 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
     int     i;
 
     env_array = env_to_array(env);
-    if (env_array == NULL)
+    if (env_array == NULL || cmd->args[0] == NULL)
         return (false);
     if (cmd->args[0][0] == '/' || cmd->args[0][0] == '.')
         return(run_cmd(cmd->args[0], cmd->args, env_array, true));
     envp = get_envp(env_array);
     if (envp == NULL)
-        return (print_error(ERR_VAR_NOT_SET, "PATH"), false);
+        return (print_error(ERR_CMD_NF, cmd->args[0]), false);
     i = -1;
-    while (envp[++i])
+    while (envp[++i] != NULL)
     {
         cmd_path = get_cmd_fullpath(cmd->args[0], envp[i]);
         if (cmd_path == NULL)
             return (false);
         run_cmd(cmd_path, cmd->args, env_array, false);
+        g_exit_status = 127;
     }
     return (print_error(ERR_CMD_NF, cmd->args[0]), false);
 }

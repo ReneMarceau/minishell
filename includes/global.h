@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/27 11:39:26 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:40:02 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@
 # define READ_END	0
 # define WRITE_END	1
 
+# define ENCODE_EXITSTATUS(status) ((status) << 8)
+
 /* *************** ***************           *************** *************** */
 /*                                  Structures                               */
 /* *************** ***************           *************** *************** */
@@ -121,5 +123,6 @@ typedef struct s_shell {
 void 		signalhandler(void);
 t_shell		*init_data(char **envp);
 t_cmd 		*parsing(char *input, t_shell *shell);
+void		exit_shell(char *err_message);
 
 #endif

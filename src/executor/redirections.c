@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:05:48 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 16:00:57 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:35:38 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool handle_input_redirection(t_shell *shell, t_rdir *rdir, char *heredoc
             return (true);
         shell->input_fd = open(heredoc_file, O_RDONLY);
         if (shell->input_fd == -1)
-            return (print_error(ERR_OPEN, heredoc_file), false);
+            return (print_error(ERR_NO_SUCH_FD, heredoc_file), false);
         if (dup2(shell->input_fd, STDIN_FILENO) == -1)
             return (print_error(ERR_DUP2, NULL), false);
         if (close(shell->input_fd) == -1)
@@ -48,7 +48,7 @@ static bool handle_input_redirection(t_shell *shell, t_rdir *rdir, char *heredoc
             return (true);
         shell->input_fd = open(rdir->value, O_RDONLY);
         if (shell->input_fd == -1)
-            return (print_error(ERR_OPEN, rdir->value), false);
+            return (print_error(ERR_NO_SUCH_FD, rdir->value), false);
         if (dup2(shell->input_fd, STDIN_FILENO) == -1)
             return (print_error(ERR_DUP2, NULL), false);
         if (close(shell->input_fd) == -1)
@@ -61,11 +61,11 @@ static bool handle_output_redirection(t_shell *shell, t_rdir *rdir)
 {
     if (rdir->type == REDIR_OUT)
     {
-        if (has_redirection(rdir->next, REDIR_OUT) == true)
-            return (true);
         shell->output_fd = open(rdir->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         if (shell->output_fd == -1)
-            return (print_error(ERR_OPEN, rdir->value), false);
+            return (print_error(ERR_NO_SUCH_FD, rdir->value), false);
+        if (has_redirection(rdir->next, REDIR_OUT) == true)
+            return (true);
         if (dup2(shell->output_fd, STDOUT_FILENO) == -1)
             return (print_error(ERR_DUP2, NULL), false);
         if (close(shell->output_fd) == -1)
@@ -73,11 +73,11 @@ static bool handle_output_redirection(t_shell *shell, t_rdir *rdir)
     }
     else if (rdir->type == REDIR_APPEND)
     {
-        if (has_redirection(rdir->next, REDIR_APPEND) == true)
-            return (true);
         shell->output_fd = open(rdir->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
         if (shell->output_fd == -1)
-            return (print_error(ERR_OPEN, rdir->value), false);
+            return (print_error(ERR_NO_SUCH_FD, rdir->value), false);
+        if (has_redirection(rdir->next, REDIR_APPEND) == true)
+            return (true);
         if (dup2(shell->output_fd, STDOUT_FILENO) == -1)
             return (print_error(ERR_DUP2, NULL), false);
         if (close(shell->output_fd) == -1)

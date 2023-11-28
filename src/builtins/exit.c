@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:55 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/17 23:00:29 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/28 15:03:59 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ bool    exec_exit(t_cmd *cmd)
         if (ft_isnumber(cmd->args[1]) == false)
         {
             print_error_builtin(ERR_NUMERIC_ARG, cmd->args[0], cmd->args[1]);
-            g_exit_status = 2;
+            g_exit_status = ENCODE_EXITSTATUS(2);
             exit(g_exit_status);
         }
         if (cmd->args[2] != NULL)
         {
             print_error_builtin(ERR_TOO_MANY_ARGS, cmd->args[0], NULL);
-            g_exit_status = 1;
+            g_exit_status = ENCODE_EXITSTATUS(1);
             return (false);
         }
         g_exit_status = ft_atoi(cmd->args[1]);
         exit(g_exit_status);
     }
-    exit(g_exit_status);
+    printf("%d\n", g_exit_status);
+    exit(WEXITSTATUS(g_exit_status));
     return (true);
 }

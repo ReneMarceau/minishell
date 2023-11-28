@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:30:00 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 22:08:14 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/28 14:57:51 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ bool    exec_echo(t_cmd *cmd)
     }
     if (is_newline == true)
         printf("\n");
+    g_exit_status = ENCODE_EXITSTATUS(0);
     return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:45 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/18 01:53:36 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/28 10:40:19 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 bool    is_builtin(char *cmd_name)
 {
     int cmd_length;
-
     cmd_length = ft_strlen(cmd_name);
+    if (cmd_length == 0)
+        return (false);
     if (ft_strncmp(cmd_name, "echo", cmd_length) == 0)
         return (true);
     if (ft_strncmp(cmd_name, "cd", cmd_length) == 0)

@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:58 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/27 09:34:14 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:00:23 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ bool    exec_env(t_cmd *cmd, t_env *env)
         printf("%s\n", env_array[i]);
         i++;
     }
+    g_exit_status = ENCODE_EXITSTATUS(0);
     return (true);
 }

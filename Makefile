@@ -6,7 +6,7 @@
 #    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2023/11/27 11:42:02 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/11/28 15:24:33 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME = minishell
 
 # Compiler and Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 # Directories
 SRC_DIR = src
@@ -151,7 +151,7 @@ test: all
 
 leaks: all
 	@echo "$(YELLOW)Running leaks...$(RESET)"
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=./$(NAME).sup ./$(NAME)
 
 # -------------------------------------#
 #           .PHONY RULES               #

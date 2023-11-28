@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:30:03 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/18 02:49:46 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/28 15:00:14 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char    *get_env_value(t_env *env, char *key)
     current = env;
     while (current != NULL)
     {
-        if (ft_strncmp(current->key, key, ft_strlen(key)) == 0)
+        if (ft_strncmp(current->key, key, ft_strlen(current->key)) == 0)
             return (current->value);
         current = current->next;
     }
@@ -35,7 +35,7 @@ void    set_env_value(t_env *env, char *key, char *value)
     current = env;
     while (current != NULL)
     {
-        if (ft_strncmp(current->key, key, ft_strlen(key)) == 0)
+        if (ft_strncmp(current->key, key, ft_strlen(current->key)) == 0)
         {
             free(current->value);
             current->value = ft_strdup(value);
@@ -65,14 +65,14 @@ bool    exec_cd(t_cmd *cmd, t_env *env)
             return (print_error_builtin("HOME not set", cmd->args[0], NULL), false);
         path = ft_strdup(home);
     }
-    else if (ft_strncmp(cmd->args[1], "~", ft_strlen("~")) == 0)
+    else if (ft_strncmp(cmd->args[1], "~", ft_strlen(cmd->args[1])) == 0)
     {
         // Currently doesn't work with ~username && ~+ && ~-
         if (home == NULL)
             return (print_error_builtin("HOME not set", cmd->args[0], NULL), false);
         path = ft_strjoin(home, cmd->args[1] + 1);
     }
-    else if (ft_strncmp(cmd->args[1], "-", ft_strlen("-")) == 0)
+    else if (ft_strncmp(cmd->args[1], "-", ft_strlen(cmd->args[1])) == 0)
     {
         if (oldpwd == NULL)
             return (print_error_builtin("OLDPWD not set", cmd->args[0], NULL), false);
@@ -84,8 +84,11 @@ bool    exec_cd(t_cmd *cmd, t_env *env)
     if (chdir(path) == -1)
         return(print_error_builtin(strerror(errno), cmd->args[0], cmd->args[1]), false);
     set_env_value(env, "OLDPWD", pwd);
+    free(path);
+    path = getcwd(NULL, 0);
     set_env_value(env, "PWD", path);
     free(pwd);
     free(path);
+    g_exit_status = ENCODE_EXITSTATUS(0);
     return (true);
 }

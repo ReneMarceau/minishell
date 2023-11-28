@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/26 21:26:30 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:06:40 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "error.h"
 #include "parse.h"
 
 // static void print_lst(t_token *head) 
@@ -37,7 +38,7 @@
 //         current = current->next;
 //     }
 //     printf("--------------------\n");
-// }
+// }   
 
 // static void print_cmd_table(t_cmd *head)
 // {
@@ -84,24 +85,26 @@ t_cmd *parsing(char *input, t_shell *shell)
     
     token_list = NULL;
     if (!check_quotes(input) || !check_token(input))
-        return (NULL);
+    {
+        g_exit_status = 2;
+        return (print_error(ERR_SYNTAX, NULL), NULL);
+    }
     token_list = tokenize(input, token_list);
     if (token_list == NULL)
     {
         shell->mem_err_flg = TRUE;
-        return ((t_cmd *)clean_all());
+        return (all_free(), NULL);
     }
-    //print_lst(token_list);
     expand_tokens(token_list, shell);
+    //print_lst(token_list);
     if (shell->mem_err_flg)
-        return ((t_cmd *)clean_all());
+        return (all_free(), NULL);   
     cmd_table = fill_cmd_table(token_list);
     if (cmd_table == NULL)
     {
-        shell->mem_err_flg = TRUE;
-        return ((t_cmd *)clean_all());
+        //shell->mem_err_flg = TRUE;
+        return (all_free(), NULL);
     }
     //print_cmd_table(cmd_table);
     return (cmd_table);
 }
-

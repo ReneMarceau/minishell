@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/26 21:30:37 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/28 09:29:21 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ enum e_node			analyze_token(t_token *current);
 //fill_cmd_table ----------------
 t_cmd				*fill_cmd_table(t_token *token_list);
 t_rdir				*create_redir(char *file, int type);
+bool    			is_valid_token(t_token *token);
 void				add_rdir(t_cmd **head, char *file, int type);
 void				add_arg(t_cmd **head, char *arg);
 

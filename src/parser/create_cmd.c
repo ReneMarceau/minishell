@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:30:51 by rene              #+#    #+#             */
-/*   Updated: 2023/11/16 11:43:22 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:40:32 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static int count_cmd(t_token *head)
     current = head;
     while (current != NULL)
     {
+        if (current->type == TK_NULL)
+            count--;
         if (current->type == PIPE)
             count++;
         current = current->next;
@@ -90,6 +92,16 @@ t_cmd   *fill_cmd_table(t_token *token_list)
     current_cmd = *cmd_table;
     while (token_list != NULL)
     {
+        if (token_list->type == TK_NULL)
+        {
+            token_list = token_list->next;
+            continue;
+        }
+        if (is_valid_token(token_list) == false)
+        {
+            g_exit_status = ENCODE_EXITSTATUS(2);
+            return (print_error(ERR_SYNTAX, token_list->token), NULL);
+        }
         if (token_list->type == PIPE)
             current_cmd = current_cmd->next;
         else if (token_list->type == STR)
