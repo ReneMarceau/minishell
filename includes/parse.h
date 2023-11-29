@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/24 21:08:02 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:25:37 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ size_t				expand_one(t_token *current, size_t pos, t_shell *shell);
 size_t				expand_return(t_token *current, size_t start,
 						t_shell *shell);
 //expand_rm ------------------------
-int					rm_dollar(t_token *current, size_t start);
+size_t 				make_tk_null(t_token *current)
 int					rm_ext(t_token *current, size_t start, size_t len);
 //utils_is -----------------------
 bool				ft_isquote(char c);
