@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:58 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/28 15:00:23 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:04:03 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ bool    exec_env(t_cmd *cmd, t_env *env)
         return (false);
     i = 0;
     if (cmd->args[1] != NULL && cmd->args[1][0] == '-')
-        return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1]), false);
+        return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1], 125), false);
     if (cmd->args[1] != NULL)
-        return (print_error_builtin(ERR_NO_SUCH_FD, cmd->args[0], cmd->args[1]), false);
+        return (print_error_builtin(ERR_NO_SUCH_FD, cmd->args[0], cmd->args[1], 127), false);
     while (env_array[i] != NULL)
     {
         printf("%s\n", env_array[i]);
         i++;
     }
-    g_exit_status = ENCODE_EXITSTATUS(0);
+    g_exit_status = EXIT_SUCCESS;
     return (true);
 }

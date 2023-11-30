@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_return.c                                    :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 17:11:07 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/29 20:50:52 by rene             ###   ########.fr       */
+/*   Created: 2023/11/29 23:03:44 by rene              #+#    #+#             */
+/*   Updated: 2023/11/29 23:07:53 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include "../../inc/libft.h"
 
-size_t expand_return(t_token *current, size_t start, t_shell *shell)
+bool    ft_strcmp(const char *s1, const char *s2)
 {
-	char *exit_code;
-	
-	exit_code = ft_itoa(g_exit_status);
-	if(make_new_ext_tk(current, start, 2, exit_code) == ERROR)
-		shell->mem_err_flg = TRUE;
-	return (ft_strlen(exit_code));
+    bool result;
+
+    if (ft_strncmp(s1, s2, ft_strlen(s1)) == 0 && ft_strncmp(s1, s2, ft_strlen(s2)) == 0)
+        result = true;
+    else
+        result = false;
+    return (result);
 }

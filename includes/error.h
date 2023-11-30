@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 19:24:00 by rene              #+#    #+#             */
-/*   Updated: 2023/11/20 15:29:12 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/30 01:34:20 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 # define ERR_PIPE			"pipe failed"
 # define ERR_DUP2			"dup2 failed"
 # define ERR_UNLINK			"failed to remove file"
+# define ERR_WAITPID		"waitpid failed"
+# define ERR_STAT			"stat failed"
 
 // File Handling Errors
 # define ERR_NO_SUCH_FD		"No such file or directory"
@@ -67,7 +69,9 @@
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
-void	print_error(char *error_message, char *arg);
-void	print_error_builtin(char *error_message, char *cmd_name, char *option);
+void	print_error(char *error_message, char *arg, int exit_status);
+void	print_error_builtin(char *error_message, char *cmd_name, char *option, int exit_status);
+void	print_error_syntax(char *error_message, char *token, int exit_status);
+void	print_error_heredoc(char *args, int line, char *delimiter, int exit_status);
 
 #endif

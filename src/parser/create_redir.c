@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:32:56 by rene              #+#    #+#             */
-/*   Updated: 2023/11/28 15:45:54 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:13:09 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_rdir  *create_redir(char *file, int type)
 
     new_rdir = (t_rdir *)list_malloc(1, sizeof(t_rdir));
     if (new_rdir == NULL)
-        return (exit_shell(ERR_MALLOC), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     new_rdir->value = ft_strdup(file);
-    
     if (new_rdir->value == NULL)
-        return (exit_shell(ERR_MALLOC), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
+    add_garbage(new_rdir->value);
     new_rdir->type = type;
     new_rdir->next = NULL;
     return (new_rdir);
@@ -54,11 +54,13 @@ void    add_arg(t_cmd **head, char *arg)
 
     current = *head;
     i = 0;
-    if (current->args == NULL)
-        printf("args is NULL\n");
+    // Erreur: $zzzz ww -> Segfault
     while (current->args[i] != NULL)
         i++;
     current->args[i] = ft_strdup(arg);
+    if (current->args[i] == NULL)
+        print_error(ERR_MALLOC, NULL, EXIT_FAILURE);
+    add_garbage(current->args[i]);
 }
 
 bool    is_valid_token(t_token *token)

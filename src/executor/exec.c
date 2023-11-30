@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/28 14:56:33 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:30:27 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "garbage_collector.h"
 #include "builtin.h"
 #include "executor.h"
 #include "env.h"
@@ -23,20 +24,30 @@ static char *get_cmd_fullpath(char *cmd_name, char *path)
 
     cmd_file = ft_strjoin("/", cmd_name);
     if (cmd_file == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     cmd_path = ft_strjoin(path, cmd_file);
     if (cmd_path == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     free(cmd_file);
     return (cmd_path);
 }
 
 static bool run_cmd(char *path, char **args, char **envp, bool print_err)
 {
-    if (access(path, F_OK | X_OK) != -1)
+    struct stat st;
+    
+    if (access(path, F_OK) != -1)
+    {
+        if (stat(path, &st) == -1)
+            return (print_error(ERR_STAT, path, EXIT_FAILURE), false);
+        if (S_ISDIR(st.st_mode))
+            return (print_error(ERR_ISDIR, path, 126), false);
+        if (access(path, X_OK) == -1)
+            return (print_error(ERR_PERM, path, 126), false);
         execve(path, args, envp);
+    }
     if (print_err == true)
-        return (print_error(ERR_CMD_NF, path), false);
+        return (print_error(ERR_NO_SUCH_FD, path, 127), false);
     return (false);
 }    
 
@@ -54,7 +65,8 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
         return(run_cmd(cmd->args[0], cmd->args, env_array, true));
     envp = get_envp(env_array);
     if (envp == NULL)
-        return (print_error(ERR_CMD_NF, cmd->args[0]), false);
+        return (print_error(ERR_CMD_NF, cmd->args[0], EXIT_FAILURE), false);
+    add_garbage(envp);
     i = -1;
     while (envp[++i] != NULL)
     {
@@ -62,9 +74,9 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
         if (cmd_path == NULL)
             return (false);
         run_cmd(cmd_path, cmd->args, env_array, false);
-        g_exit_status = 127;
+        free(cmd_path);
     }
-    return (print_error(ERR_CMD_NF, cmd->args[0]), false);
+    return (print_error(ERR_CMD_NF, cmd->args[0], 127), false);
 }
 
 static bool    redirections_operation(t_shell *shell, t_rdir *rdir, char *heredoc_file)
@@ -97,14 +109,21 @@ bool    executor(t_shell *shell)
         if (shell->cmd_table->pid == 0)
         {
             if (redirections_operation(shell, shell->cmd_table->rdir, shell->cmd_table->heredoc_file) == false)
+            {
+                if (is_builtin(shell->cmd_table->args[0]) == true)
+                {
+                    if (shell->nb_cmd == 1)
+                        return (false);
+                }
                 exit(g_exit_status);
+            }
             if (is_builtin(shell->cmd_table->args[0]) == true)
             {
                 exec_builtin(shell->cmd_table, shell->envp);
                 if (dup2(original_stdout, STDOUT_FILENO) == -1)
-                    return (print_error(ERR_DUP2, NULL), false);
+                    return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
                 if (dup2(original_stdin, STDIN_FILENO) == -1)
-                    return (print_error(ERR_DUP2, NULL), false);
+                    return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
 
                 if (shell->nb_cmd == 1)
                     return (true);

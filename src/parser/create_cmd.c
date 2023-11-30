@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:30:51 by rene              #+#    #+#             */
-/*   Updated: 2023/11/28 14:40:32 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/30 01:42:10 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "garbage_collector.h"
 #include "error.h"
 #include "parse.h"
 
@@ -18,13 +19,13 @@ static t_cmd    *create_cmd(int index)
 {
     t_cmd   *new_cmd;
 
-    new_cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+    new_cmd = (t_cmd *)list_malloc(1, sizeof(t_cmd));
     if (new_cmd == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     new_cmd->index = index;
-    new_cmd->args = (char **)ft_calloc(MAX_ARG, sizeof(char *));
+    new_cmd->args = (char **)list_malloc(MAX_ARG, sizeof(char *));
     if (new_cmd->args == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     new_cmd->rdir = NULL;
     new_cmd->heredoc_file = NULL;
     new_cmd->pid = 69;
@@ -56,8 +57,6 @@ static int count_cmd(t_token *head)
     current = head;
     while (current != NULL)
     {
-        if (current->type == TK_NULL)
-            count--;
         if (current->type == PIPE)
             count++;
         current = current->next;
@@ -85,9 +84,9 @@ t_cmd   *fill_cmd_table(t_token *token_list)
     t_cmd   **cmd_table;
     t_cmd   *current_cmd;
     
-    cmd_table = (t_cmd **)ft_calloc(1, sizeof(t_cmd *));
+    cmd_table = (t_cmd **)list_malloc(1, sizeof(t_cmd *));
     if (cmd_table == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     fill_empty_cmd_table(cmd_table, count_cmd(token_list));
     current_cmd = *cmd_table;
     while (token_list != NULL)
@@ -99,8 +98,14 @@ t_cmd   *fill_cmd_table(t_token *token_list)
         }
         if (is_valid_token(token_list) == false)
         {
-            g_exit_status = ENCODE_EXITSTATUS(2);
-            return (print_error(ERR_SYNTAX, token_list->token), NULL);
+            if (token_list->type != PIPE)
+            {
+                if (token_list->next == NULL)
+                    return (print_error_syntax(ERR_SYNTAX, "newline", 2), NULL);
+                else
+                    return (print_error_syntax(ERR_SYNTAX, token_list->next->token, 2), NULL);
+            }
+            return (print_error_syntax(ERR_SYNTAX, token_list->token, 2), NULL);   
         }
         if (token_list->type == PIPE)
             current_cmd = current_cmd->next;

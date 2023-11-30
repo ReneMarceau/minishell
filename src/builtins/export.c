@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:53 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/27 11:34:53 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/30 01:23:23 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ void    print_env(t_env *env)
     }
 }
 
+bool    is_valid_identifier(char *str)
+{
+    int i;
+
+    i = 0;
+    if (str[i] == '=')
+        return (false);
+    while (str[i] != '\0')
+    {
+        if (str[i] == '=')
+            return (true);
+        if (ft_isalpha(str[i]) == 0 && str[i] != '_')
+            return (false);
+        i++;
+    }
+    return (true);
+}
+
 bool    exec_export(t_cmd *cmd, t_env *env)
 {
     t_env   *tmp_env;
@@ -34,9 +52,9 @@ bool    exec_export(t_cmd *cmd, t_env *env)
     if (cmd->args[i] == NULL)
         return (print_env(env), true);
     if (cmd->args[1][0] == '-')
-        return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1]), false);
-    if (cmd->args[1][0] != '_' && ft_isalpha(cmd->args[1][0]) == 0)
-        return (print_error_builtin(ERR_INVALID_ID, cmd->args[0], cmd->args[1]), false);
+        return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1], 2), false);
+    if (is_valid_identifier(cmd->args[1]) == false)
+        return (print_error_builtin(ERR_INVALID_ID, cmd->args[0], cmd->args[1], 1), false);
     while (cmd->args[i] != NULL)
     {
         key = NULL;
@@ -58,5 +76,6 @@ bool    exec_export(t_cmd *cmd, t_env *env)
         }
         i++;
     }
+    g_exit_status = EXIT_SUCCESS;
     return (true);
 }

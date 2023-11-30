@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:34:52 by rene              #+#    #+#             */
-/*   Updated: 2023/11/28 12:13:47 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 20:42:37 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_shell	*init_data(char **envp)
 	
 	shell = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (shell == NULL)
-		return (print_error(ERR_MALLOC, NULL), NULL);
+		return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
 	shell->cmd_table = NULL;
 	shell->nb_cmd = 0;
 	shell->pids = NULL;
@@ -65,10 +65,10 @@ char	**get_envp(char **env)
 		{
 			path_trimmed = ft_strtrim(env[i], "PATH=");
 			if (path_trimmed == NULL)
-				return (print_error(ERR_MALLOC, NULL), NULL);
+				return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
 			enviroment = ft_split(path_trimmed, ':');
 			if (enviroment == NULL)
-				return (print_error(ERR_MALLOC, NULL), NULL);
+				return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
 			break ;
 		}
 	}

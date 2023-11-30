@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:52:40 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/16 15:41:12 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 01:28:16 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ bool    close_pipes(t_shell *shell)
     while (i < (shell->nb_cmd - 1))
     {
         if (close(shell->pipe_fd[i][READ_END]) == -1)
-            return (print_error(ERR_CLOSE, NULL), false);
+            return (print_error(ERR_CLOSE, NULL, EXIT_FAILURE), false);
         if (close(shell->pipe_fd[i][WRITE_END]) == -1)
-            return (print_error(ERR_CLOSE, NULL), false);
+            return (print_error(ERR_CLOSE, NULL, EXIT_FAILURE), false);
         i++;
     }
     return (true);

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:41:50 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/17 11:31:00 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 04:16:04 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "garbage_collector.h"
 #include "error.h"
 #include "env.h"
 
@@ -23,10 +24,10 @@ bool    split_key_value(char *env, char **key, char **value)
     {
         *key = ft_substr(env, 0, equal_sign_pos - env);
         if (*key == NULL)
-            return (print_error(ERR_MALLOC, NULL), false);
+            return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
         *value = ft_strdup(equal_sign_pos + 1);
         if (*value == NULL)
-            return (print_error(ERR_MALLOC, NULL), false);
+            return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
     }
     return (true);
 }
@@ -38,10 +39,10 @@ static char    *combine_key_value(char *key, char *value)
 
     tmp = ft_strjoin(key, "=");
     if (tmp == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     key_value = ft_strjoin(tmp, value);
     if (key_value == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     free(tmp);
     return (key_value);
 }
@@ -79,15 +80,16 @@ char    **env_to_array(t_env *head)
     int     i;
 
     node_count = count_node_env(head);
-    env_array = (char **)ft_calloc(node_count + 1, sizeof(char *));
+    env_array = (char **)list_malloc(node_count + 1, sizeof(char *));
     if (env_array == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     i = 0;
     while (i < node_count)
     {
         env_array[i] = combine_key_value(head->key, head->value);
         if (env_array[i] == NULL)
             return (NULL);
+        add_garbage(env_array[i]);
         head = head->next;
         i++;
     }

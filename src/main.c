@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/28 14:40:51 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:29:09 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ bool	readlines(char **input, char **last_input)
 {
 	*input = readline(READLINE_MSG);
 	if (*input == NULL)
-		return (exit_shell("exit"), false);
+		return (exit_shell(NULL, g_exit_status), false);
 	if (*last_input == NULL)
 	{
 		*last_input = ft_strdup("");
 		if (*last_input == NULL)
-			return (print_error(ERR_MALLOC, NULL), false);
+			return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
 	}
-	if (*input && **input && ft_strncmp(*input, *last_input, ft_strlen(*input)))
+	if (*input && **input && ft_strcmp(*input, *last_input) == false)
 		add_history(*input);
 	free(*last_input);
 	*last_input = ft_strdup(*input);
 	if (*last_input == NULL)
-		return (print_error(ERR_MALLOC, NULL), false);
+		return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
 	return (true);
 }
 

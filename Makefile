@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
+#    By: rene <rene@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2023/11/28 15:24:33 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/11/30 02:02:34 by rene             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(TOKEN_DIR)/*.c)	\
 		$(wildcard $(PARS_DIR)/*.c)		\
 		$(wildcard $(EXP_DIR)/*.c)		\
-		$(wildcard $(GAR_DIR)/*.c)	\
+		$(wildcard $(GAR_DIR)/*.c)		\
 		$(wildcard $(BUILTIN_DIR)/*.c)	\
 		$(wildcard $(EXEC_DIR)/*.c)		\
 		$(wildcard $(SIG_DIR)/*.c)		\

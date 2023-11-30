@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/28 14:06:40 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/30 01:35:03 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ t_cmd *parsing(char *input, t_shell *shell)
     
     token_list = NULL;
     if (!check_quotes(input) || !check_token(input))
-    {
-        g_exit_status = 2;
-        return (print_error(ERR_SYNTAX, NULL), NULL);
-    }
+        return (print_error_syntax(ERR_SYNTAX, NULL, 2), NULL);
     token_list = tokenize(input, token_list);
     if (token_list == NULL)
     {
@@ -103,7 +100,7 @@ t_cmd *parsing(char *input, t_shell *shell)
     if (cmd_table == NULL)
     {
         //shell->mem_err_flg = TRUE;
-        return (all_free(), NULL);
+        return (NULL);
     }
     //print_cmd_table(cmd_table);
     return (cmd_table);

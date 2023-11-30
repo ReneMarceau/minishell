@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:25:30 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/20 15:16:53 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:23:55 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,9 @@ int count_node_env(t_env *head)
 }
 t_env   *find_env(t_env *env, char *key)
 {
-    bool    is_same_length;
-    
-    is_same_length = ft_strlen(key) == ft_strlen(env->key);
     while (env)
     {
-        if (ft_strncmp(env->key, key, ft_strlen(key)) == 0 && ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
+        if (ft_strcmp(env->key, key) == true)
             return (env);
         env = env->next;
     }
@@ -46,13 +43,13 @@ t_env   *create_node_env(char *key, char *value)
 
     new_node = (t_env *)ft_calloc(1, sizeof(t_env));
     if (new_node == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     new_node->key = ft_strdup(key);
     if (new_node->key == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     new_node->value = ft_strdup(value);
     if (new_node->value == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     new_node->next = NULL;
     return (new_node);
 }
@@ -83,7 +80,7 @@ void    unset_env(t_env **head, char *key)
     prev = NULL;
     while (tmp)
     {
-        if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
+        if (ft_strcmp(tmp->key, key) == true)
         {
             if (prev != NULL)
                 prev->next = tmp->next;
