@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/29 22:30:27 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/30 15:44:34 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool run_cmd(char *path, char **args, char **envp, bool print_err)
     if (print_err == true)
         return (print_error(ERR_NO_SUCH_FD, path, 127), false);
     return (false);
-}    
+}
 
 bool    exec_cmd(t_cmd *cmd, t_env *env)
 {
@@ -66,7 +66,6 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
     envp = get_envp(env_array);
     if (envp == NULL)
         return (print_error(ERR_CMD_NF, cmd->args[0], EXIT_FAILURE), false);
-    add_garbage(envp);
     i = -1;
     while (envp[++i] != NULL)
     {
@@ -76,6 +75,7 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
         run_cmd(cmd_path, cmd->args, env_array, false);
         free(cmd_path);
     }
+    free_array(envp);
     return (print_error(ERR_CMD_NF, cmd->args[0], 127), false);
 }
 
@@ -124,7 +124,6 @@ bool    executor(t_shell *shell)
                     return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
                 if (dup2(original_stdin, STDIN_FILENO) == -1)
                     return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
-
                 if (shell->nb_cmd == 1)
                     return (true);
                 exit(g_exit_status);

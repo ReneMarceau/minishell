@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/29 23:24:08 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/30 15:51:03 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,14 @@ bool exec_heredoc(char *delimiter, int fd)
             return (print_error_heredoc("warning", index, delimiter, EXIT_FAILURE), false);
         }
         if (ft_strcmp(line, delimiter) == true)
-        {
-            free(line);
             break ;
-        }
         ft_putendl_fd(line, fd);
         free(line);
         index++;
     }
     close(fd);
+    free(line);
+    g_exit_status = EXIT_SUCCESS;
     return (true);
 }
 
@@ -80,7 +79,6 @@ bool    create_heredoc_files(t_shell *shell)
                 if (cmd->heredoc_file == NULL)
                     exit_shell(ERR_MALLOC, EXIT_FAILURE);
                 add_garbage(cmd->heredoc_file);
-
             }
             else if (rdir->type == HEREDOC)
             {

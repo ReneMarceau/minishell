@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:58 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/29 21:04:03 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/30 13:28:46 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ bool    exec_env(t_cmd *cmd, t_env *env)
     char **env_array;
     int  i;
     
-    env_array = env_to_array(env); if (env_array == NULL)
+    env_array = env_to_array(env); 
+    if (env_array == NULL)
         return (false);
     i = 0;
     if (cmd->args[1] != NULL && cmd->args[1][0] == '-')

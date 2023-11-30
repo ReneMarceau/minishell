@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 19:24:00 by rene              #+#    #+#             */
-/*   Updated: 2023/11/30 01:34:20 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/30 12:04:39 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 
 // File Handling Errors
 # define ERR_NO_SUCH_FD		"No such file or directory"
-# define ERR_ISDIR			"Is a directory"
+# define ERR_ISDIR			"is a directory"
 # define ERR_NODIR			"Not a directory"
 # define ERR_PERM			"Permission denied"
 # define ERR_CLOSE			"closing file failed"

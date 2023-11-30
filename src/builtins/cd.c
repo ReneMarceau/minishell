@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:30:03 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/29 23:22:09 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/30 12:50:15 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@ void    set_env_value(t_env *env, char *key, char *value)
     }
 }
 
+static int     nb_args(char **args)
+{
+    int i;
+
+    i = 0;
+    while (args[i] != NULL)
+    {
+        if (ft_strlen(args[i]) > 0)
+            i++;
+    }
+    return (i);
+}
+
 bool    exec_cd(t_cmd *cmd, t_env *env)
 {
     char *pwd;
@@ -54,7 +67,7 @@ bool    exec_cd(t_cmd *cmd, t_env *env)
 
     if (cmd->args[1] != NULL && cmd->args[1][0] == '-' && cmd->args[1][1] != '\0')
         return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1], 2), false);
-    if (cmd->args[2] != NULL)
+    if (nb_args(cmd->args) > 2)
         return (print_error_builtin(ERR_TOO_MANY_ARGS, cmd->args[0], NULL, 1), false);
     pwd = getcwd(NULL, 0);
     oldpwd = get_env_value(env, "OLDPWD");
@@ -67,7 +80,6 @@ bool    exec_cd(t_cmd *cmd, t_env *env)
     }
     else if (ft_strcmp(cmd->args[1], "~") == true)
     {
-        // Currently doesn't work with ~username && ~+ && ~-
         if (home == NULL)
             return (print_error_builtin("HOME not set", cmd->args[0], NULL, 1), false);
         path = ft_strjoin(home, cmd->args[1] + 1);
@@ -87,8 +99,8 @@ bool    exec_cd(t_cmd *cmd, t_env *env)
     free(path);
     path = getcwd(NULL, 0);
     set_env_value(env, "PWD", path);
-    free(pwd);
     free(path);
+    free(pwd);
     g_exit_status = EXIT_SUCCESS;
     return (true);
 }

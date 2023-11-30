@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:52:40 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/29 01:28:16 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/30 12:57:31 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,17 @@ bool    close_pipes(t_shell *shell)
         i++;
     }
     return (true);
+}
+
+void    free_array(char **array)
+{
+    int i;
+
+    i = 0;
+    while (array[i] != NULL)
+    {
+        free(array[i]);
+        i++;
+    }
+    free(array);
 }
