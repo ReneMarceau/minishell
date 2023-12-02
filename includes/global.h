@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/26 21:18:36 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:47:39 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@
 
 # include "env.h"
 
+# include <signal.h>
+
 # include "garbage_collector.h"
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"
@@ -121,7 +123,7 @@ typedef struct s_shell {
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
-void 		signalhandler(void);
+// void 		signalhandler(void);
 t_shell		*init_data(char **envp);
 t_cmd 		*parsing(char *input, t_shell *shell);
 

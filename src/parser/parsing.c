@@ -6,12 +6,20 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/26 21:26:30 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:40:59 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "parse.h"
+
+
+
+
+
+
+
+
 
 // static void print_lst(t_token *head) 
 // {
@@ -104,4 +112,3 @@ t_cmd *parsing(char *input, t_shell *shell)
     //print_cmd_table(cmd_table);
     return (cmd_table);
 }
-

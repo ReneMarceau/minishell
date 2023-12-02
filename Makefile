@@ -6,7 +6,7 @@
 #    By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/24 16:54:42 by wmillett         ###   ########.fr        #
+#    Updated: 2023/12/01 17:51:59 by wmillett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,9 +52,9 @@ SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(TOKEN_DIR)/*.c)	\
 		$(wildcard $(PARS_DIR)/*.c)		\
 		$(wildcard $(EXP_DIR)/*.c)		\
-		$(wildcard $(GAR_DIR)/*.c)	\
-		$(wildcard $(EXEC_DIR)/*.c)		\
+		$(wildcard $(GAR_DIR)/*.c)		\
 		$(wildcard $(SIG_DIR)/*.c)		\
+		$(wildcard $(EXEC_DIR)/*.c)		\
 		$(wildcard $(SRC_DIR)/*.c)
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

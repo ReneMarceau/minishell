@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/26 21:30:37 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:46:45 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*                                  INCLUDES                                 */
 /* *************** ***************           *************** *************** */
 # include "global.h"
-
+# include "signals.h"
 /* *************** ***************           *************** *************** */
 /*                                  Macros                                   */
 /* *************** ***************           *************** *************** */
@@ -67,8 +67,13 @@ size_t				expand_one(t_token *current, size_t pos, t_shell *shell);
 //expand_return --------------------
 size_t				expand_return(t_token *current, size_t start,
 						t_shell *shell);
+size_t 				return_exp(char *token, size_t start, t_shell *shell);						
+//expand_heredoc --------------------
+int 				make_new_str(char *token, size_t start, size_t len, char *ext);
 //expand_rm ------------------------
+size_t 				make_tk_null(t_token *current);
 int					rm_ext(t_token *current, size_t start, size_t len, t_shell *shell);
+int 				rm_str_exp(char *current, size_t start, size_t len, t_shell *shell);
 //utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);

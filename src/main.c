@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/26 21:38:01 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/01 19:21:36 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "executor.h"
 #include "error.h"
 #include "colors.h"
+#include "signals.h"
 
 int	g_exit_status = 0;
 
@@ -57,11 +58,12 @@ void	shell_loop(t_shell *shell)
 			if (shell->cmd_table != NULL)
 				executor(shell);
 			else
-			{
-				print_error(ERR_MALLOC, "shell");
-				all_free();
 				exit(0);
-			}
+			// {
+			// 	print_error(ERR_MALLOC, "shell");
+			// 	all_free();
+			// }
+			
 		}
 		free(input);
 	}
@@ -78,7 +80,7 @@ int	main(int argc, char **argv, char **env)
 	shell = init_data(env);
 	if (shell == NULL)
 		return (EXIT_FAILURE);
-	//signalhandler();
+	sig_handle(shell);
 	shell_loop(shell);
 	return (EXIT_SUCCESS);
 }
