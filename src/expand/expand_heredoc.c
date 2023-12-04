@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/28 15:27:23 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:29:13 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char *find_extand(char *token, size_t start, size_t len, t_shell *shell)
 	return (NULL);
 }
 
-int make_new_ext_tk(char *token, size_t start, size_t len, char *ext)
+int make_new_ext_here(char *token, size_t start, size_t len, char *ext)
 {
 	char *s1;
 	char *s2;
@@ -56,7 +56,7 @@ int make_new_ext_tk(char *token, size_t start, size_t len, char *ext)
 	return (TRUE);
 }
 
-size_t expand_one(char *token, size_t pos, t_shell *shell)
+size_t expand_one_here(char *token, size_t pos, t_shell *shell)
 {
 	char *ext;
 	size_t i;
@@ -71,19 +71,15 @@ size_t expand_one(char *token, size_t pos, t_shell *shell)
 		// current->type = TK_NULL;
 		return(0);
 	}
-	else if (make_new_ext_tk(token, pos, i, ext) == ERROR)
+	else if (make_new_ext_here(token, pos, i, ext) == ERROR)
 	{
 		shell->mem_err_flg = TRUE;
 		return (FALSE);
 	}
 	if (!ft_strlen(token))
-		return (make_tk_null(token));
+		return (token = NULL, 0);
 	return (ft_strlen(ext));
 }
-
-
-
-
 
 /////////////////////////
 
@@ -93,11 +89,11 @@ static size_t parse_expand(char	*token, size_t pos, t_shell *shell)
 
 	i = 0;
 	if (ft_isquote(token[pos + 1]))
-		rm_ext(token, pos, 1);
+		rm_ext_here(token, pos, 1);
 	else if (ft_isexpand(token[pos + 1]))
-		i += expand_one(token, pos, shell);
+		i += expand_one_here(token, pos, shell);
 	else if (token[pos + 1] == '?')
-		i += expand_return(token, pos, shell);
+		i += expand_return_here(token, pos, shell);
 	else
 		i++;
 	return (i);

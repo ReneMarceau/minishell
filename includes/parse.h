@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/28 15:25:37 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:28:53 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,14 @@ size_t				expand_one(t_token *current, size_t pos, t_shell *shell);
 //expand_return --------------------
 size_t				expand_return(t_token *current, size_t start,
 						t_shell *shell);
+size_t expand_return_here(char *current, size_t start, t_shell *shell);
 //expand_rm ------------------------
-size_t 				make_tk_null(t_token *current)
+size_t 				make_tk_null(t_token *current);
 int					rm_ext(t_token *current, size_t start, size_t len);
+int 				rm_ext_here(char *current, size_t start, size_t len);
+//expand_heredoc --------------------
+int make_new_ext_here(char *token, size_t start, size_t len, char *ext);
+size_t expand_one_here(char *token, size_t pos, t_shell *shell);
 //utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);
