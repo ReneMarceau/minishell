@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:34:52 by rene              #+#    #+#             */
-/*   Updated: 2023/11/29 20:42:37 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 19:32:35 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	**get_envp(char **env)
 {
 	char	**enviroment;
 	char	*path_trimmed;
-	char	*path;
 	int		i;
 
 	enviroment = NULL;
@@ -60,8 +59,7 @@ char	**get_envp(char **env)
 	i = -1;
 	while (env[++i] != NULL)
 	{
-		path = ft_strnstr(env[i], "PATH=", 5);
-		if (path != NULL)
+		if (ft_strnstr(env[i], "PATH=", 5) != NULL)
 		{
 			path_trimmed = ft_strtrim(env[i], "PATH=");
 			if (path_trimmed == NULL)
@@ -72,7 +70,7 @@ char	**get_envp(char **env)
 			break ;
 		}
 	}
-	free(path);
-	free(path_trimmed);
+	if (path_trimmed != NULL)
+		free(path_trimmed);
 	return (enviroment);
 }

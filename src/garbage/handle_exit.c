@@ -6,17 +6,34 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 21:21:45 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/30 02:07:25 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 18:40:52 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "error.h"
 
-void exit_shell(char *err_message, int exit_status)
+void	free_env(t_env *env)
 {
-	if (err_message != NULL)
-		print_error(err_message, NULL, exit_status);
+	t_env	*tmp;
+
+	while (env != NULL)
+	{
+		tmp = env;
+		env = env->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+	}
+}
+
+void exit_shell(t_shell *shell, bool is_exit)
+{
 	all_free();
-	exit(exit_status);
+	if (shell->envp != NULL)
+		free_env(shell->envp);
+	if (shell != NULL)
+		free(shell);
+	if (is_exit == true)
+		exit(g_exit_status);
 }

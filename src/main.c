@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/29 23:29:09 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 19:24:20 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	readlines(char **input, char **last_input)
 {
 	*input = readline(READLINE_MSG);
 	if (*input == NULL)
-		return (exit_shell(NULL, g_exit_status), false);
+		return (printf("exit\n"), false);
 	if (*last_input == NULL)
 	{
 		*last_input = ft_strdup("");
@@ -73,6 +73,5 @@ int	main(int argc, char **argv, char **env)
 		return (EXIT_FAILURE);
 	//signalhandler();
 	shell_loop(shell);
-	free(shell);
-	return (EXIT_SUCCESS);
+	return (exit_shell(shell, false), EXIT_SUCCESS);
 }

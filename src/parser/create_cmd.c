@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:30:51 by rene              #+#    #+#             */
-/*   Updated: 2023/11/30 01:42:10 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 19:53:07 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_cmd    *create_cmd(int index)
     return (new_cmd);
 }
 
-void    add_cmd(t_cmd **head, t_cmd *new_cmd)
+static void    add_cmd(t_cmd **head, t_cmd *new_cmd)
 {
     t_cmd   *current;
 
@@ -64,7 +64,7 @@ static int count_cmd(t_token *head)
     return (count + 1);
 }
 
-void    fill_empty_cmd_table(t_cmd **cmd_table, int cmd_count)
+static void    fill_empty_cmd_table(t_cmd **cmd_table, int cmd_count)
 {
     int     index;
 
@@ -91,27 +91,13 @@ t_cmd   *fill_cmd_table(t_token *token_list)
     current_cmd = *cmd_table;
     while (token_list != NULL)
     {
-        if (token_list->type == TK_NULL)
-        {
-            token_list = token_list->next;
-            continue;
-        }
-        if (is_valid_token(token_list) == false)
-        {
-            if (token_list->type != PIPE)
-            {
-                if (token_list->next == NULL)
-                    return (print_error_syntax(ERR_SYNTAX, "newline", 2), NULL);
-                else
-                    return (print_error_syntax(ERR_SYNTAX, token_list->next->token, 2), NULL);
-            }
-            return (print_error_syntax(ERR_SYNTAX, token_list->token, 2), NULL);   
-        }
+        if (handle_syntax_error(token_list) == false)
+            return (NULL);
         if (token_list->type == PIPE)
             current_cmd = current_cmd->next;
         else if (token_list->type == STR)
             add_arg(&current_cmd, token_list->token);
-        else
+        else if (token_list->type != TK_NULL)
         {
             add_rdir(&current_cmd, token_list->next->token, token_list->type);
             token_list = token_list->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/30 15:44:34 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:53:41 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ bool    executor(t_shell *shell)
                     if (shell->nb_cmd == 1)
                         return (false);
                 }
-                exit(g_exit_status);
+                exit_shell(shell, true);
             }
             if (is_builtin(shell->cmd_table->args[0]) == true)
             {
@@ -126,12 +126,12 @@ bool    executor(t_shell *shell)
                     return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
                 if (shell->nb_cmd == 1)
                     return (true);
-                exit(g_exit_status);
+                exit_shell(shell, true);
             }
             else
             {
                 if (exec_cmd(shell->cmd_table, shell->envp) == false)
-                    exit(g_exit_status);
+                    exit_shell(shell, true);
             }
         }
         shell->cmd_table = shell->cmd_table->next;

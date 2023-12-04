@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:32:56 by rene              #+#    #+#             */
-/*   Updated: 2023/11/29 21:13:09 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 19:35:38 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void    add_arg(t_cmd **head, char *arg)
 
     current = *head;
     i = 0;
-    // Erreur: $zzzz ww -> Segfault
     while (current->args[i] != NULL)
         i++;
     current->args[i] = ft_strdup(arg);

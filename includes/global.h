@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/30 12:59:25 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:11:43 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ void    	free_array(char **array);
 void 		signalhandler(void);
 t_shell		*init_data(char **envp);
 t_cmd 		*parsing(char *input, t_shell *shell);
-void 		exit_shell(char *err_message, int exit_status);
+void 		exit_shell(t_shell *shell, bool is_exit);
 
 #endif
