@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/01 17:46:45 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:56:49 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ int 				make_new_str(char *token, size_t start, size_t len, char *ext);
 size_t 				make_tk_null(t_token *current);
 int					rm_ext(t_token *current, size_t start, size_t len, t_shell *shell);
 int 				rm_str_exp(char *current, size_t start, size_t len, t_shell *shell);
+bool 				rm_quotes(t_token *head, t_shell *shell);
 //utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);
 bool				is_sep(char c);
 bool				ft_isexpand(char c);
+bool 				is_there_quote(char *str);
 //convert_input --------------------
 size_t				through_quote(char *input, size_t i, char *dst,
 						size_t pos_dst);

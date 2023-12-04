@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 21:05:05 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/29 17:09:24 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:56:45 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ size_t make_tk_null(t_token *current)
 	current->token = NULL;
 	return (FALSE);
 }
-
 
 int rm_ext(t_token *current, size_t start, size_t len, t_shell *shell)
 {
@@ -87,4 +86,40 @@ int rm_str_exp(char *token, size_t start, size_t len, t_shell *shell)
 		return (ERROR);
 	}
 	return(TRUE);
+}
+
+static void remove_quote(t_token *current, t_shell *shell)
+{
+	size_t i;
+
+	i = 0;
+	while (current->token[i])
+	{
+		if (ft_isquote(current->token[i]))
+			rm_ext(current, i, 1, shell);
+		if (shell->mem_err_flg == TRUE)
+			return ;
+	}
+}
+
+bool rm_quotes(t_token *head, t_shell *shell)
+{
+	t_token *current;
+	bool	prev_here;
+
+	prev_here = FALSE;
+	current = head;
+	while (current->token)
+	{
+		if (prev_here == FALSE && current->type == STR && is_there_quote(current->token))
+			remove_quote(current, shell);
+		if (shell->mem_err_flg == TRUE)
+			return (FALSE);
+		if (current->type == HEREDOC)
+			prev_here = TRUE;
+		if (prev_here == TRUE && current->type != HEREDOC)
+			prev_here = FALSE;
+		current = current->next;
+	}
+	return (TRUE);
 }
