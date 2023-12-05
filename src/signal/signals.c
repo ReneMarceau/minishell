@@ -6,22 +6,11 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/04 17:08:08 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 21:14:07 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "global.h"
 #include "signals.h"
-// #include "colors.h"
-
-// int *sig_val(void)
-// {
-// 	static int sig_val = 0;
-
-// 	return (&sig_val);
-// }
-
-
 
 void treat_here(int signal, siginfo_t *info, void *context)
 {
@@ -39,34 +28,39 @@ void treat_here(int signal, siginfo_t *info, void *context)
 	
 }
 
-	void	sig_in_process(int signal)
+void	treat_in_process(int signal)
+{
+	if (signal == SIGINT)
 	{
-		if (signal == SIGINT)
-		{
-			kill(0, 0);
-			printf("\n");
-			rl_on_new_line();
-		}
-		else if (signal == SIGQUIT)
-		{
-			kill(0, 0);
-			printf("\n");
-			rl_on_new_line();
-		}
+		kill(0, 0);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0); //test
+		rl_redisplay(); //test
 	}
+	else if (signal == SIGQUIT)
+	{
+		kill(0, 0);
+		printf("QUIT: 3\n");
+		rl_on_new_line();
+		rl_replace_line("", 0); //test
+		rl_redisplay(); //test
+	}
+}
 
 void treat_sig(int signal, siginfo_t *info, void *context)
 {
-	(void)signal;
 	(void)info;
 	(void)context;
 	// sigignore(signal);
 	// rl_replace_line();
-	
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0); //test
-	rl_redisplay(); //test
+	if (signal == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0); //test
+		rl_redisplay(); //test
+	}
 	// readline(READLINE_MSG);
 }
 

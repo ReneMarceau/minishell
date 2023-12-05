@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/04 16:56:49 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:36:44 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ bool				is_sep(char c);
 bool				ft_isexpand(char c);
 bool 				is_there_quote(char *str);
 //convert_input --------------------
-size_t				through_quote(char *input, size_t i, char *dst,
-						size_t pos_dst);
+size_t				through_quote(char *input, size_t i, char *dst, size_t pos_dst);
 size_t				through_special(char *input, size_t i);
 char				*str_sel_dup(char *s1);
 //list ------------------------

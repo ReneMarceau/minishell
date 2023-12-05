@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/01 17:47:39 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:50:25 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@
 // ----> add_history, rl_clear_history
 # include "readline/history.h"
 
-# include "env.h"
-
+/* Functions for handling signals */
 # include <signal.h>
 
+# include "env.h"
 # include "garbage_collector.h"
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"
@@ -118,6 +118,7 @@ typedef struct s_shell {
 	t_env	*envp;
 	int		err_type;//new
 	bool	mem_err_flg;//new
+	struct sigaction	sa; //new
 }	t_shell;
 
 /* *************** ***************           *************** *************** */

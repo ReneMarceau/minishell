@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/12/03 19:15:40 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:28:42 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	main(int argc, char **argv, char **env)
 	shell = init_data(env);
 	if (shell == NULL)
 		return (EXIT_FAILURE);
+	set_noncanonical_mode();
 	sig_handle(shell, SIGINT_INTER);
 	shell_loop(shell);
 	return (EXIT_SUCCESS);
