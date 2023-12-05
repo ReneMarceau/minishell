@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/04 17:28:53 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:20:46 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,9 @@ size_t				expand_return(t_token *current, size_t start,
 						t_shell *shell);
 size_t expand_return_here(char *current, size_t start, t_shell *shell);
 //expand_rm ------------------------
+int					rm_dollar(t_token *current, size_t start);
+int 				rm_ext(t_token *current, size_t start, size_t len, t_shell *shell);
 size_t 				make_tk_null(t_token *current);
-int					rm_ext(t_token *current, size_t start, size_t len);
-int 				rm_ext_here(char *current, size_t start, size_t len);
-//expand_heredoc --------------------
-int make_new_ext_here(char *token, size_t start, size_t len, char *ext);
-size_t expand_one_here(char *token, size_t pos, t_shell *shell);
 //utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);
@@ -93,6 +90,7 @@ enum e_node			analyze_token(t_token *current);
 //fill_cmd_table ----------------
 t_cmd				*fill_cmd_table(t_token *token_list);
 t_rdir				*create_redir(char *file, int type);
+bool    			is_valid_token(t_token *token);
 void				add_rdir(t_cmd **head, char *file, int type);
 void				add_arg(t_cmd **head, char *arg);
 

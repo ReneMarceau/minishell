@@ -3,12 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+         #
+#    By: rene <rene@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/23 15:45:10 by rmarceau          #+#    #+#              #
-#    Updated: 2023/11/24 16:54:42 by wmillett         ###   ########.fr        #
+#    Created: Invalid date        by                   #+#    #+#              #
+#    Updated: 2023/12/03 19:41:45 by rene             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
 
 # -------------------------------------#
 #           VARIABLES                  #
@@ -19,7 +21,7 @@ NAME = minishell
 
 # Compiler and Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
 # Directories
 SRC_DIR = src
@@ -28,6 +30,7 @@ INC_DIR = includes
 
 # SRC Folder Subdirectories
 EXEC_DIR = $(SRC_DIR)/executor
+BUILTIN_DIR = $(SRC_DIR)/builtins
 SIG_DIR = $(SRC_DIR)/signal
 PARS_DIR = $(SRC_DIR)/parser
 EXP_DIR = $(SRC_DIR)/expand
@@ -52,7 +55,8 @@ SRCS := $(wildcard $(ERROR_DIR)/*.c)	\
 		$(wildcard $(TOKEN_DIR)/*.c)	\
 		$(wildcard $(PARS_DIR)/*.c)		\
 		$(wildcard $(EXP_DIR)/*.c)		\
-		$(wildcard $(GAR_DIR)/*.c)	\
+		$(wildcard $(GAR_DIR)/*.c)		\
+		$(wildcard $(BUILTIN_DIR)/*.c)	\
 		$(wildcard $(EXEC_DIR)/*.c)		\
 		$(wildcard $(SIG_DIR)/*.c)		\
 		$(wildcard $(SRC_DIR)/*.c)
@@ -147,7 +151,7 @@ test: all
 
 leaks: all
 	@echo "$(YELLOW)Running leaks...$(RESET)"
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=./$(NAME).sup ./$(NAME)
 
 # -------------------------------------#
 #           .PHONY RULES               #

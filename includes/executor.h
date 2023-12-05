@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:32:23 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/15 15:28:51 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/16 22:41:32 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define EXECUTOR_H
 
 # include "global.h"
+
+/* File control options and functions for file I/O. */
+// ----> open
+# include <fcntl.h>
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
@@ -24,9 +28,11 @@ bool    close_pipes(t_shell *shell);
 bool	init_pipes(t_shell *shell);
 bool    init_processes(t_shell *shell);
 char	**get_envp(char **env);
-bool    handle_redirections(t_shell *shell, t_rdir *rdir);
+bool    create_heredoc_files(t_shell *shell);
+bool    exec_heredoc(char *delimiter, int fd);
+bool    has_redirection(t_rdir *rdir, int type);
+bool    handle_redirections(t_shell *shell, t_rdir *rdir, char *heredoc_file);
 bool    handle_pipe_redirections(t_shell *shell,  t_cmd *cmd);
-bool    exec_heredoc(char *delimiter);
 bool    executor(t_shell *shell);
 
 #endif

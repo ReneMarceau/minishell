@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:32:56 by rene              #+#    #+#             */
-/*   Updated: 2023/11/15 21:25:16 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 19:35:38 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ t_rdir  *create_redir(char *file, int type)
 {
     t_rdir  *new_rdir;
 
-    new_rdir = (t_rdir *)ft_calloc(1, sizeof(t_rdir));
+    new_rdir = (t_rdir *)list_malloc(1, sizeof(t_rdir));
     if (new_rdir == NULL)
-        return (print_error(ERR_MALLOC, NULL), NULL);
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
     new_rdir->value = ft_strdup(file);
+    if (new_rdir->value == NULL)
+        return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
+    add_garbage(new_rdir->value);
     new_rdir->type = type;
     new_rdir->next = NULL;
     return (new_rdir);
@@ -54,4 +57,23 @@ void    add_arg(t_cmd **head, char *arg)
     while (current->args[i] != NULL)
         i++;
     current->args[i] = ft_strdup(arg);
+    if (current->args[i] == NULL)
+        print_error(ERR_MALLOC, NULL, EXIT_FAILURE);
+    add_garbage(current->args[i]);
+}
+
+bool    is_valid_token(t_token *token)
+{
+    if (token->type == REDIR_IN || token->type == REDIR_OUT
+        || token->type == REDIR_APPEND || token->type == HEREDOC)
+        {
+            if (token->next == NULL || token->next->type != STR)
+                return (false);
+        }
+    if (token->type == PIPE)
+    {
+        if (token->next == NULL)
+            return (false);
+    }
+    return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 17:32:34 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/09/22 12:52:12 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 23:10:07 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 /* ************* *************           ************* ************* */
 /*                             STRUCTURES                            */
@@ -92,6 +93,19 @@ size_t				ft_strlcat(char *dst, const char *src, size_t size);
  * @return The total length of the copied string.
  */
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
+
+/**
+ * @brief Compare two strings.
+ * 
+ * This function compares the strings 's1' and 's2'.
+ * It returns true or false, depending on whether 's1' is the exact same as 's2'.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string.
+ * 
+ * @return True if 's1' is the same as 's2', false otherwise.
+ */
+bool    			ft_strcmp(const char *s1, const char *s2);
 
 /**
  * @brief Compare two strings up to the first 'n' characters.
