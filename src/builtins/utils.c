@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:45 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/29 23:23:20 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/05 10:24:18 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,35 @@ bool    exec_builtin(t_cmd *cmd, t_env *env)
         return (exec_exit(cmd));
     
     return (print_error(ERR_CMD_NF, cmd_name, 127), false);
+}
+
+char    *get_env_value(t_env *env, char *key)
+{
+    t_env *current;
+
+    current = env;
+    while (current != NULL)
+    {
+        if (ft_strcmp(current->key, key) == true)
+            return (current->value);
+        current = current->next;
+    }
+    return (NULL);
+}
+
+void    set_env_value(t_env *env, char *key, char *value)
+{
+    t_env *current;
+
+    current = env;
+    while (current != NULL)
+    {
+        if (ft_strcmp(current->key, key) == true)
+        {
+            free(current->value);
+            current->value = ft_strdup(value);
+            return ;
+        }
+        current = current->next;
+    }
 }

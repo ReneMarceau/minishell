@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:33:33 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/18 01:53:24 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/05 10:24:50 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
+char    *get_env_value(t_env *env, char *key);
+void    set_env_value(t_env *env, char *key, char *value);
 bool    is_builtin(char *cmd_name);
 bool    exec_echo(t_cmd *cmd);
 bool    exec_cd(t_cmd *cmd, t_env *env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:53 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/30 01:23:23 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/05 11:04:03 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "env.h"
 #include "error.h"
 
-void    print_env(t_env *env)
+static void    print_env(t_env *env)
 {
     while (env)
     {
@@ -23,29 +23,53 @@ void    print_env(t_env *env)
     }
 }
 
-bool    is_valid_identifier(char *str)
+static bool    is_valid_identifier(char *str)
 {
     int i;
 
     i = 0;
-    if (str[i] == '=')
+    if (str[0] == '=')
+        return (false);
+    if (ft_isalpha(str[0]) == 0 && str[0] != '_')
         return (false);
     while (str[i] != '\0')
     {
         if (str[i] == '=')
             return (true);
-        if (ft_isalpha(str[i]) == 0 && str[i] != '_')
+        if (ft_isalnum(str[i]) == 0 && str[i] != '_')
             return (false);
         i++;
     }
     return (true);
 }
 
-bool    exec_export(t_cmd *cmd, t_env *env)
+bool    apply_export(char *arg, t_env *env)
 {
-    t_env   *tmp_env;
     char    *key;
     char    *value;
+    t_env   *tmp_env;
+
+    key = NULL;
+    value = NULL;
+    if (ft_strchr(arg, '=') == NULL)
+        return (true);
+    if (split_key_value(arg, &key, &value) == false)
+        return (false);
+    tmp_env = find_env(env, key);
+    if (tmp_env != NULL)
+    {
+        free(tmp_env->value);
+        tmp_env->value = ft_strdup(value);
+    }
+    else
+        insert_env(&env, create_node_env(key, value));
+    free(key);
+    free(value);
+    return (true);
+}
+
+bool    exec_export(t_cmd *cmd, t_env *env)
+{
     int     i;
 
     i = 1;
@@ -57,23 +81,8 @@ bool    exec_export(t_cmd *cmd, t_env *env)
         return (print_error_builtin(ERR_INVALID_ID, cmd->args[0], cmd->args[1], 1), false);
     while (cmd->args[i] != NULL)
     {
-        key = NULL;
-        value = NULL;
-        if (ft_strchr(cmd->args[i], '='))
-        {
-            if (split_key_value(cmd->args[i], &key, &value) == false)
-                return (false);
-            tmp_env = find_env(env, key);
-            if (tmp_env != NULL)
-            {
-                free(tmp_env->value);
-                tmp_env->value = ft_strdup(value);
-            }
-            else
-                insert_env(&env, create_node_env(key, value));
-            free(key);
-            free(value);
-        }
+        if (apply_export(cmd->args[i], env) == false)
+            return (false);
         i++;
     }
     g_exit_status = EXIT_SUCCESS;
