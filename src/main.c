@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/11/15 01:04:45 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 19:24:20 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ bool	readlines(char **input, char **last_input)
 	{
 		*last_input = ft_strdup("");
 		if (*last_input == NULL)
-			return (print_error(ERR_MALLOC, NULL), false);
+			return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
 	}
-	if (*input && **input && ft_strncmp(*input, *last_input, ft_strlen(*input)))
+	if (*input && **input && ft_strcmp(*input, *last_input) == false)
 		add_history(*input);
+	free(*last_input);
 	*last_input = ft_strdup(*input);
 	if (*last_input == NULL)
-		return (print_error(ERR_MALLOC, NULL), false);
+		return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
 	return (true);
 }
 
@@ -41,7 +42,6 @@ void	shell_loop(t_shell *shell)
 {
 	char	*input;
 	char	*last_input;
-	char	*exit_code;
 
 	input = NULL;
 	last_input = NULL;
@@ -51,16 +51,15 @@ void	shell_loop(t_shell *shell)
 			return ;
 		if (input && *input)
 		{
-			exit_code = ft_itoa(WEXITSTATUS(g_exit_status));
-			shell->cmd_table = parsing(input);
+			shell->cmd_table = parsing(input, shell);
 			shell->nb_cmd = count_cmds(shell->cmd_table);
-			if (shell->cmd_table != NULL)
+			if (shell->cmd_table != NULL) 
 				executor(shell);
+			all_free();
 		}
 		free(input);
 	}
 	free(last_input);
-	free(exit_code);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -74,5 +73,5 @@ int	main(int argc, char **argv, char **env)
 		return (EXIT_FAILURE);
 	//signalhandler();
 	shell_loop(shell);
-	return (EXIT_SUCCESS);
+	return (exit_shell(shell, false), EXIT_SUCCESS);
 }

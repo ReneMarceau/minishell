@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/15 22:31:28 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/03 19:11:43 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@
 // ----> signal, sigaction, sigemptyset, sigaddset, kill
 # include <signal.h>
 
-/* File control options and functions for file I/O. */
-// ----> open
-# include <fcntl.h>
-
 /* Data types, structures and functions related to the file system */
 // ----> stat, lstat, fstat
 # include <sys/stat.h>
@@ -73,6 +69,7 @@
 
 # include "env.h"
 
+# include "garbage_collector.h"
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"
 
@@ -101,6 +98,7 @@ typedef struct s_cmd {
 	int				index;
 	char			**args;
 	t_rdir			*rdir;
+	char			*heredoc_file;
 	pid_t			pid;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -113,14 +111,17 @@ typedef struct s_shell {
 	int		input_fd;
 	int		output_fd;
 	t_env	*envp;
+	int		err_type;//new
+	bool	mem_err_flg;//new
 }	t_shell;
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
+void    	free_array(char **array);
 void 		signalhandler(void);
 t_shell		*init_data(char **envp);
-t_cmd 		*parsing(char *input);
-
+t_cmd 		*parsing(char *input, t_shell *shell);
+void 		exit_shell(t_shell *shell, bool is_exit);
 
 #endif

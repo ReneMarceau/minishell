@@ -17,7 +17,7 @@
 - [x] Implémenter les redirections :
     - [x] < doit rediriger l’entrée.
     - [x] > doit rediriger la sortie.
-    - [ ] << doit recevoir un délimiteur et lire l’input donné jusqu’à rencontrer une ligne contenant le délimiteur. Cependant, l’historique n’a pas à être mis à jour !
+    - [x] << doit recevoir un délimiteur et lire l’input donné jusqu’à rencontrer une ligne contenant le délimiteur. Cependant, l’historique n’a pas à être mis à jour !
     - [x] >> doit rediriger la sortie en mode append.
 - [x] Implémenter les pipes (caractère |). La sortie de chaque commande de la pipeline est connectée à l’entrée de la commande suivante grâce à un pipe.
 
@@ -46,3 +46,4 @@
 - [zstenger93](https://github.com/zstenger93/minishell#initialize-everything-whats-needed-in-normal-mode)
 - [PossibleOutputs](https://homepage.cs.cityu.edu.hk/jiakaixu2/project/minishell1.manual)
 - [Playlist Youtube](https://www.youtube.com/watch?v=hMSByvFHOro&list=PLGU1kcPKHMKj5yA0RPb5AK4QAhexmQwrW)
+

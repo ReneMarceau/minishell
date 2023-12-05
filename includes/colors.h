@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 19:47:55 by rene              #+#    #+#             */
-/*   Updated: 2023/10/27 13:26:35 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:21:17 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@
 # define CYAN_BOLD		"\001\033[1;36m\002"
 # define WHITE_BOLD		"\001\033[1;37m\002"
 
-# define HEREDOC_MSG	"\001\033[1;34m> \033[0m\002"
+//# define HEREDOC_MSG	"\001\033[1;34m> \033[0m\002"
+# define HEREDOC_MSG	"> "
 
-# define READLINE_MSG	"\033[1;36mminishell\033[34m$ \033[0m"
+//# define READLINE_MSG	"\033[1;36mminishell\033[34m$ \033[0m"
+# define READLINE_MSG	"minishell$ "
 
 #endif

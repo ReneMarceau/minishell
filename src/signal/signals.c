@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/15 01:03:07 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/28 12:17:36 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "colors.h"
 
 // void signaltreat(int signal, siginfo_t *info, void *context)
 // {
@@ -18,7 +19,7 @@
 // 	(void)context;
 // 	(void)signal;
 // 	sigignore(signal);
-// 	rl_replace_line();
+// 	rl_replace_line(READLINE_MSG, ft_strlen(READLINE_MSG));
 // 	printf("\n");
 // }
 
