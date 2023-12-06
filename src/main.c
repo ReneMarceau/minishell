@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/12/05 18:06:41 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:35:01 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **env)
 		all_free();
 		return (EXIT_FAILURE);
 	}
-	//signalhandler();
+	sig_init(shell);
 	shell_loop(shell);
 	return (exit_shell(shell, false), EXIT_SUCCESS);
 }

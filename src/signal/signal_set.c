@@ -6,11 +6,11 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:20:05 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/05 19:23:03 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:23:02 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals.h"
+#include "parse.h"
 
 void modify_sig_setup(void) 
 {
@@ -21,14 +21,13 @@ void modify_sig_setup(void)
     tcsetattr(STDIN_FILENO, TCSANOW, &new_attributes);
 }
 
-void sig_init(t_shell *shell, int type)
+void sig_init(t_shell *shell)
 {
 	sigemptyset(&shell->sa.sa_mask);
 	shell->sa.sa_flags = SA_SIGINFO;
 	modify_sig_setup();
 	shell->sa.sa_sigaction = treat_sig;
 	sigaction(SIGINT, &shell->sa, NULL);
-	// sigaction(SIGQUIT, &sa, NULL);
 }
 
 void set_to_heredoc(t_shell *shell)
@@ -41,6 +40,13 @@ void set_to_heredoc(t_shell *shell)
 void set_to_process(t_shell *shell)
 {
 	shell->sa.sa_sigaction = treat_in_process;
+	sigaction(SIGINT, &shell->sa, NULL);
+	sigaction(SIGQUIT, &shell->sa, NULL);
+}
+
+void set_to_inter(t_shell *shell)
+{
+	shell->sa.sa_sigaction = treat_sig;
 	sigaction(SIGINT, &shell->sa, NULL);
 	sigaction(SIGQUIT, &shell->sa, NULL);
 }

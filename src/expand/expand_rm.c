@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 21:05:05 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/05 16:17:31 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:14:02 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int rm_ext(t_token *current, size_t start, size_t len, t_shell *shell)
 {
 	char *s1;
 	char *s2;
-	//char *tmp;
-
-	//tmp = NULL;
+	
 	s1 = NULL;
 	s2 = NULL;
 	s1 = ft_substr(current->token, 0, start);
@@ -44,27 +42,25 @@ int rm_ext(t_token *current, size_t start, size_t len, t_shell *shell)
 	return(TRUE);	
 }
 
-// int rm_ext_here(char *current, size_t start, size_t len, t_shell *shell)
-// {
-// 	char *s1;
-// 	char *s2;
-// 	//char *tmp;
+int rm_ext_here(char *current, size_t start, size_t len, t_shell *shell)
+{
+	char *s1;
+	char *s2;
 
-// 	//tmp = NULL;
-// 	s1 = NULL;
-// 	s2 = NULL;
-// 	s1 = ft_substr(current->token, 0, start);
-// 	s2 = ft_substr(current->token, start + len, ft_strlen(current->token + start + len));
-// 	if (!check_str(s1, s2, NULL, 2))
-// 	{
-// 		shell->mem_err_flg = TRUE;
-// 		return (ERROR);
-// 	}
-// 	current->token = ft_strjoin(s1, s2);
-// 	if (current->token == NULL)
-// 	{
-// 		shell->mem_err_flg = TRUE;
-// 		return (ERROR);
-// 	}
-// 	return(TRUE);	
-// }
+	s1 = NULL;
+	s2 = NULL;
+	s1 = ft_substr(current, 0, start);
+	s2 = ft_substr(current, start + len, ft_strlen(current + start + len));
+	if (!check_str(s1, s2, NULL, 2))
+	{
+		shell->mem_err_flg = TRUE;
+		return (ERROR);
+	}
+	current = ft_strjoin(s1, s2);
+	if (current == NULL)
+	{
+		shell->mem_err_flg = TRUE;
+		return (ERROR);
+	}
+	return(TRUE);	
+}

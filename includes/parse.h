@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/05 16:20:46 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:17:54 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,19 @@
 /* *************** ***************           *************** *************** */
 /*                                  Macros                                   */
 /* *************** ***************           *************** *************** */
+
 //definitions for parse ------
 # define SEP 19
 # define OUT 0
 # define IN_SINGLE 1
 # define IN_DOUBLE 2
 # define ERROR -1
+
+//For signals
+# define IN_INTERFACE 1
+# define IN_HEREDOC 2
+# define IN_PROCESS 3
+
 /* *************** ***************           *************** *************** */
 /*                                  Structures                               */
 /* *************** ***************           *************** *************** */
@@ -72,6 +79,9 @@ size_t expand_return_here(char *current, size_t start, t_shell *shell);
 int					rm_dollar(t_token *current, size_t start);
 int 				rm_ext(t_token *current, size_t start, size_t len, t_shell *shell);
 size_t 				make_tk_null(t_token *current);
+int 				rm_ext_here(char *current, size_t start, size_t len, t_shell *shell);
+//expand_here ---------------------
+int 				make_new_ext_here(char *token, size_t start, size_t len, char *ext);
 //utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);
@@ -93,5 +103,18 @@ t_rdir				*create_redir(char *file, int type);
 bool    			is_valid_token(t_token *token);
 void				add_rdir(t_cmd **head, char *file, int type);
 void				add_arg(t_cmd **head, char *arg);
+
+//signal_parse -----------------
+int *if_sig_int(int context, t_shell *shell);
+void sig_handle(t_shell *shell, int type);
+//signal -----------------------
+void treat_sig(int signal, siginfo_t *info, void *context);
+void treat_here(int signal, siginfo_t *info, void *context);
+void treat_in_process(int signal, siginfo_t *info, void *context);
+//signal_set -------------------
+void modify_sig_setup(void);
+void sig_init(t_shell *shell);
+void set_to_heredoc(t_shell *shell);
+void set_to_process(t_shell *shell);
 
 #endif
