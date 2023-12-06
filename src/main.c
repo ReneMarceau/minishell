@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/12/03 19:24:20 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/05 18:06:41 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	shell = init_data(env);
 	if (shell == NULL)
+	{
+		all_free();
 		return (EXIT_FAILURE);
+	}
 	//signalhandler();
 	shell_loop(shell);
 	return (exit_shell(shell, false), EXIT_SUCCESS);
