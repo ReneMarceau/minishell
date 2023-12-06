@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:39:59 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 17:33:20 by rene             ###   ########.fr       */
+/*   Updated: 2023/11/28 15:02:22 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,15 @@ bool	is_sep(char c)
 bool	ft_isexpand(char c)
 {
 	return (ft_isalnum(c) || c == '_');
+}
+
+bool is_there_quote(char *token)
+{
+	size_t i;
+
+	i = 0;
+	while (token[i])
+		if (ft_isquote(token[i++]))
+			return (TRUE);
+	return (FALSE);
 }
