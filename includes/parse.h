@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/05 21:05:39 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:36:04 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_token
 /* *************** ***************           *************** *************** */
 
 //parse -----------------------
+void 				mem_err_true(char **tofree, t_shell *shell);
 bool				check_token(char *input);
 bool				check_quotes(char *input);
 
@@ -82,7 +83,7 @@ size_t				expand_return(t_token *current, size_t start,
 size_t expand_return_here(char *current, size_t start, t_shell *shell);
 
 //expand_rm ------------------------
-int					rm_dollar(t_token *current, size_t start);
+// int					rm_dollar(t_token *current, size_t start);
 int 				rm_ext(t_token *current, size_t start, size_t len, t_shell *shell);
 size_t 				make_tk_null(t_token *current);
 int 				rm_ext_here(char *current, size_t start, size_t len, t_shell *shell);

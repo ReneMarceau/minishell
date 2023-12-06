@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/06 14:14:37 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:55:12 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,23 @@ void	all_free(void)
 	mem_data()->mem_next = NULL;
 }
 
-bool	add_garbage(void *to_add)
+void	add_garbage(void *to_add)
 {
+	// t_memlist	*ptr_tmp;
+
+	// ptr_tmp = ft_calloc(1, sizeof(t_memlist));
+	// if (!ptr_tmp)
+	// 	return (FALSE);
+	// ptr_tmp->mem_next = mem_data()->mem_next;
+	// mem_data()->mem_next = ptr_tmp;
+	// ptr_tmp->address = to_add;
+	// return (TRUE);
+	
 	t_memlist	*ptr_tmp;
 
-	ptr_tmp = ft_calloc(1, sizeof(t_memlist));
-	if (!ptr_tmp)
-		return (FALSE);
-	ptr_tmp->mem_next = mem_data()->mem_next;
-	mem_data()->mem_next = ptr_tmp;
+	ptr_tmp = mem_data()->mem_next;
+	while (ptr_tmp->mem_next)
+		ptr_tmp = ptr_tmp->mem_next;
 	ptr_tmp->address = to_add;
-	return (TRUE);
+	ptr_tmp->mem_next = NULL;
 }
