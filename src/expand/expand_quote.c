@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:25:52 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/05 21:00:35 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/05 21:18:21 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ bool rm_quote_str(char *current, t_shell *shell)
 		}
 		if (shell->mem_err_flg == TRUE)
 			return (FALSE);
+		i++;
 	}
 	return (TRUE);
 }
@@ -63,20 +64,3 @@ bool rm_quotes(t_token *head, t_shell *shell)
 	return (TRUE);
 }
 
-
-
-// bool remove_quotes(t_token *head, t_shell *shell)
-// {
-// 	t_token *current;
-
-// 	current = head;
-// 	while (current)
-// 	{
-// 		i
-
-
-
-		
-// 	}
-
-// }
