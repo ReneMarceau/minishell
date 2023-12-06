@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collector.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/29 04:29:43 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/06 14:14:37 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,15 @@ void	all_free(void)
 	mem_data()->mem_next = NULL;
 }
 
-void	add_garbage(void *to_add)
+bool	add_garbage(void *to_add)
 {
 	t_memlist	*ptr_tmp;
 
-	ptr_tmp = mem_data()->mem_next;
-	while (ptr_tmp)
-		ptr_tmp = ptr_tmp->mem_next;
-	ptr_tmp = ft_calloc(1, sizeof(t_memlist)); // Sinon segfault
+	ptr_tmp = ft_calloc(1, sizeof(t_memlist));
+	if (!ptr_tmp)
+		return (FALSE);
+	ptr_tmp->mem_next = mem_data()->mem_next;
+	mem_data()->mem_next = ptr_tmp;
 	ptr_tmp->address = to_add;
-	ptr_tmp->mem_next = NULL;
+	return (TRUE);
 }

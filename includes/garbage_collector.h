@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/26 19:22:53 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:15:00 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_memlist				*mem_data(void);
 void					*list_malloc(size_t nmemb, size_t size);
 void					free_one(void *address);
 void					all_free(void);
-void 					add_garbage(void *to_add);
+bool 					add_garbage(void *to_add);
 
 void 					free_double_char(char **lst);
 char 					*clean_all(void);
