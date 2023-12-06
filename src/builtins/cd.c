@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:30:03 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/05 10:25:12 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:19:04 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 #include "builtin.h"
 #include "env.h"
 #include "error.h"
-
-static int     nb_args(char **args)
-{
-    int i;
-
-    i = 0;
-    while (args[i] != NULL)
-    {
-        if (ft_strlen(args[i]) > 0)
-            i++;
-    }
-    return (i);
-}
 
 bool    change_directory(char *path, char *path_name, t_env *env)
 {
@@ -81,8 +68,6 @@ bool    exec_cd(t_cmd *cmd, t_env *env)
 {
     if (cmd->args[1] != NULL && cmd->args[1][0] == '-' && cmd->args[1][1] != '\0')
         return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1], 2), false);
-    if (nb_args(cmd->args) > 2)
-        return (print_error_builtin(ERR_TOO_MANY_ARGS, cmd->args[0], NULL, 1), false);
     if (apply_cd(cmd, env) == false)
         return (false);
     g_exit_status = EXIT_SUCCESS;

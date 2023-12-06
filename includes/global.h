@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/05 19:45:23 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:51:33 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ typedef struct s_shell
 	int		input_fd;
 	int		output_fd;
 	t_env	*envp;
+	int		original_stdin;
+	int		original_stdout;
 	int		err_type;//new
 	bool	mem_err_flg;//new
 	struct sigaction	sa;//new

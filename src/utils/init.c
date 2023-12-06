@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:34:52 by rene              #+#    #+#             */
-/*   Updated: 2023/12/03 19:32:35 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/06 13:51:47 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_shell	*init_data(char **envp)
 	shell->pipe_fd = NULL;
 	shell->input_fd = STDIN_FILENO;
 	shell->output_fd = STDOUT_FILENO;
+	shell->original_stdin = dup(STDIN_FILENO);
+	shell->original_stdout = dup(STDOUT_FILENO);
 	shell->envp = build_env_list(envp);
 	if (shell->envp == NULL)
 		return (NULL);

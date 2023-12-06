@@ -6,11 +6,12 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:53 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/05 11:04:03 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:55:40 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "builtin.h"
 #include "env.h"
 #include "error.h"
 
@@ -21,26 +22,6 @@ static void    print_env(t_env *env)
         printf("declare -x %s=\"%s\"\n", env->key, env->value);
         env = env->next;
     }
-}
-
-static bool    is_valid_identifier(char *str)
-{
-    int i;
-
-    i = 0;
-    if (str[0] == '=')
-        return (false);
-    if (ft_isalpha(str[0]) == 0 && str[0] != '_')
-        return (false);
-    while (str[i] != '\0')
-    {
-        if (str[i] == '=')
-            return (true);
-        if (ft_isalnum(str[i]) == 0 && str[i] != '_')
-            return (false);
-        i++;
-    }
-    return (true);
 }
 
 bool    apply_export(char *arg, t_env *env)
@@ -73,12 +54,12 @@ bool    exec_export(t_cmd *cmd, t_env *env)
     int     i;
 
     i = 1;
-    if (cmd->args[i] == NULL)
+    if (cmd->args[1] == NULL)
         return (print_env(env), true);
     if (cmd->args[1][0] == '-')
         return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1], 2), false);
-    if (is_valid_identifier(cmd->args[1]) == false)
-        return (print_error_builtin(ERR_INVALID_ID, cmd->args[0], cmd->args[1], 1), false);
+    if (is_valid_identifier(cmd->args) == false)
+        return (false);
     while (cmd->args[i] != NULL)
     {
         if (apply_export(cmd->args[i], env) == false)

@@ -38,3 +38,11 @@
    fun:xpc_atfork_child
    ...
 }
+{
+   system_libs_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:calloc
+   obj:/usr/lib/system/libsystem_info.dylib
+   ...
+}

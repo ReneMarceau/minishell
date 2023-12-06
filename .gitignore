@@ -58,3 +58,5 @@ libs/libft/bin
 libs/libft/obj
 includes/readline/
 .vscode/
+minishell_tester/
+.DS_Store

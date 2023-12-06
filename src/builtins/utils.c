@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:45 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/05 10:24:18 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:57:23 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,30 @@ bool    exec_builtin(t_cmd *cmd, t_env *env)
         return (exec_exit(cmd));
     
     return (print_error(ERR_CMD_NF, cmd_name, 127), false);
+}
+
+bool    is_valid_identifier(char **args)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (args[++i] != NULL)
+    {
+        if (args[i][0] == '=')
+            return (print_error_builtin(ERR_INVALID_ID, args[0], args[i], 1), false);
+        if (ft_isalpha(args[i][0]) == 0 && args[i][0] != '_')
+            return (print_error_builtin(ERR_INVALID_ID, args[0], args[i], 1), false);
+        j = -1;
+        while (args[i][++j] != '\0')
+        {
+            if (args[i][j] == '=')
+                continue ;
+            if (ft_isalnum(args[i][j]) == 0 && args[i][j] != '_')
+                return (print_error_builtin(ERR_INVALID_ID, args[0], args[i], 1), false);
+        }
+    }
+    return (true);
 }
 
 char    *get_env_value(t_env *env, char *key)
