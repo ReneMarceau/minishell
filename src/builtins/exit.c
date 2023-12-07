@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:55 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/30 13:32:35 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:38:45 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool    ft_isnumber(char *str)
     int i;
 
     i = 0;
-    if (str[i] == '-' || str[i] == '+')
+    if (str[i] == '-' || str[i] == '+')  
         i++;
     while (str[i] != '\0')
     {
@@ -29,7 +29,7 @@ static bool    ft_isnumber(char *str)
     return (true);
 }
 
-bool    exec_exit(t_cmd *cmd)
+bool    exec_exit(t_shell *shell, t_cmd *cmd)
 {
     if (cmd->next == NULL)
         printf("exit\n");
@@ -38,7 +38,7 @@ bool    exec_exit(t_cmd *cmd)
         if (ft_isnumber(cmd->args[1]) == false)
         {
             print_error_builtin(ERR_NUMERIC_ARG, cmd->args[0], cmd->args[1], 255);
-            exit(g_exit_status);
+            exit_shell(shell, true);
         }
         if (cmd->args[2] != NULL)
         {
@@ -46,8 +46,8 @@ bool    exec_exit(t_cmd *cmd)
             return (false);
         }
         g_exit_status = ft_atoi(cmd->args[1]);
-        exit(g_exit_status);
+        exit_shell(shell, true);
     }
-    exit(g_exit_status);
+    exit_shell(shell, true);
     return (true);
 }

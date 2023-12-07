@@ -6,101 +6,70 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:30:03 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/30 12:50:15 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:19:04 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "builtin.h"
 #include "env.h"
 #include "error.h"
 
-char    *get_env_value(t_env *env, char *key)
+bool    change_directory(char *path, char *path_name, t_env *env)
 {
-    t_env *current;
-
-    current = env;
-    while (current != NULL)
+    char *pwd;
+    
+    pwd = getcwd(NULL, 0);
+    if (get_env_value(env, path_name) == NULL)
     {
-        if (ft_strcmp(current->key, key) == true)
-            return (current->value);
-        current = current->next;
+        if (ft_strcmp(path_name, "HOME") == true)
+            return (print_error_builtin("HOME not set", "cd", NULL, 1), false);
+        else if (ft_strcmp(path_name, "OLDPWD") == true)
+            return (print_error_builtin("OLDPWD not set", "cd", NULL, 1), false);
     }
-    return (NULL);
+    if (chdir(path) == -1)
+        return (print_error_builtin(strerror(errno), "cd", path, 1), false);
+    set_env_value(env, "OLDPWD", pwd);
+    free(pwd);
+    pwd = getcwd(NULL, 0);
+    set_env_value(env, "PWD", pwd);
+    free(pwd);
+    return (true);
 }
 
-void    set_env_value(t_env *env, char *key, char *value)
+bool    apply_cd(t_cmd *cmd, t_env *env)
 {
-    t_env *current;
-
-    current = env;
-    while (current != NULL)
+    char *path;
+    
+    if (cmd->args[1] == NULL)
     {
-        if (ft_strcmp(current->key, key) == true)
-        {
-            free(current->value);
-            current->value = ft_strdup(value);
-            return ;
-        }
-        current = current->next;
+        if (change_directory(get_env_value(env, "HOME"), "HOME", env) == false)
+            return (false);
     }
-}
-
-static int     nb_args(char **args)
-{
-    int i;
-
-    i = 0;
-    while (args[i] != NULL)
+    else if (cmd->args[1][0] ==  '~')
     {
-        if (ft_strlen(args[i]) > 0)
-            i++;
+        path = ft_strjoin(get_env_value(env, "HOME"), cmd->args[1] + 1);
+        if (change_directory(path, "HOME", env) == false)
+            return (free(path), false);
+        free(path);
     }
-    return (i);
+    else if (ft_strcmp(cmd->args[1], "-") == true)
+    {
+        if (change_directory(get_env_value(env, "OLDPWD"), "OLDPWD", env) == false)
+            return (false);
+        printf("%s\n", get_env_value(env, "OLDPWD"));
+    }
+    else
+        return (change_directory(cmd->args[1], cmd->args[1], env));
+    return (true);
 }
 
 bool    exec_cd(t_cmd *cmd, t_env *env)
 {
-    char *pwd;
-    char *oldpwd;
-    char *home;
-    char *path;
-
     if (cmd->args[1] != NULL && cmd->args[1][0] == '-' && cmd->args[1][1] != '\0')
         return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1], 2), false);
-    if (nb_args(cmd->args) > 2)
-        return (print_error_builtin(ERR_TOO_MANY_ARGS, cmd->args[0], NULL, 1), false);
-    pwd = getcwd(NULL, 0);
-    oldpwd = get_env_value(env, "OLDPWD");
-    home = get_env_value(env, "HOME");
-    if (cmd->args[1] == NULL)
-    {
-        if (home == NULL)
-            return (print_error_builtin("HOME not set", cmd->args[0], NULL, 1), false);
-        path = ft_strdup(home);
-    }
-    else if (ft_strcmp(cmd->args[1], "~") == true)
-    {
-        if (home == NULL)
-            return (print_error_builtin("HOME not set", cmd->args[0], NULL, 1), false);
-        path = ft_strjoin(home, cmd->args[1] + 1);
-    }
-    else if (ft_strcmp(cmd->args[1], "-") == true)
-    {
-        if (oldpwd == NULL)
-            return (print_error_builtin("OLDPWD not set", cmd->args[0], NULL, 1), false);
-        path = ft_strdup(oldpwd);
-        printf("%s\n", oldpwd);
-    }
-    else
-        path = ft_strdup(cmd->args[1]);
-    if (chdir(path) == -1)
-        return(print_error_builtin(strerror(errno), cmd->args[0], cmd->args[1], 1), false);
-    set_env_value(env, "OLDPWD", pwd);
-    free(path);
-    path = getcwd(NULL, 0);
-    set_env_value(env, "PWD", path);
-    free(path);
-    free(pwd);
+    if (apply_cd(cmd, env) == false)
+        return (false);
     g_exit_status = EXIT_SUCCESS;
     return (true);
 }

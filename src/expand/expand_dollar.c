@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:47:11 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/29 23:24:29 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/05 16:12:11 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ static char *find_extand(t_token *current, size_t start, size_t len, t_shell *sh
 		cur_env = cur_env->next;
 	}
 	return (NULL);
-}
-
-size_t make_tk_null(t_token *current)
-{
-	current->type = TK_NULL;
-	current->token = NULL;
-	return (FALSE);
 }
 
 int make_new_ext_tk(t_token *current, size_t start, size_t len, char *ext)

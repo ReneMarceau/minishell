@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/30 01:35:03 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/06 16:43:10 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@
 //     printf("\n");
 // }
 
+void mem_err_true(char **tofree, t_shell *shell)
+{
+	free_array(tofree);
+	shell->mem_err_flg = TRUE;
+}
+
 t_cmd *parsing(char *input, t_shell *shell)
 {
     t_cmd   *cmd_table;
@@ -88,20 +94,17 @@ t_cmd *parsing(char *input, t_shell *shell)
         return (print_error_syntax(ERR_SYNTAX, NULL, 2), NULL);
     token_list = tokenize(input, token_list);
     if (token_list == NULL)
-    {
-        shell->mem_err_flg = TRUE;
-        return (all_free(), NULL);
-    }
-    expand_tokens(token_list, shell);
+        return (NULL);
+    if (!expand_tokens(token_list, shell))
+        return (NULL);
+    if (!rm_quotes(token_list, shell))
+        return (NULL);
     //print_lst(token_list);
     if (shell->mem_err_flg)
         return (all_free(), NULL);   
     cmd_table = fill_cmd_table(token_list);
     if (cmd_table == NULL)
-    {
-        //shell->mem_err_flg = TRUE;
         return (NULL);
-    }
     //print_cmd_table(cmd_table);
     return (cmd_table);
 }

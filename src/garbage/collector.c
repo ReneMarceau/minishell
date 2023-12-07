@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collector.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/29 04:29:43 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/07 13:38:33 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ void	*list_malloc(size_t nmemb, size_t size)
 	to_alloc = ft_calloc(1, sizeof(t_memlist));
 	if (!to_alloc)
 		return (NULL);
-	to_alloc->mem_next = mem_data()->mem_next;
-	mem_data()->mem_next = to_alloc;
 	to_alloc->address = ft_calloc(nmemb, size);
 	if (!to_alloc->address)
+	{
+		free(to_alloc);
 		return (NULL);
+	}
+	to_alloc->mem_next = mem_data()->mem_next;
+	mem_data()->mem_next = to_alloc;
 	return (to_alloc->address);
 }
 
@@ -65,22 +68,31 @@ void	all_free(void)
 	while (gc_ptr)
 	{
 		if (gc_ptr->address)
+		{
 			free(gc_ptr->address);
+			gc_ptr->address = NULL;
+		}
 		ptr_tmp = gc_ptr;
 		gc_ptr = gc_ptr->mem_next;
-		free(ptr_tmp);
+		if (ptr_tmp)
+		{
+			free(ptr_tmp);
+			ptr_tmp = NULL;
+		}
 	}
 	mem_data()->mem_next = NULL;
 }
 
 void	add_garbage(void *to_add)
-{
-	t_memlist	*ptr_tmp;
+{	
+	t_memlist	*new_node;
 
-	ptr_tmp = mem_data()->mem_next;
-	while (ptr_tmp)
-		ptr_tmp = ptr_tmp->mem_next;
-	ptr_tmp = ft_calloc(1, sizeof(t_memlist)); // Sinon segfault
-	ptr_tmp->address = to_add;
-	ptr_tmp->mem_next = NULL;
+	if (!to_add)
+		return ;
+	new_node = ft_calloc(1, sizeof(t_memlist));
+	if (!new_node)
+		return ;
+	new_node->address = to_add;
+	new_node->mem_next = mem_data()->mem_next;
+	mem_data()->mem_next = new_node;
 }

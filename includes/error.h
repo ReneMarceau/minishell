@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 19:24:00 by rene              #+#    #+#             */
-/*   Updated: 2023/12/03 19:57:28 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/05 21:38:46 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	print_error_syntax(char *error_message, char *token, int exit_status);
 void	print_error_heredoc(char *args, int line, char *delimiter, int exit_status);
 
 bool    handle_syntax_error(t_token *token_list);
+bool    handle_open_failed(int fd, char *file);
 
 #endif

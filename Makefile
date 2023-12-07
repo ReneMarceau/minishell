@@ -3,14 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rene <rene@student.42.fr>                  +#+  +:+       +#+         #
+#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2023/12/03 19:41:45 by rene             ###   ########.fr        #
+#    Updated: 2023/12/07 14:06:15 by rmarceau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
 
 # -------------------------------------#
 #           VARIABLES                  #
@@ -21,7 +19,7 @@ NAME = minishell
 
 # Compiler and Flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 # Directories
 SRC_DIR = src
@@ -156,4 +154,4 @@ leaks: all
 # -------------------------------------#
 #           .PHONY RULES               #
 # -------------------------------------#
-.PHONY: all clean fclean test run norminette leaks re
+.PHONY: all clean fclean test run norminette leaks re 
