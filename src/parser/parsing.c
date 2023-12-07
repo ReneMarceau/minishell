@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/06 16:43:10 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:43:35 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,31 @@
 #include "error.h"
 #include "parse.h"
 
-// static void print_lst(t_token *head) 
-// {
-//     t_token *current = head;
+static void print_lst(t_token *head) 
+{
+    t_token *current = head;
 
-//     while (current != NULL) 
-// 	{
-//         printf("value: %s --- ", (char *)current->token);
-//         if (current->type == STR)
-//             printf("type: STR\n");
-//         else if (current->type == REDIR_IN)
-//             printf("type: REDIR_IN\n");
-//         else if (current->type == REDIR_OUT)
-//             printf("type: REDIR_OUT\n");
-//         else if (current->type == REDIR_APPEND)
-//             printf("type: APPEND\n");
-//         else if (current->type == HEREDOC)
-//             printf("type: HEREDOC\n");
-//         else if (current->type == PIPE)
-//             printf("type: PIPE\n");
-//         else if (current->type == TK_NULL)
-//             printf("type: TK_NULL\n");
-//         current = current->next;
-//     }
-//     printf("--------------------\n");
-// }   
+    while (current != NULL) 
+	{
+        printf("value: %s --- ", (char *)current->token);
+        if (current->type == STR)
+            printf("type: STR\n");
+        else if (current->type == REDIR_IN)
+            printf("type: REDIR_IN\n");
+        else if (current->type == REDIR_OUT)
+            printf("type: REDIR_OUT\n");
+        else if (current->type == REDIR_APPEND)
+            printf("type: APPEND\n");
+        else if (current->type == HEREDOC)
+            printf("type: HEREDOC\n");
+        else if (current->type == PIPE)
+            printf("type: PIPE\n");
+        else if (current->type == TK_NULL)
+            printf("type: TK_NULL\n");
+        current = current->next;
+    }
+    printf("--------------------\n");
+}   
 
 // static void print_cmd_table(t_cmd *head)
 // {
@@ -99,7 +99,7 @@ t_cmd *parsing(char *input, t_shell *shell)
         return (NULL);
     if (!rm_quotes(token_list, shell))
         return (NULL);
-    //print_lst(token_list);
+    print_lst(token_list);
     if (shell->mem_err_flg)
         return (all_free(), NULL);   
     cmd_table = fill_cmd_table(token_list);
