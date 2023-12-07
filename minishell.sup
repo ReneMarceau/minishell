@@ -42,7 +42,23 @@
    system_libs_leak
    Memcheck:Leak
    match-leak-kinds: all
+   ...
    fun:calloc
-   obj:/usr/lib/system/libsystem_info.dylib
+   ...
+}
+{
+   system_libs_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:strdup
+   ...
+}
+{
+   system_libs_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:getpwuid_r
    ...
 }

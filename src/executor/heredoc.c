@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/05 16:05:36 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:35:37 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool exec_heredoc(char *delimiter, int fd)
         if (line == NULL)
         {
             close(fd);
-            return (print_error_heredoc("warning", index, delimiter, EXIT_FAILURE), false);
+            return (print_error_heredoc("warning", index, delimiter, 1), false);
         }
         if (ft_strcmp(line, delimiter) == true)
             break ;

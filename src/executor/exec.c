@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/06 13:54:06 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:19:58 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ bool    apply_executor(t_shell *shell)
     }
     if (is_builtin(shell->cmd_table->args[0]) == true)
     {
-        exec_builtin(shell->cmd_table, shell->envp);
+        exec_builtin(shell->cmd_table, shell->envp, shell);
         if (dup2(shell->original_stdout, STDOUT_FILENO) == -1)
             return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
         if (dup2(shell->original_stdin, STDIN_FILENO) == -1)

@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:45 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/06 15:57:23 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:19:46 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool    is_builtin(char *cmd_name)
     return (false);
 }
 
-bool    exec_builtin(t_cmd *cmd, t_env *env)
+bool    exec_builtin(t_cmd *cmd, t_env *env, t_shell *shell)
 {
     char *cmd_name;
 
@@ -53,7 +53,7 @@ bool    exec_builtin(t_cmd *cmd, t_env *env)
     if (ft_strcmp(cmd_name, "env") == true)
         return (exec_env(cmd, env));
     if (ft_strcmp(cmd_name, "exit") == true)
-        return (exec_exit(cmd));
+        return (exec_exit(shell, cmd));
     
     return (print_error(ERR_CMD_NF, cmd_name, 127), false);
 }
