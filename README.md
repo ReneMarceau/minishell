@@ -22,15 +22,15 @@
 - [x] Implémenter les pipes (caractère |). La sortie de chaque commande de la pipeline est connectée à l’entrée de la commande suivante grâce à un pipe.
 
 ### William
-- [ ] Gérer ’ (single quote) qui doit empêcher le shell d’interpréter les méta-caractères présents dans la séquence entre guillemets.
-- [ ] Gérer " (double quote) qui doit empêcher le shell d’interpréter les méta-caractères présents dans la séquence entre guillemets sauf le $ (signe dollar).
-- [ ] Gérer ctrl-C, ctrl-D et ctrl-\ qui doivent fonctionner comme dans bash.
-- [ ] En mode interactif :
-    - [ ] ctrl-C affiche un nouveau prompt sur une nouvelle ligne.
-    - [ ] ctrl-D quitte le shell.
-    - [ ] ctrl-\ ne fait rien.
-- [ ] Gérer les variables d’environnement (un $ suivi d’une séquence de caractères) qui doivent être substituées par leur contenu.
-- [ ] Gérer $? qui doit être substitué par le statut de sortie de la dernière pipeline exécutée au premier plan.
+- [x] Gérer ’ (single quote) qui doit empêcher le shell d’interpréter les méta-caractères présents dans la séquence entre guillemets.
+- [x] Gérer " (double quote) qui doit empêcher le shell d’interpréter les méta-caractères présents dans la séquence entre guillemets sauf le $ (signe dollar).
+- [x] Gérer ctrl-C, ctrl-D et ctrl-\ qui doivent fonctionner comme dans bash.
+- [x] En mode interactif :
+    - [x] ctrl-C affiche un nouveau prompt sur une nouvelle ligne.
+    - [x] ctrl-D quitte le shell.
+    - [x] ctrl-\ ne fait rien.
+- [x] Gérer les variables d’environnement (un $ suivi d’une séquence de caractères) qui doivent être substituées par leur contenu.
+- [x] Gérer $? qui doit être substitué par le statut de sortie de la dernière pipeline exécutée au premier plan.
 
 ## Documentation
 - [Subject PDF](https://cdn.intra.42.fr/pdf/pdf/93116/fr.subject.pdf)
