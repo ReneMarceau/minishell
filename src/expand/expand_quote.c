@@ -6,40 +6,36 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:25:52 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/06 15:48:25 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:19:35 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-bool rm_quote_str(char *current, t_shell *shell)
+bool	rm_quote_str(char *current, t_shell *shell)
 {
-	size_t i;
-	int quote;
+	size_t	i;
+	int		quote;
 
 	quote = 0;
 	i = 0;
 	while (current[i])
 	{
-		printf("i: %zu\n", i);
-		// printf("current[i]: %c\n", current[i]);
 		if (ft_isquote(current[i]))
 		{
 			quote = current[i];
-			printf("current: %s\n", current);
 			i += rm_ext_here(current, i + 1, 1, shell);
-			printf("current: %s\n", current);
 		}
 		if (shell->mem_err_flg == TRUE)
 			return (FALSE);
 		if (quote)
 		{
-			while(current[i] && current[i] != quote)
+			while (current[i] && current[i] != quote)
 				i++;
 			rm_ext_here(current, i, 1, shell);
 			quote = FALSE;
 		}
-		else 
+		else
 			i++;
 		if (shell->mem_err_flg == TRUE)
 			return (FALSE);
