@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/06 16:36:04 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/07 14:19:13 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@
 # define ERROR -1
 
 //For signals
-# define IN_INTERFACE 1
-# define IN_HEREDOC 2
-# define IN_PROCESS 3
+# define RESET_SIG 1
+# define IN_INTERFACE 2
+# define IN_HEREDOC 3
+# define IN_PROCESS 4
 
 /* *************** ***************           *************** *************** */
 /*                                  Structures                               */
@@ -123,8 +124,8 @@ void				add_rdir(t_cmd **head, char *file, int type);
 void				add_arg(t_cmd **head, char *arg);
 
 //signal_parse -----------------
-int *if_sig_int(int context, t_shell *shell);
-void sig_handle(t_shell *shell, int type);
+int *state_sigint(int context);
+// void sig_handle(t_shell *shell, int type);
 
 //signal -----------------------
 void treat_sig(int signal, siginfo_t *info, void *context);
