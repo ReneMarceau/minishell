@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/03 18:43:38 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/07 15:35:37 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@ bool exec_heredoc(char *delimiter, int fd)
         line = readline("> ");
         if (line == NULL)
         {
-            if (line != NULL)
-                free(line);
-            if (close(fd) == -1)
-                return (print_error(ERR_CLOSE, HEREDOC_FILE, EXIT_FAILURE), false);
-            return (print_error_heredoc("warning", index, delimiter, EXIT_FAILURE), false);
+            close(fd);
+            return (print_error_heredoc("warning", index, delimiter, 1), false);
         }
         if (ft_strcmp(line, delimiter) == true)
             break ;
@@ -47,46 +44,48 @@ bool exec_heredoc(char *delimiter, int fd)
     return (true);
 }
 
+bool    apply_heredoc(t_cmd **cmd, char *heredoc_file)
+{
+    t_rdir  *rdir;
+    int    fd;
+
+    fd = -42;
+    rdir = (*cmd)->rdir;
+    while (rdir != NULL)
+    {
+        if (rdir->type == HEREDOC && has_redirection(rdir->next, HEREDOC) == false)
+        {
+            fd = open(heredoc_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
+            if (exec_heredoc(rdir->value, fd) == false)
+                return (false);
+            (*cmd)->heredoc_file = ft_strdup(heredoc_file);
+            add_garbage((*cmd)->heredoc_file);
+        }
+        else if (rdir->type == HEREDOC)
+        {
+            if (exec_heredoc(rdir->value, fd) == false)
+                return (false);
+        }
+        rdir = rdir->next;
+    }
+    return (true);
+}
+
 bool    create_heredoc_files(t_shell *shell)
 {
     t_cmd   *cmd;
-    t_rdir  *rdir;
     char    *heredoc_file;
     char    *index_char;
     int     index;
-    int     fd;
 
     index = 1;
     cmd = shell->cmd_table;
     while (cmd != NULL)
     {
         index_char = ft_itoa(index);
-        if (index_char == NULL)
-            return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
         heredoc_file = ft_strjoin(HEREDOC_FILE, index_char);
-        if (heredoc_file == NULL)
-            return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
-        rdir = cmd->rdir;
-        while (rdir != NULL)
-        {
-            fd = -42;
-            if (rdir->type == HEREDOC && has_redirection(rdir->next, HEREDOC) == false)
-            {
-                fd = open(heredoc_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
-                if (exec_heredoc(rdir->value, fd) == false)
-                    return (false);
-                cmd->heredoc_file = ft_strdup(heredoc_file);
-                if (cmd->heredoc_file == NULL)
-                    return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), false);
-                add_garbage(cmd->heredoc_file);
-            }
-            else if (rdir->type == HEREDOC)
-            {
-                if (exec_heredoc(rdir->value, fd) == false)
-                    return (false);
-            }
-            rdir = rdir->next;
-        }
+        if (apply_heredoc(&cmd, heredoc_file) == false)
+            return (false);
         free(index_char);
         free(heredoc_file);
         index++;

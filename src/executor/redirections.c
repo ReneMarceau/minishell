@@ -6,7 +6,7 @@
 /*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:05:48 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/30 00:57:33 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/05 21:45:13 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,19 @@ static bool handle_input_redirection(t_shell *shell, t_rdir *rdir, char *heredoc
         shell->input_fd = open(heredoc_file, O_RDONLY);
         if (shell->input_fd == -1)
             return (print_error(ERR_OPEN, heredoc_file, EXIT_FAILURE), false);
-        if (dup2(shell->input_fd, STDIN_FILENO) == -1)
-            return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
-        if (close(shell->input_fd) == -1)
-            return (print_error(ERR_CLOSE, NULL, EXIT_FAILURE), false);
-        if (unlink(heredoc_file) == -1)
-            return (print_error(ERR_UNLINK, heredoc_file, EXIT_FAILURE), false);
+        dup2(shell->input_fd, STDIN_FILENO);
+        close(shell->input_fd);
+        unlink(heredoc_file);
     }
     else
     {
         if (has_redirection(rdir->next, REDIR_IN) == true)
             return (true);
         shell->input_fd = open(rdir->value, O_RDONLY);
-        if (shell->input_fd == -1)
-        {
-            if (errno == ENOENT)
-                return (print_error(ERR_NO_SUCH_FD, rdir->value, EXIT_FAILURE), false);
-            else if (errno == EISDIR)
-                return (print_error(ERR_ISDIR, rdir->value, EXIT_FAILURE), false);
-            else
-                return (print_error(ERR_PERM, rdir->value, EXIT_FAILURE), false);
-        }
-        if (dup2(shell->input_fd, STDIN_FILENO) == -1)
-            return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
-        if (close(shell->input_fd) == -1)
-            return (print_error(ERR_CLOSE, NULL, EXIT_FAILURE), false);
+        if (handle_open_failed(shell->input_fd, rdir->value) == false)
+            return (false);
+        dup2(shell->input_fd, STDIN_FILENO);
+        close(shell->input_fd);
     }
     return (true);
 }
@@ -69,41 +57,22 @@ static bool handle_output_redirection(t_shell *shell, t_rdir *rdir)
     if (rdir->type == REDIR_OUT)
     {
         shell->output_fd = open(rdir->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        
-        if (shell->output_fd == -1)
-        {
-            if (errno == ENOENT)
-                return (print_error(ERR_NO_SUCH_FD, rdir->value, EXIT_FAILURE), false);
-            else if (errno == EISDIR)
-                return (print_error(ERR_ISDIR, rdir->value, EXIT_FAILURE), false);
-            else
-                return (print_error(ERR_PERM, rdir->value, EXIT_FAILURE), false);
-        }
+        if (handle_open_failed(shell->output_fd, rdir->value) == false)
+            return (false);
         if (has_redirection(rdir->next, REDIR_OUT) == true)
             return (true);
-        if (dup2(shell->output_fd, STDOUT_FILENO) == -1)
-            return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
-        if (close(shell->output_fd) == -1)
-            return (print_error(ERR_CLOSE, NULL, EXIT_FAILURE), false);
+        dup2(shell->output_fd, STDOUT_FILENO);
+        close(shell->output_fd);
     }
     else if (rdir->type == REDIR_APPEND)
     {
         shell->output_fd = open(rdir->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
-        if (shell->output_fd == -1)
-        {
-            if (errno == ENOENT)
-                return (print_error(ERR_NO_SUCH_FD, rdir->value, EXIT_FAILURE), false);
-            else if (errno == EISDIR)
-                return (print_error(ERR_ISDIR, rdir->value, EXIT_FAILURE), false);
-            else
-                return (print_error(ERR_PERM, rdir->value, EXIT_FAILURE), false);
-        }
+        if (handle_open_failed(shell->output_fd, rdir->value) == false)
+            return (false);
         if (has_redirection(rdir->next, REDIR_APPEND) == true)
             return (true);
-        if (dup2(shell->output_fd, STDOUT_FILENO) == -1)
-            return (print_error(ERR_DUP2, NULL, EXIT_FAILURE), false);
-        if (close(shell->output_fd) == -1)
-            return (print_error(ERR_CLOSE, NULL, EXIT_FAILURE), false);
+        dup2(shell->output_fd, STDOUT_FILENO);
+        close(shell->output_fd);
     }
     return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:58:00 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/03 20:38:40 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/07 14:05:08 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool init_processes(t_shell *shell)
 	shell->pids = (pid_t *)list_malloc(shell->nb_cmd, sizeof(pid_t));
 	if (is_builtin(cmd->args[0]) == true && cmd->next == NULL)
 	{
-		shell->pids[i] = 0;
+		shell->pids[++i] = 0;
 		cmd->pid = shell->pids[i];
 		return (true);
 	}

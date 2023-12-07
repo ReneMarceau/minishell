@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:29:48 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/29 21:07:35 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/06 15:56:08 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
+#include "builtin.h"
 #include "env.h"
 #include "error.h"
 
@@ -21,6 +22,8 @@ bool    exec_unset(t_cmd *cmd, t_env *env)
     i = 1;
     if (cmd->args[i] != NULL && cmd->args[1][0] == '-')
         return (print_error_builtin(ERR_INVALID_OPT, cmd->args[0], cmd->args[1], 2), false);
+    if (is_valid_identifier(cmd->args) == false)
+        return (false);
     while (cmd->args[i] != NULL)
     {
         if (find_env(env, cmd->args[i]) == NULL)
