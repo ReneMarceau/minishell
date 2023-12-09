@@ -6,16 +6,16 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:33:18 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/06 16:51:59 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:54:11 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-size_t overwrite_quote(char *token, size_t pos)
+size_t	overwrite_quote(char *token, size_t pos)
 {
-	const char q_type = token[pos];
-	size_t i;
+	const char	q_type = token[pos];
+	size_t		i;
 
 	i = 1;
 	token[pos] = SEP;
@@ -31,13 +31,13 @@ size_t overwrite_quote(char *token, size_t pos)
 	return (i + 1);
 }
 
-void through_rm_quote(char *token)
+void	through_rm_quote(char *token)
 {
-	int check;
-	int i;
+	int	check;
+	int	i;
 
 	i = 0;
-	while(token[i])
+	while (token[i])
 	{
 		check = 0;
 		if (token[i] == '\"')
@@ -49,10 +49,10 @@ void through_rm_quote(char *token)
 	}
 }
 
-char *convert_to_char(char **to_group, t_shell *shell)
+char	*convert_to_char(char **to_group, t_shell *shell)
 {
-	char *res;
-	size_t i;
+	char	*res;
+	size_t	i;
 
 	i = 0;
 	res = NULL;
@@ -73,10 +73,10 @@ char *convert_to_char(char **to_group, t_shell *shell)
 	return (res);
 }
 
-void get_rid_quote(char *token, t_shell *shell)
+void	get_rid_quote(char *token, t_shell *shell)
 {
-	char **res_split;
-	
+	char	**res_split;
+
 	through_rm_quote(token);
 	res_split = ft_split(token, SEP);
 	if (!res_split)
@@ -87,9 +87,9 @@ void get_rid_quote(char *token, t_shell *shell)
 	token = convert_to_char(res_split, shell);
 }
 
-bool rm_quotes(t_token *head, t_shell *shell)
+bool	rm_quotes(t_token *head, t_shell *shell)
 {
-	t_token *current;
+	t_token	*current;
 	bool	prev_here;
 
 	prev_here = FALSE;

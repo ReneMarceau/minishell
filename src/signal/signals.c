@@ -6,32 +6,28 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 14:21:54 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:14:48 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-void treat_here(int signal, siginfo_t *info, void *context)
+void	treat_here(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
-	all_free();
 	if (signal == SIGQUIT)
 	{
 		state_sigint(IN_HEREDOC);
 		ioctl(STDOUT_FILENO, TIOCSTI, '\n');
-		// printf("\n");
 		rl_on_new_line();
-		// rl_replace_line("", 0); //test
-		// rl_redisplay(); //test
 	}
 	if (signal == SIGQUIT)
 	{
 		printf("QUIT: 3\n");
 		rl_on_new_line();
 		rl_replace_line("", 0); //test
-		rl_redisplay(); //test
+		rl_redisplay();         //test
 	}
 }
 
@@ -46,7 +42,7 @@ void	treat_in_process(int signal, siginfo_t *info, void *context)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0); //test
-		rl_redisplay(); //test
+		rl_redisplay();         //test
 	}
 	else if (signal == SIGQUIT)
 	{
@@ -54,11 +50,11 @@ void	treat_in_process(int signal, siginfo_t *info, void *context)
 		printf("QUIT: 3\n");
 		rl_on_new_line();
 		rl_replace_line("", 0); //test
-		rl_redisplay(); //test
+		rl_redisplay();         //test
 	}
 }
 
-void treat_sig(int signal, siginfo_t *info, void *context)
+void	treat_sig(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
@@ -69,23 +65,15 @@ void treat_sig(int signal, siginfo_t *info, void *context)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0); //test
-		rl_redisplay(); //test
+		rl_redisplay();         //test
 	}
 	// readline(READLINE_MSG);
 }
 
-
-
-
-
-
-
-
-
 // // void sig_handle(t_shell *shell, int type)
 // // {
 // // 	struct sigaction sa;
-	
+
 // // 	(void)shell;
 // // 	if (type == SIGINT_INTER)
 // // 	{
@@ -96,8 +84,6 @@ void treat_sig(int signal, siginfo_t *info, void *context)
 // // 	}
 // // 	if (type == SIGINT_HERE)
 // // 	{
-		
-
 
 // 	}
 // 	// sigaction(SIGQUIT, &sa, NULL);

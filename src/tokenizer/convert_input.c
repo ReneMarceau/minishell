@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   convert_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 21:03:30 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 18:10:10 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/07 18:15:45 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "parse.h"
 
-static size_t count_space(char *input)
+static size_t	count_space(char *input)
 {
-	size_t symbol;
-	size_t i;
+	size_t	symbol;
+	size_t	i;
 
 	symbol = 0;
 	i = 0;
-	while(input[i])
+	while (input[i])
 	{
 		if (ft_isquote(input[i]))
 			i += through_quote(input, i, NULL, FALSE);
@@ -37,14 +37,14 @@ static size_t count_space(char *input)
 	return (ft_strlen(input) + (symbol * 2));
 }
 
-static size_t make_space(char *dst, char *src, size_t pos_dst, size_t pos_src)
+static size_t	make_space(char *dst, char *src, size_t pos_dst, size_t pos_src)
 {
-	const size_t len = through_special(src, pos_src);
-	size_t i;
+	const size_t	len = through_special(src, pos_src);
+	size_t			i;
 
 	i = 0;
 	dst[pos_dst++] = SEP;
-	while(i < len)
+	while (i < len)
 	{
 		dst[pos_dst++] = src[pos_src];
 		i++;
@@ -55,10 +55,10 @@ static size_t make_space(char *dst, char *src, size_t pos_dst, size_t pos_src)
 
 static size_t	str_sep_cpy(char *dst, char *src)
 {
-	const size_t len = ft_strlen(src);
-	size_t	i;
-	size_t 	j;
-	
+	const size_t	len = ft_strlen(src);
+	size_t			i;
+	size_t			j;
+
 	i = 0;
 	j = 0;
 	while (i < len)
