@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 19:06:36 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 16:52:12 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:06:58 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_double_char(char **lst)
 	i = 0;
 	while (lst[i])
 		free(lst[i++]);
+	free(lst);
 }
 
 char	*clean_all(void)

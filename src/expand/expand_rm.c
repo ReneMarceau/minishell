@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 21:05:05 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 16:22:16 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:49:36 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	rm_ext_here(char *current, size_t start, size_t len, t_shell *shell)
 		shell->mem_err_flg = TRUE;
 		return (free(s1), free(s2), ERROR);
 	}
+	free(current);
 	current = ft_strjoin(s1, s2);
 	if (current == NULL)
 	{

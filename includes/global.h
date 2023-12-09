@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/07 13:45:19 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:07:34 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@
 
 //Library from project to add
 # include "env.h"
-// # include "signals.h"
 # include "garbage_collector.h"
 /* Libft library for custom functions */
 # include "../libs/libft/inc/libft.h"

@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 16:53:26 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:56:49 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_cmd	*parsing(char *input, t_shell *shell)
 		return (NULL);
 	if (!expand_tokens(token_list, shell))
 		return (NULL);
-	if (!rm_quotes(token_list, shell))
+	if (!rm_quotes_exp(token_list, shell))
 		return (NULL);
 	if (shell->mem_err_flg)
 		return (all_free(), NULL);
