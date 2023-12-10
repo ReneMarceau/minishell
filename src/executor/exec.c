@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/07 14:19:58 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/10 13:20:11 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ bool    executor(t_shell *shell)
     {
         if (shell->cmd_table->pid == 0)
         {
+            set_to_process(shell);
             if (apply_executor(shell) == false)
                 return (false);
         }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/09 17:17:53 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/10 13:22:40 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,11 @@ void modify_sig_setup(void);
 void sig_init(t_shell *shell);
 void set_to_heredoc(t_shell *shell);
 void set_to_process(t_shell *shell);
+void set_to_inter(t_shell *shell);
 
 
 
 bool expand_tokens_here(t_token *head, t_shell *shell);//test_to_rm
+char	*get_expand(char *token, t_shell *shell);
+bool	rm_quote_str(char *current, t_shell *shell);
 #endif
