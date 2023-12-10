@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 18:14:48 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:31:35 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	treat_in_process(int signal, siginfo_t *info, void *context)
 		kill(0, 0);
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0); //test
-		rl_redisplay();         //test
+		// rl_replace_line("", 0); //test
+		// rl_redisplay();         //test
 	}
 	else if (signal == SIGQUIT)
 	{
 		kill(0, 0);
 		printf("QUIT: 3\n");
 		rl_on_new_line();
-		rl_replace_line("", 0); //test
-		rl_redisplay();         //test
+		// rl_replace_line("", 0); //test
+		// rl_redisplay();         //test
 	}
 }
 
