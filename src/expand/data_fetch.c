@@ -6,20 +6,11 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:20:56 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/24 20:42:06 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:11:37 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
-
-// char	**fetch_envp(char **init)
-// {
-// 	static char	**envp;
-
-// 	if (init)
-// 		envp = init;
-// 	return (envp);
-// }
 
 size_t	len_ext(char *env)
 {

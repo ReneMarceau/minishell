@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   signal_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 19:17:51 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 09:50:46 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:50:06 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-int *if_sig_int(int context, t_shell *shell)
+int *state_sigint(int context)
 {
-	static int sig_check = 0;
+	static int sig_check = FALSE;
 
-	(void)shell;
 	if (context)
-		sig_check = context;
+	{
+		if (context == RESET_SIG)
+			sig_check = FALSE;
+		else
+			sig_check = context;
+	}
 	return (&sig_check);
 }

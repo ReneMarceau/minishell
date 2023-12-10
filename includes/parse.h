@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/06 16:36:04 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:17:53 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@
 # define ERROR -1
 
 //For signals
-# define IN_INTERFACE 1
-# define IN_HEREDOC 2
-# define IN_PROCESS 3
+# define RESET_SIG 1
+# define IN_INTERFACE 2
+# define IN_HEREDOC 3
+# define IN_PROCESS 4
 
 /* *************** ***************           *************** *************** */
 /*                                  Structures                               */
@@ -80,7 +81,7 @@ size_t				expand_one(t_token *current, size_t pos, t_shell *shell);
 //expand_return --------------------
 size_t				expand_return(t_token *current, size_t start,
 						t_shell *shell);
-size_t expand_return_here(char *current, size_t start, t_shell *shell);
+size_t 				expand_return_here(char *current, size_t start, t_shell *shell);
 
 //expand_rm ------------------------
 // int					rm_dollar(t_token *current, size_t start);
@@ -93,8 +94,7 @@ int 				make_new_ext_here(char *token, size_t start, size_t len, char *ext);
 
 //expand_quote --------------------
 bool 				rm_quote_str(char *current, t_shell *shell);
-bool 				rm_quotes(t_token *head, t_shell *shell);
-
+bool 				rm_quotes_exp(t_token *head, t_shell *shell);
 //utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);
@@ -123,8 +123,8 @@ void				add_rdir(t_cmd **head, char *file, int type);
 void				add_arg(t_cmd **head, char *arg);
 
 //signal_parse -----------------
-int *if_sig_int(int context, t_shell *shell);
-void sig_handle(t_shell *shell, int type);
+int *state_sigint(int context);
+// void sig_handle(t_shell *shell, int type);
 
 //signal -----------------------
 void treat_sig(int signal, siginfo_t *info, void *context);
@@ -137,4 +137,7 @@ void sig_init(t_shell *shell);
 void set_to_heredoc(t_shell *shell);
 void set_to_process(t_shell *shell);
 
+
+
+bool expand_tokens_here(t_token *head, t_shell *shell);//test_to_rm
 #endif

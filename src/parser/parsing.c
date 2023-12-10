@@ -6,19 +6,19 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/06 16:43:10 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:56:49 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "global.h"
 #include "error.h"
+#include "global.h"
 #include "parse.h"
 
-// static void print_lst(t_token *head) 
+// static void print_lst(t_token *head)
 // {
 //     t_token *current = head;
 
-//     while (current != NULL) 
+//     while (current != NULL)
 // 	{
 //         printf("value: %s --- ", (char *)current->token);
 //         if (current->type == STR)
@@ -38,7 +38,7 @@
 //         current = current->next;
 //     }
 //     printf("--------------------\n");
-// }   
+// }
 
 // static void print_cmd_table(t_cmd *head)
 // {
@@ -78,33 +78,33 @@
 //     printf("\n");
 // }
 
-void mem_err_true(char **tofree, t_shell *shell)
+void	mem_err_true(char **tofree, t_shell *shell)
 {
 	free_array(tofree);
 	shell->mem_err_flg = TRUE;
 }
 
-t_cmd *parsing(char *input, t_shell *shell)
+t_cmd	*parsing(char *input, t_shell *shell)
 {
-    t_cmd   *cmd_table;
-    t_token *token_list;
-    
-    token_list = NULL;
-    if (!check_quotes(input) || !check_token(input))
-        return (print_error_syntax(ERR_SYNTAX, NULL, 2), NULL);
-    token_list = tokenize(input, token_list);
-    if (token_list == NULL)
-        return (NULL);
-    if (!expand_tokens(token_list, shell))
-        return (NULL);
-    if (!rm_quotes(token_list, shell))
-        return (NULL);
-    //print_lst(token_list);
-    if (shell->mem_err_flg)
-        return (all_free(), NULL);   
-    cmd_table = fill_cmd_table(token_list);
-    if (cmd_table == NULL)
-        return (NULL);
-    //print_cmd_table(cmd_table);
-    return (cmd_table);
+	t_cmd	*cmd_table;
+	t_token	*token_list;
+
+	token_list = NULL;
+	if (!check_quotes(input) || !check_token(input))
+		return (print_error_syntax(ERR_SYNTAX, NULL, 2), NULL);
+	token_list = tokenize(input, token_list);
+	if (token_list == NULL)
+		return (NULL);
+	if (!expand_tokens(token_list, shell))
+		return (NULL);
+	if (!rm_quotes_exp(token_list, shell))
+		return (NULL);
+	if (shell->mem_err_flg)
+		return (all_free(), NULL);
+	cmd_table = fill_cmd_table(token_list);
+	if (cmd_table == NULL)
+		return (NULL);
+	return (cmd_table);
 }
+//print_cmd_table(cmd_table);
+// print_lst(token_list);

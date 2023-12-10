@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collector.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 13:38:33 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:52:37 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	all_free(void)
 }
 
 void	add_garbage(void *to_add)
-{	
+{
 	t_memlist	*new_node;
 
 	if (!to_add)

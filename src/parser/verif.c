@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   verif.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/14 18:44:26 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/07 16:54:33 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "global.h"
 #include "parse.h"
 
-static bool reached_limit(char *input, size_t i)
+static bool	reached_limit(char *input, size_t i)
 {
-	const char special = input[i];
+	const char	special = input[i];
 
 	i++;
 	if (input[i])
@@ -29,9 +29,9 @@ static bool reached_limit(char *input, size_t i)
 	return (false);
 }
 
-bool check_token(char *input)
+bool	check_token(char *input)
 {
-	size_t  i;
+	size_t	i;
 
 	i = 0;
 	while (input[i])
@@ -51,23 +51,23 @@ bool check_token(char *input)
 	return (true);
 }
 
-int check_d_quote(char *input, int pos)
+int	check_d_quote(char *input, int pos)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(input[++pos])
+	while (input[++pos])
 	{
 		i++;
-		if(input[pos] == '"')
+		if (input[pos] == '"')
 			return (i);
 	}
-	return(false);
+	return (false);
 }
 
-int check_s_quote(char *input, int pos)
+int	check_s_quote(char *input, int pos)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[++pos])
@@ -76,30 +76,30 @@ int check_s_quote(char *input, int pos)
 		if (input[pos] == '\'')
 			return (i);
 	}
-	return(false);
+	return (false);
 }
 
-bool check_quotes(char *input)
+bool	check_quotes(char *input)
 {
-	int check;
-	int i;
+	int	check;
+	int	i;
 
 	i = 0;
-	while(input[i])
+	while (input[i])
 	{
 		check = 0;
 		if (input[i] == '"')
 		{
 			check = check_d_quote(input, i);
 			if (check == false)
-				return(false);
+				return (false);
 			i += check + 1;
 		}
 		else if (input[i] == '\'')
 		{
 			check = check_s_quote(input, i);
 			if (check == false)
-				return(false);
+				return (false);
 			i += check + 1;
 		}
 		if (!check)
