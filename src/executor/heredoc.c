@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/10 13:23:29 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/11 12:14:52 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ bool    create_heredoc_files(t_shell *shell)
         index_char = ft_itoa(index);
         heredoc_file = ft_strjoin(HEREDOC_FILE, index_char);
         if (apply_heredoc(shell, &cmd, heredoc_file) == false)
-            return (false);
+            return (free(heredoc_file), free(index_char), false);
         free(index_char);
         free(heredoc_file);
         index++;

@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:30:03 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/06 15:19:04 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:18:40 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ bool    change_directory(char *path, char *path_name, t_env *env)
     if (get_env_value(env, path_name) == NULL)
     {
         if (ft_strcmp(path_name, "HOME") == true)
-            return (print_error_builtin("HOME not set", "cd", NULL, 1), false);
+            return (print_error_builtin("HOME not set", "cd", NULL, 1), free(pwd), false);
         else if (ft_strcmp(path_name, "OLDPWD") == true)
-            return (print_error_builtin("OLDPWD not set", "cd", NULL, 1), false);
+            return (print_error_builtin("OLDPWD not set", "cd", NULL, 1), free(pwd), false);
     }
     if (chdir(path) == -1)
-        return (print_error_builtin(strerror(errno), "cd", path, 1), false);
+        return (print_error_builtin(strerror(errno), "cd", path, 1), free(pwd), false);
     set_env_value(env, "OLDPWD", pwd);
     free(pwd);
     pwd = getcwd(NULL, 0);

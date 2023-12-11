@@ -6,13 +6,14 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:11:42 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/11/27 12:34:04 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:37:05 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "global.h"
+#include "garbage_collector.h"
 
-void	ft_free_array(char **array)
+static void	ft_free_array(char **array)
 {
 	int	i;
 
@@ -62,7 +63,10 @@ static char	**ft_fill_array(char **aux, char const *s, char c)
 		if (j >= s_len)
 			aux[k++] = "\0";
 		else
+		{
 			aux[k++] = ft_substr(s, j, i - j);
+			add_garbage(aux[k - 1]);
+		}
 	}
 	return (aux);
 }
@@ -75,7 +79,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	nwords = ft_count_words(s, c);
-	aux = malloc((nwords + 1) * sizeof(char *));
+	aux = list_malloc((nwords + 1), sizeof(char *));
 	if (aux == NULL)
 		return (ft_free_array(aux), NULL);
 	aux = ft_fill_array(aux, s, c);
