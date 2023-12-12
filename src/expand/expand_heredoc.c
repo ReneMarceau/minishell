@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 16:18:54 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:50:14 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,26 +111,26 @@ char	*get_expand(char *token, t_shell *shell)
 	return (token);
 }
 
-// bool expand_tokens_here(t_token *head, t_shell *shell)
-// {
-// 	t_token *current;
-// 	bool here_check;
+bool expand_tokens_here(t_token *head, t_shell *shell)
+{
+	t_token *current;
+	bool here_check;
 
-// 	here_check = FALSE;
-// 	current = head;
-// 	while(current)
-// 	{
-// 		if (here_check == TRUE)
-// 			here_check = FALSE;
-// 		else if (current->type == STR)
-// 		{
-// 			get_expand(current->token, shell);
-// 			if (shell->mem_err_flg)
-// 				return (FALSE);
-// 		}
-// 		if (current->type == HEREDOC)
-// 			here_check = TRUE;
-// 		current = current->next;
-// 	}
-// 	return (TRUE);
-// }
+	here_check = FALSE;
+	current = head;
+	while(current)
+	{
+		if (here_check == TRUE)
+			here_check = FALSE;
+		else if (current->type == STR)
+		{
+			get_expand(current->token, shell);
+			if (shell->mem_err_flg)
+				return (FALSE);
+		}
+		if (current->type == HEREDOC)
+			here_check = TRUE;
+		current = current->next;
+	}
+	return (TRUE);
+}
