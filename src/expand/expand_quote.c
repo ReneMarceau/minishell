@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:25:52 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/09 18:24:22 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:33:24 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static size_t	get_rid_quotes(char *current, size_t pos, t_shell *shell)
 bool	rm_quote_str(char *current, t_shell *shell)
 {
 	size_t	i;
-	char	quote;
+	//char	quote;
 
-	quote = FALSE;
+	//quote = FALSE;
 	i = 0;
 	while (current[i])
 	{

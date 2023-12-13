@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 11:08:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/07 14:19:58 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:28:11 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool run_cmd(char *path, char **args, char **envp, bool print_err)
     {
         if (stat(path, &st) == -1)
             return (print_error(ERR_STAT, path, EXIT_FAILURE), false);
-        if (S_ISDIR(st.st_mode))
+        if (S_ISDIR(st.st_mode) && print_err == true)
             return (print_error(ERR_ISDIR, path, 126), false);
         if (access(path, X_OK) == -1)
             return (print_error(ERR_PERM, path, 126), false);
@@ -75,7 +75,6 @@ bool    exec_cmd(t_cmd *cmd, t_env *env)
         run_cmd(cmd_path, cmd->args, env_array, false);
         free(cmd_path);
     }
-    free_array(envp);
     return (print_error(ERR_CMD_NF, cmd->args[0], 127), false);
 }
 
@@ -132,6 +131,7 @@ bool    executor(t_shell *shell)
     {
         if (shell->cmd_table->pid == 0)
         {
+            set_to_process(shell);
             if (apply_executor(shell) == false)
                 return (false);
         }

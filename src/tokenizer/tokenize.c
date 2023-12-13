@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:44:28 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/10 16:59:28 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/13 14:45:39 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ t_token	*tokenize(char *input, t_token *table)
 		return (free(converted_input), NULL);
 	table = convert_to_lst(tokens, table, NULL, NULL);
 	if (table == NULL)
-		return (free(converted_input), free_double_char(tokens), NULL);
+		return (free(converted_input), NULL);
 	return (free(converted_input), table);
 }

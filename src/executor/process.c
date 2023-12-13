@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:58:00 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/07 14:05:08 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/10 13:24:07 by rene             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ void    wait_all(pid_t *pids, int nb_cmds)
     while (i < nb_cmds)
     {
         if (waitpid(pids[i], &g_exit_status, 0) == -1)
-		{
-			print_error(ERR_WAITPID, NULL, EXIT_FAILURE);
 			continue;
-		}
 		if (WIFEXITED(g_exit_status))
 			g_exit_status = WEXITSTATUS(g_exit_status);
 		else
