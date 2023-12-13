@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 21:05:05 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/10 16:55:40 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:03:39 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	rm_ext(t_token *current, size_t start, size_t len, t_shell *shell)
 		shell->mem_err_flg = TRUE;
 		return (free(s1), free(s2), ERROR);
 	}
+	free (current->token);
 	current->token = ft_strjoin(s1, s2);
 	if (current->token == NULL)
 	{
@@ -57,13 +58,12 @@ int	rm_ext_here(char *current, size_t start, size_t len, t_shell *shell)
 		shell->mem_err_flg = TRUE;
 		return (free(s1), free(s2), ERROR);
 	}
-	// free(current);
+	free(current);
 	current = ft_strjoin(s1, s2);
 	if (current == NULL)
 	{
 		shell->mem_err_flg = TRUE;
 		return (free(s1), free(s2), ERROR);
 	}
-	return (TRUE);
-	// return (free(s1), free(s2), TRUE);
+	return (free(s1), free(s2), TRUE);
 }

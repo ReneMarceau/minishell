@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/10 16:50:14 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:27:28 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	make_new_ext_here(char *token, size_t start, size_t len, char *ext)
 		return (free(s1), free(s2), ERROR);
 	free(token);
 	token = ft_strjoin(tmp, s2);
+	printf("token: %s\n", token);
 	if (token == NULL)
 		return (free(s1), free(s2), free(tmp), ERROR);
 	return (free(s1), free(s2), free(tmp), TRUE);
@@ -67,16 +68,20 @@ size_t	expand_one_here(char *token, size_t pos, t_shell *shell)
 	i = 1;
 	while (ft_isexpand(token[pos + i]))
 		i++;
+	ext = list_malloc(1, sizeof(char*));
+	if (ext == NULL)
+		return (mem_err_make_true(shell), FALSE);
 	ext = find_extand_here(token, pos, i, shell);
-	if (ext == NULL && pos == 0 && ft_strlen(token) == i)
-		return (0);
-	else if (make_new_ext_here(token, pos, i, ext) == ERROR)
+	if (make_new_ext_here(token, pos, i, ext) == ERROR)
 	{
 		shell->mem_err_flg = TRUE;
 		return (FALSE);
 	}
 	if (!ft_strlen(token))
+	{
+		token = NULL;
 		return (0);
+	}
 	return (ft_strlen(ext));
 }
 
@@ -107,6 +112,8 @@ char	*get_expand(char *token, t_shell *shell)
 			i += parse_expand_here(token, i, shell);
 		else
 			i++;
+		if (token == NULL)
+			return (token);
 	}
 	return (token);
 }
@@ -134,3 +141,23 @@ bool expand_tokens_here(t_token *head, t_shell *shell)
 	}
 	return (TRUE);
 }
+
+///////////////////
+
+// char	*get_expand(char *token, t_shell *shell)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (token[i])
+// 	{
+// 		if (token[i] == '$')
+// 			i += parse_expand_here(token, i, shell);
+// 		else
+// 			i++;
+// 		printf("token: %s\n", token);
+// 		if (token == NULL)
+// 			return (token);
+// 	}
+// 	return (token);
+// }

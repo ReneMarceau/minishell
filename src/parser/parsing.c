@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/10 16:58:08 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:27:39 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@
 //     printf("\n");
 // }
 
+void mem_err_make_true(t_shell *shell)
+{
+	shell->mem_err_flg = TRUE;
+}
+
 void	mem_err_true(char **tofree, t_shell *shell)
 {
 	free_array(tofree);
@@ -95,10 +100,10 @@ t_cmd	*parsing(char *input, t_shell *shell)
 	token_list = tokenize(input, token_list);
 	if (token_list == NULL)
 		return (NULL);
-	if (!expand_tokens_here(token_list, shell))
+	if (!expand_tokens(token_list, shell))
 		return (NULL);
-	// if (!rm_quotes_exp(token_list, shell))
-	// 	return (NULL);
+	if (!rm_quotes_exp(token_list, shell))
+		return (NULL);
 	if (shell->mem_err_flg)
 		return (all_free(), NULL);
 	cmd_table = fill_cmd_table(token_list);

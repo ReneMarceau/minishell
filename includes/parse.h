@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/09 17:17:53 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:23:42 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_token
 /* *************** ***************           *************** *************** */
 
 //parse -----------------------
+void 				mem_err_make_true(t_shell *shell);
 void 				mem_err_true(char **tofree, t_shell *shell);
 bool				check_token(char *input);
 bool				check_quotes(char *input);
