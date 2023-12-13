@@ -6,35 +6,17 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:20:05 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 18:14:56 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:27:24 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-void	modify_sig_setup(void)
-{
-	struct termios	new_attributes;
-
-	tcgetattr(STDIN_FILENO, &new_attributes);
-	new_attributes.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &new_attributes);
-}
-
-void	sig_init(t_shell *shell)
-{
-	sigemptyset(&shell->sa.sa_mask);
-	shell->sa.sa_flags = SA_SIGINFO;
-	modify_sig_setup();
-	shell->sa.sa_sigaction = treat_sig;
-	sigaction(SIGINT, &shell->sa, NULL);
-}
-
 void	set_to_heredoc(t_shell *shell)
 {
 	shell->sa.sa_sigaction = treat_here;
 	sigaction(SIGINT, &shell->sa, NULL);
-	sigaction(SIGQUIT, &shell->sa, NULL);
+	ignore_sigquit();
 }
 
 void	set_to_process(t_shell *shell)
@@ -50,3 +32,13 @@ void	set_to_inter(t_shell *shell)
 	sigaction(SIGINT, &shell->sa, NULL);
 	sigaction(SIGQUIT, &shell->sa, NULL);
 }
+
+void	ignore_sigall(void)
+{
+	ignore_sigint();
+	ignore_sigquit();
+}
+// void set_to_ignore(t_shell *shell)
+// {
+
+// }

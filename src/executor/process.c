@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:58:00 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/10 13:24:07 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/13 17:02:04 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool init_processes(t_shell *shell)
 		cmd->pid = shell->pids[i];
 		return (true);
 	}
+	ignore_sigint();
 	while (++i < shell->nb_cmd)
 	{
 		shell->pids[i] = fork();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rene <rene@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/12/10 13:22:54 by rene             ###   ########.fr       */
+/*   Updated: 2023/12/13 17:03:02 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	shell_loop(t_shell *shell)
 	last_input = NULL;
 	while (true)
 	{
+		set_to_inter(shell);
 		if (!readlines(shell, &input, &last_input))
 			break ;
 		if (input && *input)
 		{
-			set_to_inter(shell);
 			shell->cmd_table = parsing(input, shell);
 			shell->nb_cmd = count_cmds(shell->cmd_table);
 			if (shell->cmd_table != NULL) 

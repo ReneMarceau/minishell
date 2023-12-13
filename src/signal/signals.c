@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/09 19:31:35 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:20:50 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,12 @@ void	treat_here(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
-	if (signal == SIGQUIT)
+	if (signal == SIGINT)
 	{
-		state_sigint(IN_HEREDOC);
-		ioctl(STDOUT_FILENO, TIOCSTI, '\n');
+		sig_state(SIG_HEREDOC);
+		ioctl(STDOUT_FILENO, TIOCSTI, "\n");
 		rl_on_new_line();
-	}
-	if (signal == SIGQUIT)
-	{
-		printf("QUIT: 3\n");
-		rl_on_new_line();
-		rl_replace_line("", 0); //test
-		rl_redisplay();         //test
+		rl_replace_line("", 0);
 	}
 }
 
@@ -39,18 +33,15 @@ void	treat_in_process(int signal, siginfo_t *info, void *context)
 	{
 		all_free();
 		kill(0, 0);
-		printf("\n");
 		rl_on_new_line();
-		// rl_replace_line("", 0); //test
-		// rl_redisplay();         //test
+		rl_replace_line("", 0);
+		printf("\n");
 	}
 	else if (signal == SIGQUIT)
 	{
-		kill(0, 0);
-		printf("QUIT: 3\n");
+		all_free();
 		rl_on_new_line();
-		// rl_replace_line("", 0); //test
-		// rl_redisplay();         //test
+		kill(0, 0);
 	}
 }
 
@@ -58,8 +49,6 @@ void	treat_sig(int signal, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
-	// sigignore(signal);
-	// rl_replace_line();
 	if (signal == SIGINT)
 	{
 		printf("\n");
@@ -67,24 +56,25 @@ void	treat_sig(int signal, siginfo_t *info, void *context)
 		rl_replace_line("", 0); //test
 		rl_redisplay();         //test
 	}
-	// readline(READLINE_MSG);
 }
 
-// // void sig_handle(t_shell *shell, int type)
-// // {
-// // 	struct sigaction sa;
+void ignore_sigquit(void)
+{
+	struct sigaction sa;
 
-// // 	(void)shell;
-// // 	if (type == SIGINT_INTER)
-// // 	{
-// // 		sa.sa_sigaction = treat_sig;
-// // 		sigemptyset(&sa.sa_mask);
-// // 		sa.sa_flags = SA_SIGINFO;
-// // 		sigaction(SIGINT, &sa, NULL);
-// // 	}
-// // 	if (type == SIGINT_HERE)
-// // 	{
+	sa.sa_handler = SIG_IGN;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGQUIT, &sa, NULL);
+}
 
-// 	}
-// 	// sigaction(SIGQUIT, &sa, NULL);
-// }
+void ignore_sigint(void)
+{
+
+	struct sigaction sa;
+
+	sa.sa_handler = SIG_IGN;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+}

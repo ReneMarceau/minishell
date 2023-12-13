@@ -6,22 +6,23 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 19:17:51 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 16:50:06 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:08:07 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-int *state_sigint(int context)
+t_signal *sig_state(int context)
 {
-	static int sig_check = FALSE;
+	static  t_signal sig_check;
 
 	if (context)
 	{
 		if (context == RESET_SIG)
-			sig_check = FALSE;
+			sig_check.type = FALSE;
 		else
-			sig_check = context;
+			sig_check.type = context;
 	}
 	return (&sig_check);
 }
+

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+         #
+#    By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2023/12/07 14:06:15 by rmarceau         ###   ########.fr        #
+#    Updated: 2023/12/13 17:48:54 by wmillett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,7 +149,7 @@ test: all
 
 leaks: all
 	@echo "$(YELLOW)Running leaks...$(RESET)"
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --suppressions=./$(NAME).sup ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes --suppressions=./$(NAME).sup ./$(NAME)
 
 # -------------------------------------#
 #           .PHONY RULES               #

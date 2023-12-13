@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/12 21:27:28 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:15:12 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ int	make_new_ext_here(char *token, size_t start, size_t len, char *ext)
 	tmp = ft_strjoin(s1, ext);
 	if (tmp == NULL)
 		return (free(s1), free(s2), ERROR);
-	free(token);
+	printf("%s\n",token);
+	//free(token);
+	printf("%s\n",token);
 	token = ft_strjoin(tmp, s2);
-	printf("token: %s\n", token);
+	printf("%s\n",token);
+	// printf("token: %s\n", token);
 	if (token == NULL)
 		return (free(s1), free(s2), free(tmp), ERROR);
 	return (free(s1), free(s2), free(tmp), TRUE);
