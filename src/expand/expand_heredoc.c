@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/13 23:10:02 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:43:00 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ size_t	expand_one_here(char *token, size_t pos, t_shell *shell)
 	i = 1;
 	while (ft_isexpand(token[pos + i]))
 		i++;
-	ext = list_malloc(1, sizeof(char*));
+	ext = list_malloc(1, sizeof(char *));
 	if (ext == NULL)
 		return (mem_err_make_true(shell), FALSE);
 	ext = find_extand_here(token, pos, i, shell);
@@ -118,46 +118,26 @@ char	*get_expand(char *token, t_shell *shell)
 	return (token);
 }
 
-bool expand_tokens_here(t_token *head, t_shell *shell)
-{
-	t_token *current;
-	bool here_check;
-
-	here_check = FALSE;
-	current = head;
-	while(current)
-	{
-		if (here_check == TRUE)
-			here_check = FALSE;
-		else if (current->type == STR)
-		{
-			get_expand(current->token, shell);
-			if (shell->mem_err_flg)
-				return (FALSE);
-		}
-		if (current->type == HEREDOC)
-			here_check = TRUE;
-		current = current->next;
-	}
-	return (TRUE);
-}
-
-///////////////////
-
-// char	*get_expand(char *token, t_shell *shell)
+// bool expand_tokens_here(t_token *head, t_shell *shell)
 // {
-// 	size_t	i;
+// 	t_token *current;
+// 	bool here_check;
 
-// 	i = 0;
-// 	while (token[i])
+// 	here_check = FALSE;
+// 	current = head;
+// 	while(current)
 // 	{
-// 		if (token[i] == '$')
-// 			i += parse_expand_here(token, i, shell);
-// 		else
-// 			i++;
-// 		printf("token: %s\n", token);
-// 		if (token == NULL)
-// 			return (token);
+// 		if (here_check == TRUE)
+// 			here_check = FALSE;
+// 		else if (current->type == STR)
+// 		{
+// 			get_expand(current->token, shell);
+// 			if (shell->mem_err_flg)
+// 				return (FALSE);
+// 		}
+// 		if (current->type == HEREDOC)
+// 			here_check = TRUE;
+// 		current = current->next;
 // 	}
-// 	return (token);
+// 	return (TRUE);
 // }

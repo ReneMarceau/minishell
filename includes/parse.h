@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/13 17:09:37 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:41:39 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_signal
 {
 	int				test;
 	int				type;
-}	t_signal;
+}					t_signal;
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
@@ -101,7 +101,7 @@ int					rm_ext_here(char *current, size_t start, size_t len,
 //expand_here ---------------------
 int					make_new_ext_here(char *token, size_t start, size_t len,
 						char *ext);
-bool expand_tokens_here(t_token *head, t_shell *shell);
+bool				expand_tokens_here(t_token *head, t_shell *shell);
 //expand_quote --------------------
 bool				rm_quote_str(char *current, t_shell *shell);
 bool				rm_quotes_exp(t_token *head, t_shell *shell);
@@ -138,7 +138,7 @@ void				sig_init(t_shell *shell);
 
 //signal_parse -----------------
 // int					*sig_state(int context);
-t_signal 			*sig_state(int context);
+t_signal			*sig_state(int context);
 // void sig_handle(t_shell *shell, int type);
 
 //signal -----------------------
@@ -148,7 +148,7 @@ void				treat_in_process(int signal, siginfo_t *info,
 						void *context);
 // void				sig_ignore(void);
 void				ignore_sigquit(void);
-void 				ignore_sigint(void);
+void				ignore_sigint(void);
 //signal_set -------------------
 void				set_to_heredoc(t_shell *shell);
 void				set_to_process(t_shell *shell);
