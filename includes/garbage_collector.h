@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/07 11:16:34 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/13 22:13:09 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void					free_one(void *address);
 void					all_free(void);
 void 					add_garbage(void *to_add);
 
+void					free_env(t_env *env);
 void 					free_double_char(char **lst);
 char 					*clean_all(void);
 #endif
