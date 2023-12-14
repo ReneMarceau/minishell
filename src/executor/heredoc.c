@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/13 23:11:15 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:40:06 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	exec_heredoc(t_shell *shell, char *delimiter, int fd)
             return ((void)close(fd), free(line), set_to_inter(shell), false);
 		if (line == NULL)
 			return ((void)close(fd), print_error_heredoc("warning", index,
-					delimiter, 1), false);
+					delimiter, 1), true);
 		line = change_for_quote(shell, delimiter, line);
 		if (ft_strcmp(line, delimiter) == true)
 			break ;

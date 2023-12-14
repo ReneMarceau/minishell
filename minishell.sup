@@ -62,3 +62,19 @@
    fun:getpwuid_r
    ...
 }
+{
+   system_libs_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:realloc
+   ...
+}
+{
+   system_libs_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:malloc
+   ...
+}
