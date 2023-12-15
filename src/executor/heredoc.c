@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/15 13:25:07 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:06:10 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	exec_heredoc(t_shell *shell, char *delimiter, int fd, int index)
             return ((void)close(fd), free(line), set_to_inter(shell), false);
 		if (line == NULL)
 			return ((void)close(fd), print_error_heredoc("warning", index,
-					delimiter, 1), false);
+					delimiter, 1), true);
 		line = change_for_quote(shell, line, quote);
 		if (ft_strcmp(line, delimiter) == true)
 			break ;
