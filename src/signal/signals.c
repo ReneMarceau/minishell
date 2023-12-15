@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 13:39:04 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:52:07 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	treat_sig(int signal, siginfo_t *info, void *context)
 	}
 }
 
-void ignore_sigquit(void)
+void	ignore_sigquit(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = SIG_IGN;
 	sa.sa_flags = 0;
@@ -68,10 +68,9 @@ void ignore_sigquit(void)
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
-void ignore_sigint(void)
+void	ignore_sigint(void)
 {
-
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = SIG_IGN;
 	sa.sa_flags = 0;

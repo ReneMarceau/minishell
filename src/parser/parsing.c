@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/13 17:17:37 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:51:17 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@
 //     printf("\n");
 // }
 
-void mem_err_make_true(t_shell *shell)
+void	mem_err_make_true(t_shell *shell)
 {
 	shell->mem_err_flg = TRUE;
 }
@@ -111,5 +111,6 @@ t_cmd	*parsing(char *input, t_shell *shell)
 		return (NULL);
 	return (cmd_table);
 }
+
 //print_cmd_table(cmd_table);
 // print_lst(token_list);
