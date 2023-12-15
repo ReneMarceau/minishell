@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/14 15:41:31 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:45:58 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ typedef struct s_shell
 	char			*last_input;
 	int				original_stdin;
 	int				original_stdout;
-	int err_type;        //new
-	bool mem_err_flg;    //new
-	struct sigaction sa; //new
+	char			*tmp_heredoc;
+	bool mem_err_flg;
+	struct sigaction sa;
 }					t_shell;
 
 /* *************** ***************           *************** *************** */

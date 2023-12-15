@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 20:20:05 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/13 22:51:31 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:51:32 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	set_to_process(t_shell *shell)
 
 void	set_to_inter(t_shell *shell)
 {
+	sig_state(RESET_SIG);
 	shell->sa.sa_sigaction = treat_sig;
 	sigaction(SIGINT, &shell->sa, NULL);
 	sigaction(SIGQUIT, &shell->sa, NULL);
@@ -38,7 +39,3 @@ void	ignore_sigall(void)
 	ignore_sigint();
 	ignore_sigquit();
 }
-// void set_to_ignore(t_shell *shell)
-// {
-
-// }

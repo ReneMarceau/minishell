@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/13 23:11:15 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 00:19:07 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,70 +16,32 @@
 #include "global.h"
 #include "parse.h"
 
-static bool init_heredoc(t_shell *shell, char *delimiter)
-{
-	set_to_heredoc(shell);
-	if (is_there_quote(delimiter) == true)
-		rm_quote_str(delimiter, shell);
-	else
-		delimiter = get_expand(delimiter, shell);
-	if (shell->mem_err_flg == TRUE)
-		return (FALSE);
-	return (TRUE);
-}
-
-static char *new_read(void)
-{
-	char *line;
-	char *nl;
-	
-	line = readline("> ");
-	if (line == NULL)
-		return (NULL);
-	nl = ft_strdup(line);
-	if (nl == NULL)
-		return (free(line), NULL);
-	return (free(line), nl);
-}
-
-static char *change_for_quote(t_shell *shell, char *delimiter, char *line)
-{
-	char * new_line;
-	
-	new_line = NULL;
-	new_line = list_malloc(1, sizeof(char*));
-	if (is_there_quote(delimiter) == false)
-		new_line = get_expand(line, shell);
-	return (new_line);
-}
-
-bool	exec_heredoc(t_shell *shell, char *delimiter, int fd)
+bool	exec_heredoc(t_shell *shell, char *delimiter, int fd, int index)
 {
 	char	*line;
-	int		index;
-
+	// char	*tmp;
+	bool	quote;
+	
 	if (fd == -1)
 		return (print_error(ERR_OPEN, HEREDOC_FILE, EXIT_FAILURE), false);
-	if (!init_heredoc(shell, delimiter))
-		return (print_error(ERR_MALLOC, HEREDOC_FILE, EXIT_FAILURE), false);
-	index = 0;
+	quote = delimit_quote(shell, delimiter);
+	delimiter = rm_quote_str_here(delimiter, shell);
 	while (true)
 	{
-		line = new_read();
+		line = readline("> ");
+		// line = the_recovery(tmp);
 		if (sig_state(false)->type == SIG_HEREDOC)
             return ((void)close(fd), free(line), set_to_inter(shell), false);
 		if (line == NULL)
 			return ((void)close(fd), print_error_heredoc("warning", index,
 					delimiter, 1), false);
-		line = change_for_quote(shell, delimiter, line);
+		line = change_for_quote(shell, line, quote);
 		if (ft_strcmp(line, delimiter) == true)
 			break ;
 		ft_putendl_fd(line, fd);
-		// free(line);
 		index++;
 	}
-	g_exit_status = EXIT_SUCCESS;
-	return ((void)close(fd), free(line), true);
+	return (leave_here(fd, line), true);
 }
 
 bool	apply_heredoc(t_shell *shell, t_cmd **cmd, char *heredoc_file)
@@ -95,14 +57,14 @@ bool	apply_heredoc(t_shell *shell, t_cmd **cmd, char *heredoc_file)
 				HEREDOC) == false)
 		{
 			fd = open(heredoc_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (exec_heredoc(shell, rdir->value, fd) == false)
+			if (exec_heredoc(shell, rdir->value, fd, 0) == false)
 				return (false);
 			(*cmd)->heredoc_file = ft_strdup(heredoc_file);
 			add_garbage((*cmd)->heredoc_file);
 		}
 		else if (rdir->type == HEREDOC)
 		{
-			if (exec_heredoc(shell, rdir->value, fd) == false)
+			if (exec_heredoc(shell, rdir->value, fd, 0) == false)
 				return (false);
 		}
 		rdir = rdir->next;
