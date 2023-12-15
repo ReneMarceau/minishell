@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/15 00:19:07 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:25:07 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 bool	exec_heredoc(t_shell *shell, char *delimiter, int fd, int index)
 {
 	char	*line;
-	// char	*tmp;
 	bool	quote;
 	
 	if (fd == -1)
@@ -29,7 +28,6 @@ bool	exec_heredoc(t_shell *shell, char *delimiter, int fd, int index)
 	while (true)
 	{
 		line = readline("> ");
-		// line = the_recovery(tmp);
 		if (sig_state(false)->type == SIG_HEREDOC)
             return ((void)close(fd), free(line), set_to_inter(shell), false);
 		if (line == NULL)

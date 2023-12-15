@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 16:00:25 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 00:21:39 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:21:42 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ bool delimit_quote(t_shell *shell, char *delimiter)
 	return (FALSE);
 }
 
-char *new_read(void)
-{
-	char *line;
-	char *nl;
+// char *new_read(void)
+// {
+// 	char *line;
+// 	char *nl;
 	
-	line = readline("> ");
-	if (line == NULL)
-		return (NULL);
-	nl = ft_strdup(line);
-	if (nl == NULL)
-		return (free(line), NULL);
-	return (free(line), nl);
-}
+// 	line = readline("> ");
+// 	if (line == NULL)
+// 		return (NULL);
+// 	nl = ft_strdup(line);
+// 	if (nl == NULL)
+// 		return (NULL);
+// 	return (free(line), nl);
+// }
 
 char *change_for_quote(t_shell *shell, char *line, bool quote)
 {
@@ -52,6 +52,6 @@ void leave_here(int fd, char *line)
 {
 	(void)line;
 	close (fd);
-	// free (line); 
+	free (line); 
 	g_exit_status = EXIT_SUCCESS;
 }
