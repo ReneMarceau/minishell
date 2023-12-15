@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:11:42 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/11 12:37:05 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:07:02 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "global.h"
 #include "garbage_collector.h"
+#include "global.h"
 
 static void	ft_free_array(char **array)
 {

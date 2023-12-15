@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:39:59 by wmillett          #+#    #+#             */
-/*   Updated: 2023/11/28 15:02:22 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:06:50 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ bool	ft_isexpand(char c)
 	return (ft_isalnum(c) || c == '_');
 }
 
-bool is_there_quote(char *token)
+bool	is_there_quote(char *token)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (token[i])

@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:32:23 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/14 23:11:36 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:10:03 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool	close_pipes(t_shell *shell);
 bool	init_pipes(t_shell *shell);
 bool	init_processes(t_shell *shell);
 char	**get_envp(char **env);
+bool	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell);
 //heredoc_utils ----------------
 bool	delimit_quote(t_shell *shell, char *delimiter);
 char	*new_read(void);
