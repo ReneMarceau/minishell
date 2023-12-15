@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:25:52 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 14:30:04 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:03:21 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,28 @@ char	*rm_quote_str_here(char *delimiter, t_shell *shell)
 	return (test->token);
 }
 
-static size_t	get_rid_quotes(char *current, size_t pos, t_shell *shell)
+static size_t	get_rid_quotes(t_token *current, size_t pos, t_shell *shell)
 {
 	char	quote;
 
-	quote = current[pos];
-	rm_ext_here_quote(current, pos, 1, shell);
+	quote = current->token[pos];
+	current->token = rm_ext_here_quote(current->token, pos, 1, shell);
 	if (shell->mem_err_flg == TRUE)
 		return (pos);
-	while (current[pos] && current[pos] != quote)
+	while (current->token[pos] && current->token[pos] != quote)
 		pos++;
-	rm_ext_here_quote(current, pos, 1, shell);
+	current->token = rm_ext_here_quote(current->token, pos, 1, shell);
 	return (pos);
 }
 
-bool	rm_quote_str(char *current, t_shell *shell)
+bool	rm_quote_str(t_token *current, t_shell *shell)
 {
 	size_t	i;
 
 	i = 0;
-	while (current[i])
+	while (current->token[i])
 	{
-		if (ft_isquote(current[i]))
+		if (ft_isquote(current->token[i]))
 			i = get_rid_quotes(current, i, shell);
 		else
 			i++;
@@ -92,7 +92,7 @@ bool	rm_quotes_exp(t_token *head, t_shell *shell)
 	while (current)
 	{
 		if (prev_here == FALSE && current->type == STR)
-			rm_quote_str(current->token, shell);
+			rm_quote_str(current, shell);
 		if (shell->mem_err_flg == TRUE)
 			return (FALSE);
 		if (current->type == HEREDOC)

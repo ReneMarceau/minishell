@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 11:07:15 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:03:38 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ int					make_new_ext_here(t_expand *test, size_t start, size_t len,
 						char *ext);
 bool				expand_tokens_here(t_token *head, t_shell *shell);
 char				*the_recovery(char *line);
-char				*rm_ext_here_quote(char *test, size_t start, size_t len,
-						t_shell *shell); //
-// expand_quote --------------------
-bool				rm_quote_str(char *current, t_shell *shell);
+char	*rm_ext_here_quote(char *test, size_t start, size_t len,
+			t_shell *shell); //
+//expand_quote --------------------
+// bool				rm_quote_str(char *current, t_shell *shell);
 bool				rm_quotes_exp(t_token *head, t_shell *shell);
 char				*rm_quote_str_here(char *delimiter, t_shell *shell);
-// utils_is -----------------------
+//utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);
 bool				is_sep(char c);
@@ -166,5 +166,5 @@ void				set_to_inter(t_shell *shell);
 
 // bool 			expand_tokens_here(t_token *head, t_shell *shell);
 char				*get_expand(char *token, t_shell *shell);
-bool				rm_quote_str(char *current, t_shell *shell);
+bool				rm_quote_str(t_token *current, t_shell *shell);
 #endif
