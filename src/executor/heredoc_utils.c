@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 16:00:25 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 14:29:29 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:35:54 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	delimit_quote(t_shell *shell, char *delimiter)
 // {
 // 	char *line;
 // 	char *nl;
-	
+
 // 	line = readline("> ");
 // 	if (line == NULL)
 // 		return (NULL);
@@ -50,7 +50,7 @@ char	*change_for_quote(t_shell *shell, char *line, bool quote)
 void	leave_here(int fd, char *line)
 {
 	(void)line;
-	close (fd);
-	free (line); 
+	close(fd);
+	free(line);
 	g_exit_status = EXIT_SUCCESS;
 }
