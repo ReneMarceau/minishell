@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/13 23:10:02 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/14 23:44:33 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*find_extand_here(char *token, size_t start, size_t len,
 	return (NULL);
 }
 
-int	make_new_ext_here(char *token, size_t start, size_t len, char *ext)
+int	make_new_ext_here(t_expand *test, size_t start, size_t len, char *ext)
 {
 	char	*s1;
 	char	*s2;
@@ -44,58 +44,59 @@ int	make_new_ext_here(char *token, size_t start, size_t len, char *ext)
 	tmp = NULL;
 	s1 = NULL;
 	s2 = NULL;
-	s1 = ft_substr(token, 0, start);
-	s2 = ft_substr(token, start + len, ft_strlen(token + start + len));
+	s1 = ft_substr(test->token, 0, start);
+	s2 = ft_substr(test->token, start + len, ft_strlen(test->token + start + len));
 	if (!check_str(s1, s2, NULL, 2))
 		return (free(s1), free(s2), ERROR);
 	tmp = ft_strjoin(s1, ext);
 	if (tmp == NULL)
 		return (free(s1), free(s2), ERROR);
-	free(token);
-	token = ft_strjoin(tmp, s2);
-	if (token == NULL)
+	test->token = ft_strjoin(tmp, s2);
+	if (test->token == NULL)
 		return (free(s1), free(s2), free(tmp), ERROR);
-	add_garbage(token);
+	add_garbage(test->token);
+	printf("token_make: %s\n", test->token);
 	return (free(s1), free(s2), free(tmp), TRUE);
 }
 
-size_t	expand_one_here(char *token, size_t pos, t_shell *shell)
+size_t	expand_one_here(t_expand *test, size_t pos, t_shell *shell)
 {
 	char	*ext;
 	size_t	i;
 
 	ext = NULL;
 	i = 1;
-	while (ft_isexpand(token[pos + i]))
+	while (ft_isexpand(test->token[pos + i]))
 		i++;
-	ext = list_malloc(1, sizeof(char*));
+	ext = list_malloc(1, sizeof(char *));
 	if (ext == NULL)
 		return (mem_err_make_true(shell), FALSE);
-	ext = find_extand_here(token, pos, i, shell);
-	if (make_new_ext_here(token, pos, i, ext) == ERROR)
+	ext = find_extand_here(test->token, pos, i, shell);
+	if (make_new_ext_here(test, pos, i, ext) == ERROR)
 	{
 		shell->mem_err_flg = TRUE;
 		return (FALSE);
 	}
-	if (!ft_strlen(token))
+	printf("token_after: %s\n", test->token);
+	if (!ft_strlen(test->token))
 	{
-		token = NULL;
+		test->token = NULL;
 		return (0);
 	}
 	return (ft_strlen(ext));
 }
 
-static size_t	parse_expand_here(char *token, size_t pos, t_shell *shell)
+static size_t	parse_expand_here(t_expand *test, size_t pos, t_shell *shell)
 {
 	size_t	i;
 
 	i = 0;
-	if (ft_isquote(token[pos + 1]))
-		rm_ext_here(token, pos, 1, shell);
-	else if (ft_isexpand(token[pos + 1]))
-		i += expand_one_here(token, pos, shell);
-	else if (token[pos + 1] == '?')
-		i += expand_return_here(token, pos, shell);
+	if (ft_isquote(test->token[pos + 1]))
+		rm_ext_here(test, pos, 1, shell);
+	else if (ft_isexpand(test->token[pos + 1]))
+		i += expand_one_here(test, pos, shell);
+	else if (test->token[pos + 1] == '?')
+		i += expand_return_here(test, pos, shell);
 	else
 		i++;
 	return (i);
@@ -103,46 +104,27 @@ static size_t	parse_expand_here(char *token, size_t pos, t_shell *shell)
 
 char	*get_expand(char *token, t_shell *shell)
 {
+	t_expand	*test;
 	size_t	i;
-
+	
+	test = list_malloc(1, sizeof(t_expand*));
+	if (test == NULL)
+		return (mem_err_make_true(shell), NULL);
+	test->token = ft_strdup(token);
+	if (test->token == NULL)
+		return (mem_err_make_true(shell), NULL);
 	i = 0;
-	while (token[i])
+	while (test->token[i])
 	{
-		if (token[i] == '$')
-			i += parse_expand_here(token, i, shell);
+		if (test->token[i] == '$')
+			i += parse_expand_here(test, i, shell);
 		else
 			i++;
-		if (token == NULL)
-			return (token);
+		if (test->token == NULL)
+			return (test->token);
 	}
-	return (token);
+	return (test->token);
 }
-
-bool expand_tokens_here(t_token *head, t_shell *shell)
-{
-	t_token *current;
-	bool here_check;
-
-	here_check = FALSE;
-	current = head;
-	while(current)
-	{
-		if (here_check == TRUE)
-			here_check = FALSE;
-		else if (current->type == STR)
-		{
-			get_expand(current->token, shell);
-			if (shell->mem_err_flg)
-				return (FALSE);
-		}
-		if (current->type == HEREDOC)
-			here_check = TRUE;
-		current = current->next;
-	}
-	return (TRUE);
-}
-
-///////////////////
 
 // char	*get_expand(char *token, t_shell *shell)
 // {
@@ -155,9 +137,32 @@ bool expand_tokens_here(t_token *head, t_shell *shell)
 // 			i += parse_expand_here(token, i, shell);
 // 		else
 // 			i++;
-// 		printf("token: %s\n", token);
 // 		if (token == NULL)
 // 			return (token);
 // 	}
 // 	return (token);
+// }
+
+// bool expand_tokens_here(t_token *head, t_shell *shell)
+// {
+// 	t_token *current;
+// 	bool here_check;
+
+// 	here_check = FALSE;
+// 	current = head;
+// 	while(current)
+// 	{
+// 		if (here_check == TRUE)
+// 			here_check = FALSE;
+// 		else if (current->type == STR)
+// 		{
+// 			get_expand(current->token, shell);
+// 			if (shell->mem_err_flg)
+// 				return (FALSE);
+// 		}
+// 		if (current->type == HEREDOC)
+// 			here_check = TRUE;
+// 		current = current->next;
+// 	}
+// 	return (TRUE);
 // }
