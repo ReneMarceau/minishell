@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:25:52 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 00:18:24 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:09:27 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static size_t	get_rid_quotes_here(t_expand *test, size_t pos, t_shell *shell)
 	return (pos);
 }
 
-char 	*rm_quote_str_here(char *delimiter, t_shell *shell)
+char	*rm_quote_str_here(char *delimiter, t_shell *shell)
 {
-	size_t	i;
-	t_expand *test;
+	size_t		i;
+	t_expand	*test;
 
-	test = list_malloc(1, sizeof(t_expand*));
+	test = list_malloc(1, sizeof(t_expand *));
 	if (test == NULL)
 	{
 		shell->mem_err_flg = TRUE;
@@ -51,25 +51,6 @@ char 	*rm_quote_str_here(char *delimiter, t_shell *shell)
 	}
 	return (test->token);
 }
-
-
-
-
-////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 static size_t	get_rid_quotes(char *current, size_t pos, t_shell *shell)
 {

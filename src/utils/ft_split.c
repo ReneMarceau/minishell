@@ -6,12 +6,12 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 09:11:42 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/11 12:37:05 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:00:10 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "global.h"
 #include "garbage_collector.h"
+#include "global.h"
 
 static void	ft_free_array(char **array)
 {

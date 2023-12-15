@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   signal_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 19:17:51 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/13 16:08:07 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:24:00 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-t_signal *sig_state(int context)
+t_signal	*sig_state(int context)
 {
-	static  t_signal sig_check;
+	static t_signal	sig_check;
 
 	if (context)
 	{
@@ -25,4 +25,3 @@ t_signal *sig_state(int context)
 	}
 	return (&sig_check);
 }
-

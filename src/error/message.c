@@ -6,13 +6,13 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:10:48 by rene              #+#    #+#             */
-/*   Updated: 2023/12/06 15:51:35 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 10:50:34 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "global.h"
-#include "error.h"
 #include "colors.h"
+#include "error.h"
+#include "global.h"
 
 void	print_error(char *error_message, char *arg, int exit_status)
 {
@@ -26,7 +26,8 @@ void	print_error(char *error_message, char *arg, int exit_status)
 	g_exit_status = exit_status;
 }
 
-void	print_error_builtin(char *error_message, char *cmd_name, char *option, int exit_status)
+void	print_error_builtin(char *error_message, char *cmd_name, char *option,
+		int exit_status)
 {
 	ft_putstr_fd(TAG, STDERR_FILENO);
 	if (cmd_name)
@@ -58,9 +59,10 @@ void	print_error_syntax(char *error_message, char *token, int exit_status)
 	g_exit_status = exit_status;
 }
 
-void	print_error_heredoc(char *args, int line, char *delimiter, int exit_status)
+void	print_error_heredoc(char *args, int line, char *delimiter,
+		int exit_status)
 {
-	char *line_str;
+	char	*line_str;
 
 	line_str = ft_itoa(++line);
 	ft_putstr_fd(TAG, STDERR_FILENO);
@@ -75,5 +77,5 @@ void	print_error_heredoc(char *args, int line, char *delimiter, int exit_status)
 	ft_putstr_fd(delimiter, STDERR_FILENO);
 	ft_putendl_fd("')", STDERR_FILENO);
 	free(line_str);
-	g_exit_status = exit_status;		
+	g_exit_status = exit_status;
 }

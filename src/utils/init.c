@@ -6,20 +6,20 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 20:34:52 by rene              #+#    #+#             */
-/*   Updated: 2023/12/07 13:46:26 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:16:26 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "global.h"
-#include "garbage_collector.h"
 #include "builtin.h"
 #include "env.h"
 #include "error.h"
+#include "garbage_collector.h"
+#include "global.h"
 
 t_shell	*init_data(char **envp)
 {
 	t_shell	*shell;
-	
+
 	shell = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (shell == NULL)
 		return (print_error(ERR_MALLOC, NULL, EXIT_FAILURE), NULL);
@@ -76,4 +76,15 @@ char	**get_envp(char **env)
 	if (path_trimmed != NULL)
 		free(path_trimmed);
 	return (enviroment);
+}
+
+bool	has_redirection(t_rdir *rdir, int type)
+{
+	while (rdir != NULL)
+	{
+		if (rdir->type == type)
+			return (true);
+		rdir = rdir->next;
+	}
+	return (false);
 }

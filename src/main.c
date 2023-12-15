@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 22:03:31 by rene              #+#    #+#             */
-/*   Updated: 2023/12/13 17:03:02 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:00:21 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "colors.h"
+#include "error.h"
+#include "executor.h"
 #include "global.h"
 #include "parse.h"
-#include "executor.h"
-#include "error.h"
-#include "colors.h"
 
-int	g_exit_status = 0;
+int		g_exit_status = 0;
 
 bool	readlines(t_shell *shell, char **input, char **last_input)
 {
@@ -55,7 +55,7 @@ void	shell_loop(t_shell *shell)
 		{
 			shell->cmd_table = parsing(input, shell);
 			shell->nb_cmd = count_cmds(shell->cmd_table);
-			if (shell->cmd_table != NULL) 
+			if (shell->cmd_table != NULL)
 				executor(shell);
 			all_free();
 		}

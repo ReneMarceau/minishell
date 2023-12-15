@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/14 23:44:33 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:25:44 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	make_new_ext_here(t_expand *test, size_t start, size_t len, char *ext)
 	s1 = NULL;
 	s2 = NULL;
 	s1 = ft_substr(test->token, 0, start);
-	s2 = ft_substr(test->token, start + len, ft_strlen(test->token + start + len));
+	s2 = ft_substr(test->token, start + len, ft_strlen(test->token + start
+				+ len));
 	if (!check_str(s1, s2, NULL, 2))
 		return (free(s1), free(s2), ERROR);
 	tmp = ft_strjoin(s1, ext);
@@ -105,9 +106,9 @@ static size_t	parse_expand_here(t_expand *test, size_t pos, t_shell *shell)
 char	*get_expand(char *token, t_shell *shell)
 {
 	t_expand	*test;
-	size_t	i;
-	
-	test = list_malloc(1, sizeof(t_expand*));
+	size_t		i;
+
+	test = list_malloc(1, sizeof(t_expand *));
 	if (test == NULL)
 		return (mem_err_make_true(shell), NULL);
 	test->token = ft_strdup(token);

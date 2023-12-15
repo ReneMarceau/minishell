@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:26:05 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/14 18:45:58 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:03:13 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 // ----> add_history, rl_clear_history
 # include "readline/history.h"
 
-//Library from project to add
+// Library from project to add
 # include "env.h"
 # include "garbage_collector.h"
 /* Libft library for custom functions */
@@ -86,50 +86,50 @@
 /* *************** ***************           *************** *************** */
 /*                                  Structures                               */
 /* *************** ***************           *************** *************** */
-extern int			g_exit_status;
+extern int				g_exit_status;
 
 typedef struct s_rdir
 {
-	char			*value;
-	int				type;
-	struct s_rdir	*next;
-}					t_rdir;
+	char				*value;
+	int					type;
+	struct s_rdir		*next;
+}						t_rdir;
 
 typedef struct s_cmd
 {
-	int				index;
-	char			**args;
-	t_rdir			*rdir;
-	char			*heredoc_file;
-	pid_t			pid;
-	struct s_cmd	*next;
-}					t_cmd;
+	int					index;
+	char				**args;
+	t_rdir				*rdir;
+	char				*heredoc_file;
+	pid_t				pid;
+	struct s_cmd		*next;
+}						t_cmd;
 
 typedef struct s_shell
 {
-	t_cmd			*cmd_table;
-	int				nb_cmd;
-	pid_t			*pids;
-	int				**pipe_fd;
-	int				input_fd;
-	int				output_fd;
-	t_env			*envp;
-	char			*last_input;
-	int				original_stdin;
-	int				original_stdout;
-	char			*tmp_heredoc;
-	bool mem_err_flg;
-	struct sigaction sa;
-}					t_shell;
+	t_cmd				*cmd_table;
+	int					nb_cmd;
+	pid_t				*pids;
+	int					**pipe_fd;
+	int					input_fd;
+	int					output_fd;
+	t_env				*envp;
+	char				*last_input;
+	int					original_stdin;
+	int					original_stdout;
+	char				*tmp_heredoc;
+	bool				mem_err_flg;
+	struct sigaction	sa;
+}						t_shell;
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
 /* *************** ***************           *************** *************** */
-void				free_array(char **array);
-void				signalhandler(void);
-t_shell				*init_data(char **envp);
-t_cmd				*parsing(char *input, t_shell *shell);
-void				exit_shell(t_shell *shell, bool is_exit);
-char				**ft_split(char const *s, char c);
+void					free_array(char **array);
+void					signalhandler(void);
+t_shell					*init_data(char **envp);
+t_cmd					*parsing(char *input, t_shell *shell);
+void					exit_shell(t_shell *shell, bool is_exit);
+char					**ft_split(char const *s, char c);
 
 #endif

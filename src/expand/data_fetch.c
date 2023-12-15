@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_fetch.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:20:56 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/14 18:33:52 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:25:03 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ size_t	len_ext(char *env)
 	return (res);
 }
 
-char *the_recovery(char *line)
+char	*the_recovery(char *line)
 {
 	char	*new;
-	
+
 	new = NULL;
 	new = ft_strdup(line);
 	if (new == NULL)
