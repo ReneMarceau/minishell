@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:24:17 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/15 14:08:31 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:06:10 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	exec_heredoc(t_shell *shell, char *delimiter, int fd, int index)
 {
 	char	*line;
 	bool	quote;
-
+	
 	if (fd == -1)
 		return (print_error(ERR_OPEN, HEREDOC_FILE, EXIT_FAILURE), false);
 	quote = delimit_quote(shell, delimiter);
@@ -29,7 +29,7 @@ bool	exec_heredoc(t_shell *shell, char *delimiter, int fd, int index)
 	{
 		line = readline("> ");
 		if (sig_state(false)->type == SIG_HEREDOC)
-			return ((void)close(fd), free(line), set_to_inter(shell), false);
+            return ((void)close(fd), free(line), set_to_inter(shell), false);
 		if (line == NULL)
 			return ((void)close(fd), print_error_heredoc("warning", index,
 					delimiter, 1), true);

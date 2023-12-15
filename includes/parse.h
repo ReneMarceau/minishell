@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:24:09 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 00:18:07 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:01:43 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ typedef struct s_signal
 
 typedef struct s_expand
 {
-	char	*token;
-	int		empty;
-}	t_expand;
+	char			*token;
+	int				empty;
+}					t_expand;
 
 /* *************** ***************           *************** *************** */
 /*                                  Prototypes                               */
@@ -93,26 +93,28 @@ size_t				expand_one(t_token *current, size_t pos, t_shell *shell);
 //expand_return --------------------
 size_t				expand_return(t_token *current, size_t start,
 						t_shell *shell);
-size_t expand_return_here(t_expand *test, size_t start, t_shell *shell);
+size_t				expand_return_here(t_expand *test, size_t start,
+						t_shell *shell);
 // size_t	expand_return_len(void);
 //expand_rm ------------------------
 // int					rm_dollar(t_token *current, size_t start);
 int					rm_ext(t_token *current, size_t start, size_t len,
 						t_shell *shell);
 size_t				make_tk_null(t_token *current);
-char					*rm_ext_here(t_expand *test, size_t start, size_t len,
+char				*rm_ext_here(t_expand *test, size_t start, size_t len,
 						t_shell *shell);
 
 //expand_here ---------------------
 int					make_new_ext_here(t_expand *test, size_t start, size_t len,
 						char *ext);
 bool				expand_tokens_here(t_token *head, t_shell *shell);
-char 				*the_recovery(char *line);
-char *rm_ext_here_quote(char *test, size_t start, size_t len, t_shell *shell);//
+char				*the_recovery(char *line);
+char	*rm_ext_here_quote(char *test, size_t start, size_t len,
+			t_shell *shell); //
 //expand_quote --------------------
-bool				rm_quote_str(char *current, t_shell *shell);
+// bool				rm_quote_str(char *current, t_shell *shell);
 bool				rm_quotes_exp(t_token *head, t_shell *shell);
-char 				*rm_quote_str_here(char *delimiter, t_shell *shell);
+char				*rm_quote_str_here(char *delimiter, t_shell *shell);
 //utils_is -----------------------
 bool				ft_isquote(char c);
 bool				ft_isspecial(char c);
@@ -164,5 +166,5 @@ void				set_to_inter(t_shell *shell);
 
 // bool 			expand_tokens_here(t_token *head, t_shell *shell);
 char				*get_expand(char *token, t_shell *shell);
-bool				rm_quote_str(char *current, t_shell *shell);
+bool				rm_quote_str(t_token *current, t_shell *shell);
 #endif

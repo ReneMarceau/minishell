@@ -6,21 +6,21 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 12:58:00 by rmarceau          #+#    #+#             */
-/*   Updated: 2023/12/15 14:08:14 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:02:04 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "global.h"
+#include "garbage_collector.h"
 #include "builtin.h"
 #include "error.h"
-#include "garbage_collector.h"
-#include "global.h"
 
-bool	init_processes(t_shell *shell)
+bool init_processes(t_shell *shell)
 {
 	t_cmd	*cmd;
 	int		i;
 
-	cmd = shell->cmd_table;
+	cmd	= shell->cmd_table;
 	i = -1;
 	shell->pids = (pid_t *)list_malloc(shell->nb_cmd, sizeof(pid_t));
 	if (is_builtin(cmd->args[0]) == true && cmd->next == NULL)
@@ -67,19 +67,19 @@ bool	init_pipes(t_shell *shell)
 	return (true);
 }
 
-void	wait_all(pid_t *pids, int nb_cmds)
+void    wait_all(pid_t *pids, int nb_cmds)
 {
-	int	i;
-
-	i = 0;
-	while (i < nb_cmds)
-	{
-		if (waitpid(pids[i], &g_exit_status, 0) == -1)
-			continue ;
+    int i;
+    
+    i = 0;
+    while (i < nb_cmds)
+    {
+        if (waitpid(pids[i], &g_exit_status, 0) == -1)
+			continue;
 		if (WIFEXITED(g_exit_status))
 			g_exit_status = WEXITSTATUS(g_exit_status);
 		else
 			g_exit_status = 128 + WTERMSIG(g_exit_status);
-		i++;
-	}
+        i++;
+    }
 }
