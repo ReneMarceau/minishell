@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:54 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 14:24:47 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:27:53 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ignore_sigquit(void)
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
-void	ignore_sigint(void)
+void ignore_sigint(void)
 {
 	struct sigaction	sa;
 

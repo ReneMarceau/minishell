@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:23:34 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 11:26:40 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:30:28 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ t_cmd	*parsing(char *input, t_shell *shell)
 		return (NULL);
 	return (cmd_table);
 }
-// print_cmd_table(cmd_table);
+
+//print_cmd_table(cmd_table);
 // print_lst(token_list);

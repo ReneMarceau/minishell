@@ -6,7 +6,7 @@
 /*   By: rmarceau <rmarceau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:25:52 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 11:09:27 by rmarceau         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:30:04 by rmarceau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*rm_quote_str_here(char *delimiter, t_shell *shell)
 		shell->mem_err_flg = TRUE;
 		return (FALSE);
 	}
-	add_garbage(test);
 	test->token = delimiter;
 	i = 0;
 	while (test->token[i])
