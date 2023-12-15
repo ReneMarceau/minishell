@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:55:33 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 13:50:38 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:59:57 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	make_new_ext_here(t_expand *test, size_t start, size_t len, char *ext)
 	test->token = ft_strjoin(tmp, s2);
 	if (test->token == NULL)
 		return (free(s1), free(s2), free(tmp), ERROR);
-	add_garbage(test);
 	return (free(s1), free(s2), free(tmp), TRUE);
 }
 
