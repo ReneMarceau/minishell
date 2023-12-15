@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 19:17:51 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/13 16:08:07 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:38:36 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,3 @@ t_signal *sig_state(int context)
 	}
 	return (&sig_check);
 }
-

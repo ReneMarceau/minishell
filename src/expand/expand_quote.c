@@ -6,7 +6,7 @@
 /*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:25:52 by wmillett          #+#    #+#             */
-/*   Updated: 2023/12/15 00:18:24 by wmillett         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:48:43 by wmillett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char 	*rm_quote_str_here(char *delimiter, t_shell *shell)
 		shell->mem_err_flg = TRUE;
 		return (FALSE);
 	}
-	add_garbage(test);
 	test->token = delimiter;
 	i = 0;
 	while (test->token[i])
@@ -51,25 +50,6 @@ char 	*rm_quote_str_here(char *delimiter, t_shell *shell)
 	}
 	return (test->token);
 }
-
-
-
-
-////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 static size_t	get_rid_quotes(char *current, size_t pos, t_shell *shell)
 {
